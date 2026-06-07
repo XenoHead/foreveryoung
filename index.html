@@ -1,526 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forever Young Records | Grand Prairie, TX</title>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&display=swap">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Anton', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+  <title>Forever Young Records</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
     :root {
-      --cobalt-blue: #1A52B8;
-      --chrome-yellow: #FFD400;
-      --warehouse-dark: #121315;
-      --crate-wood: #2a1d15;
-      --neon-glow: #10b981;
+      --bg-color: #050505;
+      --accent-color: #f5a623;
+      --text-main: #ffffff;
+      --text-muted: #888888;
     }
 
-    @keyframes statusPulse {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.45;
-      }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    @keyframes tabIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #050505 100%);
     }
 
-    .custom-scrollbar::-webkit-scrollbar {
-      display: none;
+    /* Ambient background glow */
+    .ambient-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(50px);
+      animation: pulseGlow 8s infinite alternate ease-in-out;
     }
 
-    .custom-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    @keyframes pulseGlow {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    }
+
+    .top-banner {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      animation: slideDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 10;
+      border-bottom: 2px solid rgba(245, 166, 35, 0.2);
+    }
+
+    .top-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 65%; /* Adjusted framing downwards */
+      filter: contrast(1.1) brightness(0.9);
+    }
+
+    /* Add a subtle gradient overlay so it blends into the page */
+    .top-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, var(--bg-color) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .centerpiece-container {
+      position: relative;
+      z-index: 10;
+      width: 90%;
+      max-width: 1000px;
+      animation: floatUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .image-wrapper {
+      position: relative;
+      border-radius: 20px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .image-wrapper:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(245, 166, 35, 0.2), inset 0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      transition: filter 0.4s ease;
+    }
+
+    .image-wrapper:hover img {
+      filter: brightness(1.1) contrast(1.05);
+    }
+
+    /* Subtle reflection */
+    .reflection {
+      position: absolute;
+      bottom: -40px;
+      left: 10px;
+      right: 10px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 100%);
+      filter: blur(5px);
+      border-radius: 0 0 20px 20px;
+      pointer-events: none;
+    }
+
+    .store-text-only {
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      margin-top: 6rem;
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 3rem;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: floatUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
+    }
+
+    .store-text-only h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .store-text-only p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .classics-banner {
+      width: 100%;
+      margin-top: 2rem;
+      margin-bottom: 6rem;
+      position: relative;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .classics-banner img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      filter: blur(1px) contrast(1.1);
+      z-index: 0;
+    }
+
+    .classics-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--bg-color) 0%, transparent 20%, transparent 80%, var(--bg-color) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .classics-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      background: rgba(5, 5, 5, 0.6);
+      padding: 3rem 4rem;
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(245, 166, 35, 0.2);
+    }
+
+    .classics-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    }
+
+    .classics-content p {
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    @keyframes slideDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-
-<body class="min-h-screen font-sans bg-[#121315] text-neutral-200 antialiased">
-
-  <header
-    class="relative bg-[#0d0e10] flex flex-col items-center justify-start pt-8 pb-12 px-4 select-none border-b-4 border-neutral-950">
-    <div
-      class="relative w-full max-w-3xl aspect-[4/5] bg-neutral-900 rounded-t-[200px] border-[16px] border-neutral-400 shadow-[0_0_60px_rgba(16,185,129,0.15),_inset_0_0_40px_rgba(0,0,0,0.9)] flex flex-col items-center overflow-hidden">
-
-      <div
-        class="absolute left-0 top-[42%] w-full h-4 bg-gradient-to-b from-neutral-400 to-neutral-200 border-y border-neutral-600 z-20">
-      </div>
-      <div class="absolute left-4 top-0 bottom-0 w-3 bg-gradient-to-r from-neutral-400 to-neutral-200 opacity-20 z-10">
-      </div>
-      <div class="absolute right-4 top-0 bottom-0 w-3 bg-gradient-to-l from-neutral-400 to-neutral-200 opacity-20 z-10">
-      </div>
-
-      <div
-        class="w-full h-[45%] relative bg-neutral-950 flex flex-col items-center justify-end pb-5 border-b-8 border-amber-950">
-
-        <div class="absolute inset-0 top-6 flex items-center justify-center pointer-events-none opacity-90">
-          <div
-            class="w-[85%] h-[170%] rounded-full border-[6px] border-emerald-500 shadow-[0_0_25px_rgba(16,185,129,0.6)] absolute">
-          </div>
-          <div
-            class="w-[70%] h-[150%] rounded-full border-[6px] border-emerald-500 shadow-[0_0_25px_rgba(16,185,129,0.6)] absolute">
-          </div>
-          <div
-            class="w-[55%] h-[130%] rounded-full border-[6px] border-emerald-500 shadow-[0_0_25px_rgba(16,185,129,0.6)] absolute">
-          </div>
-        </div>
-
-        <div
-          class="absolute top-8 flex flex-col items-center z-10 text-neutral-800 drop-shadow-[0_2px_5px_rgba(0,0,0,0.95)]">
-          <span class="text-6xl font-serif">𝄞</span>
-          <div class="flex gap-4 mt-1 text-4xl">
-            <span>♫</span>
-            <span>𝅘𝅥𝅮</span>
-            <span>♫</span>
-          </div>
-        </div>
-
-        <div
-          class="w-44 h-16 bg-neutral-900 border-2 border-neutral-700 rounded shadow-inner mb-6 z-10 flex flex-col justify-between p-1 overflow-hidden opacity-60">
-          <div class="w-full h-0.5 bg-neutral-950"></div>
-          <div class="w-full h-0.5 bg-neutral-950"></div>
-          <div class="w-full h-0.5 bg-neutral-950"></div>
-          <div class="w-full h-0.5 bg-neutral-950"></div>
-        </div>
-
-        <div
-          class="w-[92%] grid grid-cols-3 gap-x-3 z-10 px-4 text-[11px] tracking-wider font-mono font-bold uppercase">
-          <div class="flex flex-col gap-1.5">
-            <div onclick="switchTab('search')"
-              class="bg-neutral-100 text-neutral-800 border border-neutral-400 px-2 py-1 text-center rounded shadow-sm cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors">
-              50's Rock</div>
-            <div onclick="switchTab('search')"
-              class="bg-neutral-100 text-neutral-800 border border-neutral-400 px-2 py-1 text-center rounded shadow-sm cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors">
-              60's Rock</div>
-            <div onclick="switchTab('search')"
-              class="bg-neutral-100 text-neutral-800 border border-neutral-400 px-2 py-1 text-center rounded shadow-sm cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors">
-              70's Rock</div>
-          </div>
-
-          <div
-            class="flex flex-col gap-1 items-center justify-between py-1 bg-neutral-950 border border-neutral-800 rounded px-1.5">
-            <div class="grid grid-cols-2 gap-1 text-[10px] w-full text-center text-amber-500 font-bold">
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow">A</span>
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow text-sky-400">1</span>
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow">B</span>
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow text-sky-400">2</span>
-            </div>
-            <div class="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_12px_#10b981] animate-pulse"></div>
-            <div class="grid grid-cols-2 gap-1 text-[10px] w-full text-center text-amber-500 font-bold">
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow">C</span>
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow text-sky-400">3</span>
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow">D</span>
-              <span class="bg-neutral-900 border border-neutral-700 rounded py-0.5 shadow text-sky-400">4</span>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-1.5">
-            <div onclick="switchTab('search')"
-              class="bg-neutral-100 text-neutral-800 border border-neutral-400 px-2 py-1 text-center rounded shadow-sm cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors">
-              Metal</div>
-            <div onclick="switchTab('search')"
-              class="bg-neutral-100 text-neutral-800 border border-neutral-400 px-2 py-1 text-center rounded shadow-sm cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors">
-              Punk</div>
-            <div onclick="switchTab('search')"
-              class="bg-neutral-100 text-neutral-800 border border-neutral-400 px-2 py-1 text-center rounded shadow-sm cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors">
-              Cassettes</div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="w-full bg-gradient-to-b from-yellow-400 to-yellow-300 py-6 px-4 flex items-center justify-center border-y-[6px] border-neutral-950 z-10 shadow-[inset_0_4px_10px_rgba(0,0,0,0.3)]">
-        <h1
-          class="text-4xl md:text-5xl font-display uppercase tracking-wider text-neutral-900 text-center select-none drop-shadow-[0_2px_2px_rgba(255,255,255,0.7)]">
-          FOREVER YOUNG
-        </h1>
-      </div>
-
-      <div
-        class="w-full flex-1 bg-zinc-950 relative flex flex-col items-center justify-center p-6 border-t-[8px] border-neutral-900">
-        <div id="status-banner"
-          class="absolute top-4 left-6 border border-neutral-800 bg-black/80 px-3 py-1.5 rounded flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.2)]">
-          <span id="status-dot"
-            class="block w-2 h-2 rounded-full bg-yellow-500 animate-[statusPulse_1.4s_ease-in-out_infinite]"></span>
-          <span id="status-text">SYSTEM INITIALIZE...</span>
-        </div>
-
-        <div class="text-center z-10 max-w-md px-2 mt-6">
-          <h2 class="text-lg font-display text-neutral-100 tracking-widest uppercase mb-1">Texas' Physical Music
-            Stronghold</h2>
-          <p class="text-xs text-neutral-400 mb-6 leading-relaxed font-mono">
-            Over 250,000 asset components across legacy media formats organized inside our retail warehouse floor.
-          </p>
-          <div class="flex items-center justify-center gap-4">
-            <button onclick="switchTab('search')"
-              class="bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-display text-xs tracking-widest uppercase px-5 py-3 border border-neutral-950 shadow-[0_4px_0_#451a03] active:translate-y-1 active:shadow-none transition-all cursor-pointer">
-              Dig Crates
-            </button>
-            <button onclick="switchTab('aisle')"
-              class="bg-transparent hover:bg-white/5 text-white font-display text-xs tracking-widest uppercase px-5 py-3 border border-white/40 transition-all cursor-pointer">
-              Floor Map
-            </button>
-          </div>
-        </div>
-        <div class="absolute bottom-0 w-full h-10 bg-gradient-to-t from-neutral-900 to-transparent opacity-80"></div>
-      </div>
-    </div>
+<body>
+  <div class="ambient-glow"></div>
+  
+  <header class="top-banner">
+    <img src="storefront_art_no_cars.png" alt="Forever Young Records Awning">
   </header>
 
-  <nav class="sticky top-0 z-50 bg-[#17191c] border-b-4 border-yellow-400 shadow-md">
-    <div class="flex overflow-x-auto custom-scrollbar max-w-6xl mx-auto" role="tablist">
-      <button onclick="switchTab('home')" id="tab-home"
-        class="flex-1 min-w-[7rem] px-6 py-4 font-display text-sm md:text-lg uppercase tracking-widest transition-all cursor-pointer text-white border-b-4 border-transparent hover:text-yellow-400">
-        ▶ Home
-      </button>
-      <button onclick="switchTab('search')" id="tab-search"
-        class="flex-1 min-w-[8rem] px-6 py-4 font-display text-sm md:text-lg uppercase tracking-widest transition-all cursor-pointer text-white border-b-4 border-transparent hover:text-yellow-400">
-        ◈ Search Crates
-      </button>
-      <button onclick="switchTab('aisle')" id="tab-aisle"
-        class="flex-1 min-w-[8rem] px-6 py-4 font-display text-sm md:text-lg uppercase tracking-widest transition-all cursor-pointer text-white border-b-4 border-transparent hover:text-yellow-400">
-        ⊞ Aisle Finder
-      </button>
-      <button onclick="switchTab('hub')" id="tab-hub"
-        class="flex-1 min-w-[7rem] px-6 py-4 font-display text-sm md:text-lg uppercase tracking-widest transition-all cursor-pointer text-white border-b-4 border-transparent hover:text-yellow-400">
-        ◉ Logistics Hub
-      </button>
+  <main class="centerpiece-container">
+    <div class="image-wrapper">
+      <img src="juke-wall.png" alt="Jukebox Wall Centerpiece">
+      <div class="reflection"></div>
     </div>
-  </nav>
-
-  <main class="max-w-6xl mx-auto px-4 md:px-6 py-10">
-
-    <section id="section-home" class="tab-section space-y-12 animate-[tabIn_0.2s_ease_both]">
-
-      <div class="border-4 border-yellow-400 bg-[#1c1e22] p-8 rounded shadow-lg relative overflow-hidden">
-        <div class="absolute -right-16 -bottom-16 w-64 h-64 border-8 border-white/5 rounded-full pointer-events-none">
-        </div>
-        <span class="text-xs font-bold tracking-[0.3em] text-yellow-400 uppercase block mb-1">★ Storefront Paradigm
-          ★</span>
-        <h2 class="font-display text-3xl md:text-5xl uppercase text-white leading-none mb-4">Deep Warehouse Crate Stock
-        </h2>
-        <p class="text-sm font-mono text-neutral-400 max-w-2xl leading-relaxed">
-          We house alternative sub-genres, underground thrash/death metal imports, hardcore punk pressings, and classic
-          rock catalog rows inside our physical Grand Prairie destination.
-        </p>
-      </div>
-
-      <div>
-        <div class="flex items-center gap-4 mb-6 border-b-4 border-blue-600 pb-2">
-          <div
-            class="px-5 py-2.5 font-display text-base md:text-xl uppercase tracking-widest bg-blue-600 text-yellow-400 rounded-t-sm">
-            📦 Fresh Crate Drops
-          </div>
-          <span class="text-xs font-mono text-neutral-500 hidden sm:block">Recent physical used assets sorted directly
-            onto the sales floor</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-
-          <article class="border-4 border-neutral-800 bg-[#1a1310] flex flex-col overflow-hidden group shadow-md">
-            <div
-              class="relative bg-neutral-950 aspect-square flex items-center justify-center overflow-hidden border-b-4 border-neutral-800">
-              <div
-                class="w-full h-full bg-neutral-800 flex items-center justify-center text-neutral-600 font-display text-4xl">
-                LP</div>
-              <span
-                class="absolute top-2 left-2 font-mono text-[10px] bg-blue-600 text-yellow-300 px-2 py-0.5 rounded font-bold uppercase">Vinyl</span>
-            </div>
-            <div class="p-4 flex-1 flex flex-col justify-between min-h-[120px]">
-              <div>
-                <h3
-                  class="font-display text-base uppercase tracking-wide text-neutral-100 group-hover:text-yellow-400 transition-colors leading-tight">
-                  Zoon (Reissue)</h3>
-                <p class="text-xs font-mono text-neutral-400 mt-0.5">The Nefilim</p>
-              </div>
-              <div
-                class="pt-3 border-t border-neutral-800 border-dashed flex justify-between items-center text-xs font-mono">
-                <span class="text-emerald-400 font-bold">[NM]</span>
-                <span class="text-yellow-400 font-bold">$29.99</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="border-4 border-neutral-800 bg-[#1a1310] flex flex-col overflow-hidden group shadow-md">
-            <div
-              class="relative bg-neutral-950 aspect-square flex items-center justify-center overflow-hidden border-b-4 border-neutral-800">
-              <div
-                class="w-full h-full bg-neutral-800 flex items-center justify-center text-neutral-600 font-display text-4xl">
-                CASS</div>
-              <span
-                class="absolute top-2 left-2 font-mono text-[10px] bg-neutral-900 text-neutral-300 px-2 py-0.5 rounded font-bold uppercase">Tape</span>
-            </div>
-            <div class="p-4 flex-1 flex flex-col justify-between min-h-[120px]">
-              <div>
-                <h3
-                  class="font-display text-base uppercase tracking-wide text-neutral-100 group-hover:text-yellow-400 transition-colors leading-tight">
-                  Endless Pain</h3>
-                <p class="text-xs font-mono text-neutral-400 mt-0.5">Kreator</p>
-              </div>
-              <div
-                class="pt-3 border-t border-neutral-800 border-dashed flex justify-between items-center text-xs font-mono">
-                <span class="text-emerald-400 font-bold">[VG+]</span>
-                <span class="text-yellow-400 font-bold">$12.99</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="border-4 border-neutral-800 bg-[#1a1310] flex flex-col overflow-hidden group shadow-md">
-            <div
-              class="relative bg-neutral-950 aspect-square flex items-center justify-center overflow-hidden border-b-4 border-neutral-800">
-              <div
-                class="w-full h-full bg-neutral-800 flex items-center justify-center text-neutral-600 font-display text-4xl">
-                CD</div>
-              <span
-                class="absolute top-2 left-2 font-mono text-[10px] bg-yellow-500 text-neutral-950 px-2 py-0.5 rounded font-bold uppercase">CD</span>
-            </div>
-            <div class="p-4 flex-1 flex flex-col justify-between min-h-[120px]">
-              <div>
-                <h3
-                  class="font-display text-base uppercase tracking-wide text-neutral-100 group-hover:text-yellow-400 transition-colors leading-tight">
-                  Tlen (ТЛЕН)</h3>
-                <p class="text-xs font-mono text-neutral-400 mt-0.5">Tlen</p>
-              </div>
-              <div
-                class="pt-3 border-t border-neutral-800 border-dashed flex justify-between items-center text-xs font-mono">
-                <span class="text-emerald-400 font-bold">[MINT]</span>
-                <span class="text-yellow-400 font-bold">$8.99</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="border-4 border-neutral-800 bg-[#1a1310] flex flex-col overflow-hidden group shadow-md">
-            <div
-              class="relative bg-neutral-950 aspect-square flex items-center justify-center overflow-hidden border-b-4 border-neutral-800">
-              <div
-                class="w-full h-full bg-neutral-800 flex items-center justify-center text-neutral-600 font-display text-4xl">
-                LP</div>
-              <span
-                class="absolute top-2 left-2 font-mono text-[10px] bg-blue-600 text-yellow-300 px-2 py-0.5 rounded font-bold uppercase">Vinyl</span>
-            </div>
-            <div class="p-4 flex-1 flex flex-col justify-between min-h-[120px]">
-              <div>
-                <h3
-                  class="font-display text-base uppercase tracking-wide text-neutral-100 group-hover:text-yellow-400 transition-colors leading-tight">
-                  Dark Side Of The Moon</h3>
-                <p class="text-xs font-mono text-neutral-400 mt-0.5">Pink Floyd</p>
-              </div>
-              <div
-                class="pt-3 border-t border-neutral-800 border-dashed flex justify-between items-center text-xs font-mono">
-                <span class="text-emerald-400 font-bold">[EX]</span>
-                <span class="text-yellow-400 font-bold">$24.99</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <section id="section-search" class="tab-section hidden space-y-6 animate-[tabIn_0.2s_ease_both]">
-      <div class="bg-blue-600 border-4 border-neutral-950 p-6 md:p-8 rounded shadow-md">
-        <span class="font-mono text-xs uppercase tracking-widest text-yellow-300 block mb-1">◈ Vector Query
-          Module</span>
-        <h2 class="font-display text-2xl md:text-4xl text-white uppercase leading-none mb-6">Search Crate Stock</h2>
-        <div class="flex flex-col sm:flex-row border-4 border-neutral-950 rounded bg-neutral-900 overflow-hidden">
-          <input type="search" placeholder="Enter artist, release title, or import pressing code..."
-            class="flex-1 px-4 py-3 bg-transparent outline-none font-mono text-sm text-yellow-400 placeholder-yellow-600/50">
-          <button
-            class="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-display uppercase text-sm tracking-wider border-t-4 sm:border-t-0 sm:border-l-4 border-neutral-950 transition-colors cursor-pointer">Run
-            Search</button>
-        </div>
-      </div>
-      <div class="border-2 border-neutral-800 p-8 rounded text-center max-w-xl mx-auto bg-[#17191c]">
-        <p class="font-display text-lg text-blue-500 uppercase mb-1">Database Layer Detached</p>
-        <p class="text-xs font-mono text-neutral-400">UI Component is active. Hooking up your local Supabase tokens or
-          internal collection scripts will populate live database indices into this viewing template.</p>
-      </div>
-    </section>
-
-    <section id="section-aisle" class="tab-section hidden space-y-6 animate-[tabIn_0.2s_ease_both]">
-      <div class="bg-neutral-900 border-4 border-neutral-950 p-6 rounded shadow-md">
-        <span class="font-mono text-xs text-yellow-400 tracking-wider block mb-1">⊞ IN-STORE GEOMETRY MAP</span>
-        <h2 class="font-display text-2xl uppercase text-white">Physical Floor Layout</h2>
-      </div>
-      <div class="border-4 border-neutral-950 bg-neutral-950 p-4 md:p-8 rounded shadow-inner overflow-x-auto">
-        <svg viewBox="0 0 720 460" xmlns="http://www.w3.org/2000/svg"
-          class="w-full max-w-3xl mx-auto block font-display">
-          <rect x="10" y="10" width="700" height="440" fill="#17191c" stroke="#2d3139" stroke-width="4" />
-          <rect x="310" y="430" width="100" height="20" fill="#FFD400" stroke="#000" stroke-width="2" />
-          <text x="360" y="444" text-anchor="middle" font-size="10" fill="#121315" font-weight="bold"
-            font-family="sans-serif">JUKEBOX ENTRANCE</text>
-          <rect x="260" y="375" width="200" height="35" fill="#1A52B8" stroke="#000" stroke-width="2" />
-          <text x="360" y="397" text-anchor="middle" font-size="13" fill="#FFD400" letter-spacing="2">REGISTER
-            COUNTER</text>
-
-          <rect x="40" y="40" width="90" height="300" fill="#2a1d15" stroke="#121315" stroke-width="3" />
-          <text x="85" y="100" text-anchor="middle" font-size="18" fill="#FFD400">A</text>
-          <text x="85" y="120" text-anchor="middle" font-size="9" fill="#999" font-family="sans-serif">THRASHER /
-            METAL</text>
-
-          <rect x="150" y="40" width="90" height="300" fill="#2a1d15" stroke="#121315" stroke-width="3" />
-          <text x="195" y="100" text-anchor="middle" font-size="18" fill="#FFD400">B</text>
-          <text x="195" y="120" text-anchor="middle" font-size="9" fill="#999" font-family="sans-serif">HARDCORE
-            PUNK</text>
-
-          <rect x="260" y="40" width="90" height="300" fill="#2a1d15" stroke="#121315" stroke-width="3" />
-          <text x="305" y="100" text-anchor="middle" font-size="18" fill="#FFD400">C</text>
-          <text x="305" y="120" text-anchor="middle" font-size="9" fill="#999" font-family="sans-serif">70s CLASSIC
-            ROCK</text>
-
-          <rect x="370" y="40" width="90" height="300" fill="#2a1d15" stroke="#121315" stroke-width="3" />
-          <text x="415" y="100" text-anchor="middle" font-size="18" fill="#FFD400">D</text>
-          <text x="415" y="120" text-anchor="middle" font-size="9" fill="#999" font-family="sans-serif">JAZZ / SOUL
-            BLUES</text>
-
-          <rect x="480" y="40" width="90" height="300" fill="#2a1d15" stroke="#121315" stroke-width="3" />
-          <text x="525" y="100" text-anchor="middle" font-size="18" fill="#FFD400">E</text>
-          <text x="525" y="120" text-anchor="middle" font-size="9" fill="#999" font-family="sans-serif">COUNTRY /
-            FOLK</text>
-
-          <rect x="590" y="40" width="100" height="300" fill="#1c1e22" stroke="#FFD400" stroke-width="2" />
-          <text x="640" y="90" text-anchor="middle" font-size="14" fill="#FFD400">F WALL</text>
-          <text x="640" y="115" text-anchor="middle" font-size="9" fill="#fff" font-family="sans-serif">CASSETTE
-            MATRIX</text>
-          <text x="640" y="130" text-anchor="middle" font-size="9" fill="#999" font-family="sans-serif">12mm CD
-            LOCKBOXES</text>
-        </svg>
-      </div>
-    </section>
-
-    <section id="section-hub" class="tab-section hidden space-y-6 animate-[tabIn_0.2s_ease_both]">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="border-4 border-neutral-800 bg-[#17191c] p-6 rounded shadow">
-          <h3 class="font-display text-lg text-yellow-400 uppercase mb-4 border-b border-neutral-800 pb-2">⏱ Floor Hours
-          </h3>
-          <ul class="space-y-2 text-xs font-mono text-neutral-400">
-            <li class="flex justify-between"><span>Mon – Thu</span><span class="text-neutral-200">11AM – 8PM</span></li>
-            <li class="flex justify-between"><span>Friday</span><span class="text-neutral-200">11AM – 9PM</span></li>
-            <li class="flex justify-between"><span>Saturday</span><span class="text-neutral-200">10AM – 9PM</span></li>
-            <li class="flex justify-between"><span>Sunday</span><span class="text-neutral-200">12PM – 6PM</span></li>
-          </ul>
-        </div>
-        <div class="border-4 border-neutral-800 bg-[#17191c] p-6 rounded shadow">
-          <h3 class="font-display text-lg text-yellow-400 uppercase mb-4 border-b border-neutral-800 pb-2">📍 Terminal
-            Grid</h3>
-          <p class="text-xs font-mono text-neutral-400 leading-relaxed">
-            Forever Young Records<br>Grand Prairie, Texas<br>Dallas–Fort Worth Retail Pipeline
-          </p>
-        </div>
-        <div class="border-4 border-neutral-800 bg-[#17191c] p-6 rounded shadow">
-          <h3 class="font-display text-lg text-yellow-400 uppercase mb-4 border-b border-neutral-800 pb-2">📦
-            Infrastructure</h3>
-          <p class="text-xs font-mono text-neutral-400 leading-relaxed">
-            Local front-end template designed to read directly from structured Supabase cloud datastores. Single server
-            loop framework layout active.
-          </p>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer
-    class="mt-16 bg-[#0d0e10] border-t-4 border-yellow-400 py-8 px-6 text-center md:flex md:justify-between items-center text-xs font-mono text-neutral-500">
-    <p class="uppercase tracking-wider text-yellow-400 font-display text-sm md:text-base">★ Forever Young Records
-      Storefront Suite ★</p>
-    <p class="uppercase tracking-widest text-[10px] mt-2 md:mt-0">© 2026 Asset Engine Hub Architecture</p>
-  </footer>
+  <section class="store-text-only">
+    <h2>Visit the Physical Stronghold</h2>
+    <p>Hosting hundreds of thousands of active physical properties on our Grand Prairie showroom floor. Come get lost in the endless aisles of our iconic retro location.</p>
+  </section>
 
-  <script>
-    const TABS = ['home', 'search', 'aisle', 'hub'];
-
-    function switchTab(name) {
-      TABS.forEach(function (id) {
-        const section = document.getElementById('section-' + id);
-        const tab = document.getElementById('tab-' + id);
-
-        if (id === name) {
-          if (section) section.classList.remove('hidden');
-          if (tab) {
-            tab.style.backgroundColor = 'var(--chrome-yellow)';
-            tab.style.color = 'var(--warehouse-dark)';
-            tab.style.borderBottomColor = 'var(--warehouse-dark)';
-          }
-        } else {
-          if (section) section.classList.add('hidden');
-          if (tab) {
-            tab.style.backgroundColor = 'transparent';
-            tab.style.color = '#fff';
-            tab.style.borderBottomColor = 'transparent';
-          }
-        }
-      });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    switchTab('home');
-
-    // Clock Loop Tracker
-    (function () {
-      const dot = document.getElementById('status-dot');
-      const text = document.getElementById('status-text');
-      const banner = document.getElementById('status-banner');
-
-      if (!dot || !text) return;
-
-      const now = new Date();
-      const day = now.getDay();
-      const hour = now.getHours();
-
-      const openRanges = {
-        0: [12, 18], 1: [11, 20], 2: [11, 20], 3: [11, 20],
-        4: [11, 20], 5: [11, 21], 6: [10, 21]
-      };
-
-      setTimeout(function () {
-        const range = openRanges[day];
-        const isOpen = hour >= range[0] && hour < range[1];
-
-        if (isOpen) {
-          dot.style.backgroundColor = '#10b981';
-          text.textContent = '● SHOP OPEN — Come dig the warehouse';
-          text.style.color = '#10b981';
-          if (banner) banner.style.borderColor = '#10b981';
-        } else {
-          dot.style.backgroundColor = '#ef4444';
-          dot.style.animation = 'none';
-          text.textContent = '● CLOSED — Terminal listings inside Hub';
-          text.style.color = '#ef4444';
-          if (banner) banner.style.borderColor = '#ef4444';
-        }
-      }, 800);
-    })();
-  </script>
+  <section class="classics-banner">
+    <img src="retro_rock_influence.png" alt="Retro Rock Vibe Background">
+    <div class="classics-content">
+      <h2>The Classics Live On</h2>
+      <p>Explore the golden era of rock and roll</p>
+    </div>
+  </section>
 </body>
-
 </html>
