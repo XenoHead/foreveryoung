@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Forever Young Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #08111F; color: #FFF8DF; overflow-x: hidden; font-family: 'Outfit', sans-serif; }
+    
+    :root { 
+      --blue: #0A2C74; 
+      --blueBright: #2C6CFF; 
+      --yellow: #FFD447; 
+      --cream: #FFF8DF; 
+      --dark: #08111F; 
+      --muted: #B6C0D7; 
+    }
+    
+    /* Film Grain */
+    body::before {
+      content: ""; 
+      position: fixed; 
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.06; 
+      pointer-events: none; 
+      z-index: 999; 
+      animation: grainMove 8s steps(2) infinite;
+    }
+    @keyframes grainMove { 
+      0% { transform: translate(0px, 0px); } 
+      25% { transform: translate(-2px, 1px); } 
+      50% { transform: translate(2px, -1px); } 
+      75% { transform: translate(-1px, 2px); } 
+      100% { transform: translate(0px, 0px); } 
+    }
+    
+    /* Navigation */
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .nav-inner { max-width: 1400px; margin: auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo img { height: 58px; object-fit: contain; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background-color: var(--yellow); transition: all 0.3s ease; transform: translateX(-50%); }
+    .nav-links a:hover { color: var(--yellow); text-shadow: 0 0 10px rgba(255, 212, 71, 0.4); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Vinyl Sidebar */
+    .vinyl-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      background-image: url('vinyl-row.JPG');
+      background-size: cover;
+      background-position: right center;
+      opacity: 0.85;
+      z-index: 0;
+      filter: saturate(1.2) contrast(1.2) brightness(0.6);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 75%);
+      mask-image: linear-gradient(to right, transparent 0%, black 75%);
+    }
+
+    /* About Specific Styles */
+    .about-header {
+      padding: 150px 2rem 4rem;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 44, 116, 0.2), transparent);
+    }
+    .about-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .about-header p.subtitle {
+      color: var(--muted);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .about-content {
+      max-width: 1000px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .about-block {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .about-block p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: var(--cream);
+    }
+    .about-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-image {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .about-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: contrast(1.1);
+    }
+    
+    @media(max-width:900px) {
+      .vinyl-sidebar { width: 140px; opacity: 0.3; }
+      .nav-links { display: none; }
+      .about-header h1 { font-size: 2.5rem; }
+      .about-block { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="vinyl-sidebar"></div>
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <a href="index.html"><img src="fyr-logo-removebg-preview.png" alt="Forever Young Records"></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Inventory</a>
+        <a href="#">Visit</a>
+        <a href="about.html" style="color: var(--yellow);">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="about-header">
+    <h1>Our Story</h1>
+    <p class="subtitle">A physical stronghold for music culture since 1984.</p>
+  </header>
+
+  <main class="about-content">
+    <div class="about-block">
+      <p><strong>Forever Young Records</strong> has been in business since 1984 in the Dallas / Ft. Worth metroplex. We are a record store that is family owned and operated. Forever Young strives to have a large selection of music at reasonable costs.</p>
+      <p>Although our store location has moved several times in the past 24 years, we are now settled in a large 11,000 square foot building located in Grand Prairie Texas, just 30 minutes west of downtown Dallas. As one of the few independent record stores still in business in the DFW area, Forever Young has managed to expand not only the size of the store, but the store inventory as well. We carry your hot new releases as well as classic Vinyl from the age of the 30's and 40's!</p>
+    </div>
+
+    <div class="about-image">
+      <img src="dancing-fools.jpg" alt="Forever Young Records Art">
+    </div>
+
+    <div class="about-block">
+      <p>With over <strong>250,000</strong> New & Used; CDS, LPs, Cassettes, 45s, Music posters, Reel to Reel Tapes, DVDs, and many original unique music memorabilia. We have in stock some of the coolest and rarest vinyl records that were ever made.</p>
+      <p>We carry the latest CD releases from Punk, Pop, Metal, Classic Rock, Jazz, Country, Reggae, African, Latino, Soundtracks, Easy Listening, Techno, and more (not including most foreign languages, classical, or karaoke).</p>
+      <p>Our display cabinets are filled with original music memorabilia from the 1950's, 1960’s and 1970’s Pop Culture era.</p>
+      <p>We have a large selection of specialty items like: RIAA Gold & Platinum Record Awards, Limited Edition LP & CD Box Sets, a selection of Beatle Mania memorabilia, Posters, Promotional Items, magazines and many music books such as Record Collectors Guide and special limited edition collectors books.</p>
+    </div>
+  </main>
+
+</body>
+</html>

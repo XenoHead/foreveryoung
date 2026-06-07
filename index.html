@@ -44,11 +44,11 @@
       content: "";
       position: fixed;
       inset: 0;
-      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.06;
       pointer-events: none;
       z-index: 999;
-      animation: grainMove 10s steps(2) infinite;
+      animation: grainMove 8s steps(2) infinite;
     }
 
     @keyframes grainMove {
@@ -97,11 +97,29 @@
       text-decoration: none;
       font-size: 0.95rem;
       letter-spacing: 1px;
-      transition: 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      background-color: var(--yellow);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
     }
 
     .nav-links a:hover {
       color: var(--yellow);
+      text-shadow: 0 0 10px rgba(255, 212, 71, 0.4);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
 
     /* =========================
@@ -174,9 +192,10 @@
     .hero-content p {
       color: var(--cream);
       font-size: 1.15rem;
-      line-height: 1.8;
+      line-height: 1.5;
+      letter-spacing: 0.3px;
       max-width: 720px;
-      margin: auto auto 2.5rem;
+      margin: auto auto 1.5rem;
       text-shadow: 0 0 20px rgba(0, 0, 0, 0.45);
     }
 
@@ -331,10 +350,11 @@
     @keyframes flicker {
       0%, 18%, 22%, 25%, 53%, 57%, 100% {
         opacity: 1;
-        filter: drop-shadow(0 0 6px rgba(255, 212, 71, 0.25)) drop-shadow(0 0 20px rgba(255, 212, 71, 0.12));
+        filter: drop-shadow(0 0 8px rgba(255, 212, 71, 0.4)) drop-shadow(0 0 25px rgba(255, 212, 71, 0.2));
       }
       20%, 24%, 55% {
-        opacity: 0.92;
+        opacity: 0.8;
+        filter: drop-shadow(0 0 2px rgba(255, 212, 71, 0.1));
       }
     }
 
@@ -344,6 +364,58 @@
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0px); }
+    }
+
+
+    /* =========================
+    GALLERY SECTION
+    ========================= */
+    .gallery-section {
+      padding: 6rem 2rem;
+      background: #050A14;
+      position: relative;
+      z-index: 5;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .gallery-inner {
+      max-width: 1400px;
+      margin: auto;
+    }
+    .gallery-inner h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3rem;
+      color: var(--yellow);
+      text-align: center;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: #08111F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      filter: contrast(1.1) brightness(0.9);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      filter: contrast(1.1) brightness(1.1);
     }
 
     /* =========================
@@ -369,11 +441,11 @@
         <img src="fyr-logo-removebg-preview.png" alt="Forever Young Records">
       </div>
       <div class="nav-links">
-        <a href="#">Home</a>
+        <a href="index.html">Home</a>
         <a href="#">Inventory</a>
         <a href="#">Visit</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
   </nav>
@@ -398,7 +470,7 @@
         <a href="#" class="feature-link">AISLE GPS</a>
         <a href="#" class="feature-link">CRATE DIGGING</a>
         <a href="#" class="feature-link">MUSIC SEARCH</a>
-        <a href="#" class="feature-link">ABOUT</a>
+        <a href="about.html" class="feature-link">ABOUT</a>
       </div>
     </div>
 
@@ -422,6 +494,18 @@
           <img src="xenoHead_logo.png" alt="XenoHead">
           <span>WebDev: www.xenohead.com</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-inner">
+      <h2>The Analog Experience</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="turn-table.png" alt="Turntable"></div>
+        <div class="gallery-item"><img src="stack-2-vinyl.jpg" alt="Vinyl Stack"></div>
+        <div class="gallery-item"><img src="record-row.jpg" alt="Record Row"></div>
+        <div class="gallery-item" style="background: rgba(255,255,255,0.03);"><img src="cd-2.png" alt="CDs" style="object-fit: contain; padding: 2.5rem; filter: none;"></div>
       </div>
     </div>
   </section>

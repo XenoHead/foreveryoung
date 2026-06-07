@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Forever Young Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #08111F; color: #FFF8DF; overflow-x: hidden; font-family: 'Outfit', sans-serif; }
+    
+    :root { 
+      --blue: #0A2C74; 
+      --blueBright: #2C6CFF; 
+      --yellow: #FFD447; 
+      --cream: #FFF8DF; 
+      --dark: #08111F; 
+      --muted: #B6C0D7; 
+    }
+    
+    /* Film Grain */
+    body::before {
+      content: ""; 
+      position: fixed; 
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.06; 
+      pointer-events: none; 
+      z-index: 999; 
+      animation: grainMove 8s steps(2) infinite;
+    }
+    @keyframes grainMove { 
+      0% { transform: translate(0px, 0px); } 
+      25% { transform: translate(-2px, 1px); } 
+      50% { transform: translate(2px, -1px); } 
+      75% { transform: translate(-1px, 2px); } 
+      100% { transform: translate(0px, 0px); } 
+    }
+    
+    /* Navigation */
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .nav-inner { max-width: 1400px; margin: auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo img { height: 58px; object-fit: contain; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background-color: var(--yellow); transition: all 0.3s ease; transform: translateX(-50%); }
+    .nav-links a:hover { color: var(--yellow); text-shadow: 0 0 10px rgba(255, 212, 71, 0.4); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Header */
+    .page-header {
+      padding: 150px 2rem 2rem;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 44, 116, 0.2), transparent);
+    }
+    .page-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .page-header p.subtitle {
+      color: var(--muted);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* Layout */
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Form Styles */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-group label {
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--yellow);
+      font-size: 0.9rem;
+    }
+    .form-group input, .form-group textarea {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem;
+      color: var(--cream);
+      font-family: 'Outfit', sans-serif;
+      border-radius: 4px;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+      background: rgba(255,255,255,0.07);
+    }
+    .submit-btn {
+      background: var(--yellow);
+      color: var(--dark);
+      border: none;
+      padding: 1rem 2rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .submit-btn:hover {
+      background: #ffdb58;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 212, 71, 0.2);
+    }
+
+    /* Right Column (Info & Socials) */
+    .store-info {
+      margin-bottom: 3rem;
+    }
+    .store-info h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      color: var(--cream);
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .store-info p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* Broadcast Section (Vanilla CSS version of Tailwind snippet) */
+    .broadcast-section {
+      margin-top: 2rem;
+      border-top: 2px dashed var(--yellow);
+      padding-top: 1.5rem;
+    }
+    .broadcast-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: var(--blueBright);
+    }
+    .broadcast-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .broadcast-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 4px solid rgba(255,255,255,0.05);
+      background-color: rgba(255,255,255,0.02);
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      gap: 1rem;
+    }
+    .broadcast-item:hover {
+      transform: translateX(4px);
+      border-color: var(--yellow);
+    }
+    .broadcast-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .broadcast-badge {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-tiktok { background-color: #ff0050; color: #fff; }
+    .badge-tw { background-color: #1DA1F2; color: #fff; }
+    .badge-fb { background-color: var(--yellow); color: var(--dark); }
+
+    .broadcast-text {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+      color: var(--cream);
+    }
+    .broadcast-action {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+    .broadcast-item:hover .broadcast-action {
+      color: var(--yellow);
+    }
+    
+    @media(max-width:900px) {
+      .nav-links { display: none; }
+      .page-header h1 { font-size: 2.5rem; }
+      .contact-container { grid-template-columns: 1fr; gap: 3rem; }
+      .broadcast-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .broadcast-item-left { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <a href="index.html"><img src="fyr-logo-removebg-preview.png" alt="Forever Young Records"></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Inventory</a>
+        <a href="#">Visit</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" style="color: var(--yellow);">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1>Get In Touch</h1>
+    <p class="subtitle">Looking for a specific record? Want to sell your collection? Send a transmission.</p>
+  </header>
+
+  <main class="contact-container">
+    
+    <!-- Contact Form -->
+    <div class="contact-left">
+      <form class="contact-form" action="#" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Joey Ramone" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="joey@cbgb.com" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message / Request</label>
+          <textarea id="message" name="message" rows="6" placeholder="Looking for a 1977 pressing of..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Transmit Message</button>
+      </form>
+    </div>
+
+    <!-- Store Info & Social Broadcasts -->
+    <div class="contact-right">
+      <div class="store-info">
+        <h3>Forever Young Records</h3>
+        <p>
+          2955 S State Hwy 161<br>
+          Grand Prairie, TX 75052<br><br>
+          <strong>Phone:</strong> (972) 260-9899<br>
+          <strong>Hours:</strong> Open 7 Days A Week
+        </p>
+      </div>
+
+      <!-- Live Community Broadcasts UI (Translated from Tailwind snippet) -->
+      <div class="broadcast-section">
+        <p class="broadcast-title">📡 LIVE COMMUNITY BROADCASTS</p>
+        
+        <div class="broadcast-list">
+          <a href="https://www.tiktok.com/@foreveryoungrecordstx" target="_blank" class="broadcast-item">
+            <div class="broadcast-item-left">
+              <span class="broadcast-badge badge-tiktok">LIVE REELS</span>
+              <span class="broadcast-text">TikTok: @foreveryoungrecordstx</span>
+            </div>
+            <span class="broadcast-action">⚡ [WATCH UNBOXINGS] →</span>
+          </a>
+
+          <a href="https://x.com/ForeverYoungTX" target="_blank" class="broadcast-item">
+            <div class="broadcast-item-left">
+              <span class="broadcast-badge badge-tw">HOT TAKES</span>
+              <span class="broadcast-text">Twitter: @ForeverYoungTX</span>
+            </div>
+            <span class="broadcast-action">🐦 [READ THREADS] →</span>
+          </a>
+
+          <a href="https://www.facebook.com/ForeverYoungRecords" target="_blank" class="broadcast-item">
+            <div class="broadcast-item-left">
+              <span class="broadcast-badge badge-fb">BULLETIN</span>
+              <span class="broadcast-text">Facebook: /ForeverYoungRecords</span>
+            </div>
+            <span class="broadcast-action">📢 [STORE EVENTS] →</span>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+
+</body>
+</html>
