@@ -1,5 +1,7 @@
 *.mp4
-*.mp4
 20260606_132818.mp4
 20260606_132907.mp4
 20260606_132609.mp4
+MusicStack-Inventory-*.txt
+key_map.txt
+db_batches/
