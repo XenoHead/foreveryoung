@@ -180,34 +180,46 @@
 
     /* Results Grid */
     .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .record-card {
+      display: flex;
+      align-items: center;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      gap: 1.5rem;
+      transition: all 0.3s;
     }
 
     .record-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      border-color: rgba(255, 212, 71, 0.3);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      border-color: rgba(255, 212, 71, 0.35);
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .record-art {
-      width: 100%;
-      aspect-ratio: 1;
-      background: #000;
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      position: relative;
+      background: #000;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .record-art:hover {
+      transform: scale(1.05);
+      border-color: var(--yellow);
     }
 
     .record-art img {
@@ -217,46 +229,56 @@
     }
 
     .record-info {
-      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .record-text {
+      flex: 1;
+      min-width: 250px;
     }
 
     .record-title {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       color: #FFF;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.1rem;
       line-height: 1.2;
     }
 
     .record-artist {
       color: var(--yellow);
-      font-size: 1rem;
-      margin-bottom: 1rem;
+      font-size: 0.95rem;
     }
 
     .record-details {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      font-size: 0.9rem;
+      flex: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.5rem;
+      font-size: 0.85rem;
       color: #B6C0D7;
-      margin-bottom: 1.5rem;
     }
 
     .record-price {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: var(--green);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 1.5rem;
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
     .buy-btn {
       background: transparent;
       border: 1px solid var(--yellow);
       color: var(--yellow);
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 4px;
       font-family: 'Outfit', sans-serif;
       font-size: 0.9rem;
@@ -290,6 +312,211 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    /* Modal Styles */
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 17, 31, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .image-modal-content {
+      position: relative;
+      width: 95%;
+      max-width: 900px;
+      max-height: 90vh;
+      border: 2px solid var(--yellow);
+      border-radius: 12px;
+      box-shadow: 0 0 50px rgba(255, 212, 71, 0.4);
+      background: #091220;
+      overflow-y: auto;
+      padding: 2.5rem 2rem 2rem;
+    }
+
+    .modal-detail-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .modal-art-section {
+      flex: 1;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .modal-art-section img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-secondary-images {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .modal-secondary-images img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: border-color 0.2s;
+    }
+
+    .modal-secondary-images img:hover {
+      border-color: var(--yellow);
+    }
+
+    .modal-info-section {
+      flex: 1.5;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-info-section h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.8rem;
+      color: #FFF;
+      line-height: 1.2;
+    }
+
+    .modal-info-section h3 {
+      font-size: 1.2rem;
+      color: var(--yellow);
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1rem;
+    }
+
+    .modal-field {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.88rem;
+    }
+
+    .modal-field.full-width {
+      grid-column: span 2;
+    }
+
+    .modal-field-label {
+      color: #B6C0D7;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.15rem;
+    }
+
+    .modal-field-value {
+      color: #FFF;
+      font-weight: 500;
+    }
+
+    .modal-field-value.price {
+      color: var(--green);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+    }
+
+    .modal-field-value.link {
+      color: var(--blueBright);
+      text-decoration: underline;
+      cursor: pointer;
+      word-break: break-all;
+    }
+
+    .modal-field-value.description {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 0.75rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #FFF8DF;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 1.2rem;
+      color: var(--yellow);
+      font-size: 2.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 1010;
+    }
+
+    .image-modal-close:hover {
+      color: #FFF;
+    }
+
+    /* Pagination Styles */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      padding: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .page-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 212, 71, 0.3);
+      color: var(--yellow);
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      background: var(--yellow);
+      color: var(--dark);
+      box-shadow: 0 0 15px rgba(255, 212, 71, 0.25);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #B6C0D7;
+    }
+
+    .page-info {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      color: #FFF;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -301,12 +528,9 @@
 
   <div class="container">
     <div class="search-panel">
-      <form id="search-form" class="search-row" action="https://www.musicstack.com/my/index.cgi" method="POST" target="_blank">
-        <input type="hidden" name="seller" value="725319">
-        <input type="hidden" name="currency" value="USD">
-        
+      <form id="search-form" class="search-row" action="#" method="GET">
         <div class="search-input-wrapper">
-          <input type="text" name="find" id="search-query" placeholder="Search our massive inventory...">
+          <input type="text" name="find" id="search-query" placeholder="Search our massive online inventory...">
         </div>
         
         <div style="flex: 1; min-width: 150px;">
@@ -343,41 +567,65 @@
           </select>
         </div>
 
-        <button type="submit" class="search-btn">Search</button>
+        <div style="flex: 0 1 140px; min-width: 120px;">
+          <select name="limit" id="search-limit">
+            <option value="10" selected>10 per page</option>
+            <option value="20">20 per page</option>
+            <option value="40">40 per page</option>
+            <option value="80">80 per page</option>
+          </select>
+        </div>
+
+        <button type="submit" class="search-btn">Search Online</button>
       </form>
 
       <div class="browse-letters">
         <span style="color: #B6C0D7; display: flex; align-items: center; margin-right: 0.5rem; font-family: 'Oswald', sans-serif;">BROWSE:</span>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=0-9" target="_blank">#</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=a" target="_blank">A</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=b" target="_blank">B</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=c" target="_blank">C</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=d" target="_blank">D</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=e" target="_blank">E</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=f" target="_blank">F</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=g" target="_blank">G</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=h" target="_blank">H</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=i" target="_blank">I</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=j" target="_blank">J</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=k" target="_blank">K</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=l" target="_blank">L</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=m" target="_blank">M</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=n" target="_blank">N</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=o" target="_blank">O</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=p" target="_blank">P</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=q" target="_blank">Q</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=r" target="_blank">R</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=s" target="_blank">S</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=t" target="_blank">T</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=u" target="_blank">U</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=v" target="_blank">V</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=w" target="_blank">W</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=x" target="_blank">X</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=y" target="_blank">Y</a>
-        <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=z" target="_blank">Z</a>
+        <a href="#">#</a>
+        <a href="#">A</a>
+        <a href="#">B</a>
+        <a href="#">C</a>
+        <a href="#">D</a>
+        <a href="#">E</a>
+        <a href="#">F</a>
+        <a href="#">G</a>
+        <a href="#">H</a>
+        <a href="#">I</a>
+        <a href="#">J</a>
+        <a href="#">K</a>
+        <a href="#">L</a>
+        <a href="#">M</a>
+        <a href="#">N</a>
+        <a href="#">O</a>
+        <a href="#">P</a>
+        <a href="#">Q</a>
+        <a href="#">R</a>
+        <a href="#">S</a>
+        <a href="#">T</a>
+        <a href="#">U</a>
+        <a href="#">V</a>
+        <a href="#">W</a>
+        <a href="#">X</a>
+        <a href="#">Y</a>
+        <a href="#">Z</a>
       </div>
     </div>
 
+    <div class="loading-state" id="loading-spinner">
+      <div class="spinner"></div>
+      <p>Searching online inventory...</p>
+    </div>
+
+    <div class="results-grid" id="results-grid">
+      <!-- Records will be injected here -->
+    </div>
+
+    <!-- Pagination controls -->
+    <div class="pagination-container" id="pagination-controls" style="display: none;">
+      <button class="page-btn" id="prev-page-btn" disabled>&laquo; Previous</button>
+      <span class="page-info" id="page-info">Page 1 of 1</span>
+      <button class="page-btn" id="next-page-btn" disabled>Next &raquo;</button>
+    </div>
   </div>
 
   <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
@@ -386,6 +634,302 @@
       <span>WebDev: www.xenohead.com</span>
     </a>
   </div>
+
+  <!-- Cover Image Zoom Modal / Detail Sheet -->
+  <div id="image-modal" class="image-modal">
+    <span class="image-modal-close" id="modal-close">&times;</span>
+    <div class="image-modal-content">
+      <div class="modal-detail-layout">
+        <!-- Left Side: Cover Art / Media -->
+        <div class="modal-art-section">
+          <img id="modal-img" src="" alt="Zoomed Cover">
+          <div id="modal-secondary-images" class="modal-secondary-images"></div>
+        </div>
+        <!-- Right Side: Field Details -->
+        <div class="modal-info-section">
+          <h2 id="modal-title"></h2>
+          <h3 id="modal-artist"></h3>
+          <div class="modal-fields-grid" id="modal-fields-grid">
+            <!-- Dynamic fields injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const searchForm = document.getElementById('search-form');
+    const searchQuery = document.getElementById('search-query');
+    const searchType = document.getElementById('search-type');
+    const searchFormat = document.getElementById('search-format');
+    const searchLimit = document.getElementById('search-limit');
+    const resultsGrid = document.getElementById('results-grid');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    // Pagination elements
+    const paginationControls = document.getElementById('pagination-controls');
+    const prevPageBtn = document.getElementById('prev-page-btn');
+    const nextPageBtn = document.getElementById('next-page-btn');
+    const pageInfo = document.getElementById('page-info');
+
+    // Modal elements
+    const imageModal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalClose = document.getElementById('modal-close');
+    const modalTitle = document.getElementById('modal-title');
+    const modalArtist = document.getElementById('modal-artist');
+    const modalFieldsGrid = document.getElementById('modal-fields-grid');
+    const modalSecondaryImages = document.getElementById('modal-secondary-images');
+
+    // Pagination state
+    let currentPage = 1;
+    let currentLimit = 10;
+    let lastSearchParams = {};
+
+    function openDetailModal(item) {
+      // 1. Set Title and Artist
+      modalTitle.textContent = item.Title || 'Unknown Title';
+      modalArtist.textContent = item.Artist || 'Unknown Artist';
+
+      // 2. Set Main Cover Image
+      let mainImgSrc = '';
+      let isActualImage = false;
+      if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
+        isActualImage = true;
+        mainImgSrc = item.Front_Image_URL;
+      } else {
+        mainImgSrc = 'images/fyr-logo.png'; // Fallback to store logo
+      }
+      modalImg.src = mainImgSrc;
+
+      // 3. Set Secondary Thumbnails
+      modalSecondaryImages.innerHTML = '';
+      
+      // Front cover thumb
+      if (isActualImage) {
+        const frontThumb = document.createElement('img');
+        frontThumb.src = item.Front_Image_URL;
+        frontThumb.title = 'Front Cover';
+        frontThumb.addEventListener('click', () => { modalImg.src = item.Front_Image_URL; });
+        modalSecondaryImages.appendChild(frontThumb);
+      }
+      
+      // Back cover thumb
+      if (item.Back_Image_URL && item.Back_Image_URL !== 'NULL' && item.Back_Image_URL.startsWith('http')) {
+        const backThumb = document.createElement('img');
+        backThumb.src = item.Back_Image_URL;
+        backThumb.title = 'Back Cover';
+        backThumb.addEventListener('click', () => { modalImg.src = item.Back_Image_URL; });
+        modalSecondaryImages.appendChild(backThumb);
+      }
+
+      // YouTube/Audio links as secondary clickable icons
+      if (item.YouTube_Audio_Image_URLs && item.YouTube_Audio_Image_URLs !== 'NULL') {
+        const links = item.YouTube_Audio_Image_URLs.split(',');
+        links.forEach((link, idx) => {
+          const cleanLink = link.trim();
+          if (cleanLink.startsWith('http')) {
+            const ytThumb = document.createElement('img');
+            ytThumb.src = 'images/fyr-logo-removebg-preview.png'; // use FYR logo as audio link trigger icon
+            ytThumb.title = `Reference Media Link #${idx + 1}`;
+            ytThumb.addEventListener('click', () => { window.open(cleanLink, '_blank'); });
+            modalSecondaryImages.appendChild(ytThumb);
+          }
+        });
+      }
+
+      // 4. Generate all database fields
+      function createFieldHtml(label, val, classes = '', fullWidth = false) {
+        const displayVal = (val === 'NULL' || val === null || val === undefined || val === '') ? 'N/A' : val;
+        return `
+          <div class="modal-field ${fullWidth ? 'full-width' : ''}">
+            <div class="modal-field-label">${label}</div>
+            <div class="modal-field-value ${classes}">${displayVal}</div>
+          </div>
+        `;
+      }
+
+      let fieldsHtml = '';
+      fieldsHtml += createFieldHtml('Format', item.Format);
+      fieldsHtml += createFieldHtml('Discogs ID', item.Discogs_ID);
+      fieldsHtml += createFieldHtml('Price', item.Price ? `$${parseFloat(item.Price).toFixed(2)}` : 'N/A', 'price');
+      fieldsHtml += createFieldHtml('Quantity Available', item.Quantity);
+      fieldsHtml += createFieldHtml('Label', item.Label);
+      fieldsHtml += createFieldHtml('Catalog / Release Number', item.Release_Catalog_Number);
+      fieldsHtml += createFieldHtml('Release Country', item.Release_Country);
+      fieldsHtml += createFieldHtml('Release Date', item.Release_Date);
+      fieldsHtml += createFieldHtml('Genre', item.Genre);
+      fieldsHtml += createFieldHtml('Barcode / UPC', item.Bar_Code);
+      fieldsHtml += createFieldHtml('Seller Stock Reference', item.Seller_Reference_Number);
+      fieldsHtml += createFieldHtml('Number in Set', item.Number_In_Set);
+      fieldsHtml += createFieldHtml('Condition Details & Description', item.Description, 'description', true);
+
+      modalFieldsGrid.innerHTML = fieldsHtml;
+      imageModal.style.display = 'flex';
+    }
+
+    modalClose.addEventListener('click', () => {
+      imageModal.style.display = 'none';
+    });
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        imageModal.style.display = 'none';
+      }
+    });
+
+    async function performSearch(params = {}) {
+      resultsGrid.innerHTML = '';
+      loadingSpinner.style.display = 'block';
+      paginationControls.style.display = 'none';
+
+      const urlParams = new URLSearchParams();
+      if (params.query) urlParams.set('query', params.query);
+      if (params.type) urlParams.set('type', params.type);
+      if (params.format) urlParams.set('format', params.format);
+      if (params.letter) urlParams.set('letter', params.letter);
+      
+      // Pagination parameters
+      urlParams.set('page', currentPage);
+      urlParams.set('limit', currentLimit);
+
+      try {
+        const response = await fetch(`/api/online-search?${urlParams.toString()}`);
+        const data = await response.json();
+        
+        loadingSpinner.style.display = 'none';
+
+        if (data.success && data.results && data.results.length > 0) {
+          data.results.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'record-card';
+            
+            // Choose image
+            let artHtml = '';
+            
+            if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
+              artHtml = `<img src="${item.Front_Image_URL}" alt="${item.Title}">`;
+            } else {
+              const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
+              const randomColor = colors[item.id % colors.length];
+              artHtml = `
+                <div class="placeholder-art" style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative;">
+                  <span style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
+                </div>
+              `;
+            }
+
+            const buyFind = item.Seller_Reference_Number || `${item.Artist} ${item.Title}`;
+            const buyUrl = `https://www.musicstack.com/my/index.cgi?seller=725319&currency=USD&find=${encodeURIComponent(buyFind)}`;
+            
+            card.innerHTML = `
+              <div class="record-art" id="art-${item.id}">
+                ${artHtml}
+              </div>
+              <div class="record-info">
+                <div class="record-text">
+                  <div class="record-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
+                  <div class="record-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
+                </div>
+                <div class="record-details">
+                  <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
+                  <span><strong>Label:</strong> ${item.Label || 'N/A'} (${item.Release_Catalog_Number || 'N/A'})</span>
+                  <span><strong>Country:</strong> ${item.Release_Country || 'N/A'}</span>
+                  <span><strong>Media/Sleeve:</strong> ${item.Condition_Media || 'N/A'} / ${item.Condition_Sleeve || 'N/A'}</span>
+                  <span><strong>Genre:</strong> ${item.Genre || 'N/A'}</span>
+                </div>
+                <div class="record-price">
+                  <span>$${(item.Price || 0.00).toFixed(2)}</span>
+                  <button class="buy-btn" onclick="window.open('${buyUrl}', '_blank')">Buy Online</button>
+                </div>
+              </div>
+            `;
+            
+            resultsGrid.appendChild(card);
+
+            // Add click handler to thumbnail to zoom and display detailed sheet
+            const artEl = card.querySelector('.record-art');
+            artEl.addEventListener('click', () => {
+              openDetailModal(item);
+            });
+          });
+
+          // Show & update pagination controls
+          const totalPages = Math.ceil(data.total / currentLimit) || 1;
+          pageInfo.textContent = `Page ${currentPage} of ${totalPages} (${data.total} total items)`;
+          prevPageBtn.disabled = currentPage === 1;
+          nextPageBtn.disabled = currentPage === totalPages;
+          paginationControls.style.display = 'flex';
+          
+        } else {
+          resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #B6C0D7; font-size: 1.2rem;">No matching online items found.</div>';
+          paginationControls.style.display = 'none';
+        }
+      } catch (err) {
+        console.error(err);
+        loadingSpinner.style.display = 'none';
+        resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #e74c3c;">Failed to load online inventory data.</div>';
+        paginationControls.style.display = 'none';
+      }
+    }
+
+    // Trigger search function with saved states
+    function executeQuery() {
+      performSearch(lastSearchParams);
+    }
+
+    // Form submission listener
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      currentPage = 1;
+      currentLimit = parseInt(searchLimit.value, 10);
+      lastSearchParams = {
+        query: searchQuery.value.trim(),
+        type: searchType.value,
+        format: searchFormat.value
+      };
+      executeQuery();
+    });
+
+    // Enter key listener on input
+    searchQuery.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        searchForm.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // Letter index listener
+    const letters = document.querySelectorAll('.browse-letters a');
+    letters.forEach(letterLink => {
+      const letter = letterLink.textContent.trim();
+      letterLink.setAttribute('href', '#'); // Ensure it acts as a trigger
+      letterLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentPage = 1;
+        currentLimit = parseInt(searchLimit.value, 10);
+        lastSearchParams = {
+          letter: letter === '#' ? '0-9' : letter
+        };
+        executeQuery();
+      });
+    });
+
+    // Pagination button listeners
+    prevPageBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        executeQuery();
+        window.scrollTo({ top: searchForm.offsetTop - 100, behavior: 'smooth' });
+      }
+    });
+
+    nextPageBtn.addEventListener('click', () => {
+      currentPage++;
+      executeQuery();
+      window.scrollTo({ top: searchForm.offsetTop - 100, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
 

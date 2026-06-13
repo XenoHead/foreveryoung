@@ -3,3 +3,4 @@ node_modules/
 MusicStack-Inventory-*.txt
 *.csv
 *.tsv
+db_batches/local_all.sql

@@ -1,0 +1,24 @@
+-- Schema for Online_Inventory table matching MusicStack inventory headers
+CREATE TABLE IF NOT EXISTS Online_Inventory (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  Artist TEXT,
+  Title TEXT,
+  Format TEXT,
+  Discogs_ID TEXT,
+  Price REAL,
+  Description TEXT,
+  Condition_Media TEXT,
+  Condition_Sleeve TEXT,
+  Seller_Reference_Number TEXT,
+  Quantity INTEGER DEFAULT 0,
+  Label TEXT,
+  Release_Catalog_Number TEXT,
+  Release_Country TEXT,
+  Release_Date TEXT,
+  Genre TEXT,
+  Front_Image_URL TEXT,
+  Back_Image_URL TEXT,
+  YouTube_Audio_Image_URLs TEXT,
+  Bar_Code TEXT,
+  Number_In_Set TEXT
+);
