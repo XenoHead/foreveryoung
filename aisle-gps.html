@@ -144,7 +144,8 @@
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
     }
 
     .aisles-wrapper {
@@ -154,7 +155,8 @@
       align-items: stretch;
       padding-bottom: 120px; /* Space for door area */
       padding-left: 60px; /* Move aisles away from left door */
-      gap: 15px;
+      gap: 60px;
+      min-width: 1800px; /* Guarantee enough room between rows */
     }
 
     .aisle-group {
