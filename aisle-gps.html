@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aisle GPS | Forever Young Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #08111F; color: #FFF8DF; overflow-x: hidden; font-family: 'Outfit', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+    
+    :root { 
+      --blue: #0A2C74; 
+      --blueBright: #2C6CFF; 
+      --yellow: #FFD447; 
+      --cream: #FFF8DF; 
+      --dark: #08111F; 
+      --muted: #B6C0D7; 
+    }
+    
+    /* Film Grain */
+    body::before {
+      content: ""; 
+      position: fixed; 
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.06; 
+      pointer-events: none; 
+      z-index: 999; 
+      animation: grainMove 8s steps(2) infinite;
+    }
+    @keyframes grainMove { 
+      0% { transform: translate(0px, 0px); } 
+      25% { transform: translate(-2px, 1px); } 
+      50% { transform: translate(2px, -1px); } 
+      75% { transform: translate(-1px, 2px); } 
+      100% { transform: translate(0px, 0px); } 
+    }
+    
+    /* Navigation */
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .nav-inner { max-width: 1400px; margin: auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo img { height: 58px; object-fit: contain; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background-color: var(--yellow); transition: all 0.3s ease; transform: translateX(-50%); }
+    .nav-links a:hover { color: var(--yellow); text-shadow: 0 0 10px rgba(255, 212, 71, 0.4); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* GPS Specific Styles */
+    .gps-header {
+      padding: 150px 2rem 2rem;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(10, 44, 116, 0.2), transparent);
+    }
+    .gps-header h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    .gps-header p.subtitle {
+      color: var(--muted);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .gps-content {
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      flex: 1;
+    }
+
+    .gps-block {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 1rem;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid var(--blue);
+      border-radius: 8px;
+      color: var(--yellow);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--yellow);
+      box-shadow: 0 0 15px rgba(255,212,71,0.2);
+    }
+
+    .search-box button {
+      padding: 0 2rem;
+      background: var(--yellow);
+      color: var(--dark);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .search-box button:hover {
+      background: #FFF;
+      transform: translateY(-2px);
+    }
+
+    .map-placeholder {
+      width: 100%;
+      height: 400px;
+      background: rgba(0,0,0,0.3);
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1.5rem;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    @media(max-width:900px) {
+      .nav-inner { flex-direction: column; gap: 1rem; }
+      .nav-links {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #08111F;
+        border-top: 2px solid #FFD447;
+        padding: 1rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        z-index: 9999;
+      }
+      .nav-links a { font-size: 0.85rem; }
+      .gps-header h1 { font-size: 2.5rem; }
+      .search-box { flex-direction: column; }
+      .search-box button { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <a href="index.html"><img src="images/fyr-logo-removebg-preview.png" alt="Forever Young Records"></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="buying-hours.html">Buying Hours</a>
+        <a href="location.html">Location</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="gps-header">
+    <h1>Aisle GPS</h1>
+    <p class="subtitle">Navigate the massive archive to find exactly what you're looking for.</p>
+  </header>
+
+  <main class="gps-content">
+    <div class="gps-block">
+      <div class="search-box">
+        <input type="text" placeholder="Search by Artist, Genre, or Category..." id="aisle-search">
+        <button onclick="alert('Search functionality coming soon!')">Locate</button>
+      </div>
+
+      <div class="map-placeholder">
+        Interactive Map Coming Soon
+      </div>
+    </div>
+  </main>
+
+  <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
+    <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
+      <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
+      <span>WebDev: www.xenohead.com</span>
+    </a>
+  </div>
+</body>
+</html>
