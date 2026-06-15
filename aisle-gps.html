@@ -136,7 +136,7 @@
 
     .store-map {
       width: 100%;
-      height: 600px;
+      height: 800px;
       background: rgba(0,0,0,0.5);
       border: 2px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
@@ -152,44 +152,56 @@
       flex: 1;
       justify-content: space-around;
       align-items: stretch;
-      padding-bottom: 80px; /* Space for door area */
+      padding-bottom: 120px; /* Space for door area */
+      padding-left: 60px; /* Move aisles away from left door */
       gap: 15px;
     }
 
-    .aisle {
+    .aisle-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .connected-aisle {
+      gap: 0;
+    }
+    
+    .split-aisle {
+      gap: 50px; /* Walkway split */
+    }
+
+    .aisle-block {
       flex: 1;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .aisle-level {
-      flex: 1;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Oswald', sans-serif;
       font-size: 1.2rem;
       color: rgba(255,255,255,0.5);
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
     
-    .aisle-level:last-child {
+    .connected-aisle .aisle-block:first-child {
       border-bottom: none;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .connected-aisle .aisle-block:last-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
 
-    .aisle:hover, .aisle.active {
+    .aisle-block:hover, .aisle-block.active {
       background: rgba(255, 212, 71, 0.2);
       border-color: var(--yellow);
       box-shadow: 0 0 20px rgba(255, 212, 71, 0.4);
-    }
-    
-    .aisle:hover .aisle-level, .aisle.active .aisle-level {
       color: var(--yellow);
+      z-index: 2;
     }
 
     .store-entrance {
@@ -313,34 +325,41 @@
       
       // Generate 10 aisles, 2 levels each
       for(let i=1; i<=numAisles; i++) {
-        const aisleDiv = document.createElement('div');
-        aisleDiv.className = 'aisle';
-        aisleDiv.id = 'aisle-' + i;
+        const aisleGroup = document.createElement('div');
+        aisleGroup.className = 'aisle-group';
         
-        const level1 = document.createElement('div');
-        level1.className = 'aisle-level';
-        level1.innerText = i + 'A';
+        if (i === 1 || i === 2) {
+          aisleGroup.classList.add('connected-aisle');
+        } else {
+          aisleGroup.classList.add('split-aisle');
+        }
         
-        const level2 = document.createElement('div');
-        level2.className = 'aisle-level';
-        level2.innerText = i + 'B';
+        const levelA = document.createElement('div');
+        levelA.className = 'aisle-block';
+        levelA.id = 'aisle-' + i + 'A';
+        levelA.innerText = i + 'A';
         
-        aisleDiv.appendChild(level1);
-        aisleDiv.appendChild(level2);
+        const levelB = document.createElement('div');
+        levelB.className = 'aisle-block';
+        levelB.id = 'aisle-' + i + 'B';
+        levelB.innerText = i + 'B';
         
-        // Click to animate
-        aisleDiv.addEventListener('click', () => {
-          animateToAisle(aisleDiv);
-        });
+        aisleGroup.appendChild(levelA);
+        aisleGroup.appendChild(levelB);
         
-        container.appendChild(aisleDiv);
+        // Click to animate to specific block
+        levelA.addEventListener('click', () => animateToAisle(levelA));
+        levelB.addEventListener('click', () => animateToAisle(levelB));
+        
+        container.appendChild(aisleGroup);
       }
     });
 
-    function animateToAisle(targetAisle) {
+    function animateToAisle(targetBlock) {
       // Reset previous highlights
-      document.querySelectorAll('.aisle').forEach(a => a.classList.remove('active'));
-      targetAisle.classList.add('active');
+      document.querySelectorAll('.aisle-block').forEach(a => a.classList.remove('active'));
+      targetBlock.classList.add('active');
+
       
       const svg = document.getElementById('animation-layer');
       const entrance = document.getElementById('entrance');
@@ -348,14 +367,14 @@
       
       const mapRect = map.getBoundingClientRect();
       const entranceRect = entrance.getBoundingClientRect();
-      const targetRect = targetAisle.getBoundingClientRect();
+      const targetRect = targetBlock.getBoundingClientRect();
       
       // Calculate relative coordinates
       const startX = (entranceRect.left - mapRect.left) + (entranceRect.width / 2);
       const startY = (entranceRect.top - mapRect.top) + (entranceRect.height / 2);
       
       const endX = (targetRect.left - mapRect.left) + (targetRect.width / 2);
-      const endY = (targetRect.bottom - mapRect.top) + 20; // Just below the aisle
+      const endY = (targetRect.bottom - mapRect.top) + 20; // Just below the target block
       
       // Create SVG Path
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -391,11 +410,11 @@
       
       svg.appendChild(path);
       
-      // Pulse the target aisle after path finishes
+      // Pulse the target block after path finishes
       setTimeout(() => {
-        targetAisle.style.transform = 'scale(1.05)';
+        targetBlock.style.transform = 'scale(1.05)';
         setTimeout(() => {
-           targetAisle.style.transform = 'scale(1)';
+           targetBlock.style.transform = 'scale(1)';
         }, 300);
       }, 1000);
     }
@@ -405,9 +424,10 @@
       const input = document.getElementById('aisle-search').value.trim();
       if(!input) return;
       
-      // Simple mockup logic: pick a random aisle to demo the animation
+      // Simple mockup logic: pick a random block to demo the animation
       const randomAisleNum = Math.floor(Math.random() * 10) + 1;
-      const target = document.getElementById('aisle-' + randomAisleNum);
+      const randomLevel = Math.random() > 0.5 ? 'A' : 'B';
+      const target = document.getElementById('aisle-' + randomAisleNum + randomLevel);
       animateToAisle(target);
     });
   </script>
