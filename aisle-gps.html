@@ -179,6 +179,7 @@
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 4px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-family: 'Oswald', sans-serif;
@@ -186,6 +187,8 @@
       color: rgba(255,255,255,0.5);
       transition: all 0.3s ease;
       cursor: pointer;
+      text-align: center;
+      padding: 5px;
     }
     
     .connected-aisle .aisle-block:not(:last-child) {
@@ -325,6 +328,15 @@
       const container = document.getElementById('aisles-container');
       const numAisles = 10;
       
+      const aisleData = {
+        '1A': 'Used 45s',
+        '1B': 'Used 45s',
+        '1C': 'Used CDs',
+        '1D': 'Used CDs',
+        '2C': 'Extreme Metal',
+        '2D': 'Extreme Metal'
+      };
+      
       // Generate 10 aisles, 4 levels each
       for(let i=1; i<=numAisles; i++) {
         const aisleGroup = document.createElement('div');
@@ -338,10 +350,13 @@
         
         const levels = ['A', 'B', 'C', 'D'];
         levels.forEach(lvl => {
+          const id = i + lvl;
           const block = document.createElement('div');
           block.className = 'aisle-block';
-          block.id = 'aisle-' + i + lvl;
-          block.innerText = i + lvl;
+          block.id = 'aisle-' + id;
+          
+          const label = aisleData[id] ? `<span style="font-size:0.75rem; color:var(--light); font-family:'Outfit',sans-serif; margin-top:5px; line-height:1.1;">${aisleData[id]}</span>` : '';
+          block.innerHTML = `<strong>${id}</strong>${label}`;
           
           block.addEventListener('click', () => animateToAisle(block));
           aisleGroup.appendChild(block);
