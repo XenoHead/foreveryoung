@@ -177,10 +177,49 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 900px;
+      max-width: 1200px;
       text-align: center;
       padding: 0 2rem;
       animation: fadeUp 1.2s ease forwards;
+    }
+
+    .hero-button-left,
+    .hero-button-right {
+      position: absolute;
+      top: calc(80px + 0.5rem);
+      z-index: 3;
+    }
+
+    .hero-button-left {
+      left: 0.75rem;
+    }
+
+    .hero-button-right {
+      right: 2rem;
+    }
+
+    .hero-button-left .button,
+    .hero-button-right .button {
+      width: clamp(260px, 24vw, 360px);
+      padding: 1.4rem 1.25rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      text-align: center;
+      padding: 0 2rem 0;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .button.instore-btn {
+      background: var(--blueBright);
+      border-color: var(--blueBright);
+      color: white;
     }
 
     .hero-logo {
@@ -242,25 +281,39 @@
     }
 
     /* =========================
-    SEARCH BEVEL
+    SHOPPING AREA
     ========================= */
-    .search-bevel {
-      border: 2px outset rgba(255, 212, 71, 0.5);
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 0 auto 1rem auto;
-      display: inline-block;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(5px);
+    .shopping-area-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 2rem 0;
+      width: 100%;
     }
 
-    .search-bevel legend {
+    .grey-title-bar {
+      background: #4A5568;
+      color: #FFF;
       font-family: 'Oswald', sans-serif;
-      color: var(--yellow);
-      padding: 0 10px;
-      font-size: 1.1rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+      padding: 0.6rem 2rem;
+      border-radius: 6px 6px 0 0;
+      font-size: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+    }
+
+    .shopping-box {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 2.5rem 2rem;
+      border-radius: 0 8px 8px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     /* =========================
@@ -515,13 +568,12 @@
       <div class="hero-logo neon">
         <img src="images/fyr-logo-removebg-preview.png" alt="Forever Young Records">
       </div>
-      <fieldset class="search-bevel">
-        <legend>Search For Music To Buy</legend>
-        <div class="hero-buttons" style="margin-bottom: 0;">
-          <a href="shop.html" class="button primary" style="padding: 1rem 1.8rem; font-size: 1rem;">Online Product</a>
-          <a href="instore-product.html" class="button primary" style="padding: 1rem 1.8rem; font-size: 1rem; background: var(--blueBright); border-color: var(--blueBright); color: white;">In Store Product</a>
-        </div>
-      </fieldset>
+      <div class="hero-button-left">
+        <a href="shop.html" class="button primary">Shop Online</a>
+      </div>
+      <div class="hero-button-right">
+        <a href="instore-product.html" class="button primary instore-btn">In-Store Inventory</a>
+      </div>
       <div class="feature-nav">
         <a href="aisle-gps.html" class="feature-link">AISLE GPS</a>
         <a href="#" class="feature-link">CRATE DIGGING</a>
@@ -602,4 +654,3 @@
   </script>
 </body>
 </html>
-
