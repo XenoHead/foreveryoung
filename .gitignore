@@ -10,5 +10,9 @@ key_map.txt
 enrichment_log.txt
 db_batches/temp_updates.sql
 db_batches/reconcile.sql
+*.db
+*.sqlite
+*.sqlite3
+
 
 local-db-export.sql
