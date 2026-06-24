@@ -1,6 +1,7 @@
 import os
 import sys
 import glob
+import re
 import shutil
 import zipfile
 import subprocess
@@ -97,7 +98,7 @@ def main():
     # Define paths
     base_dir = os.path.dirname(os.path.abspath(__file__))
     output_dir = os.path.join(base_dir, 'db_batches')
-    key_file_path = os.path.join(base_dir, 'key_map.txt')
+    key_file_path = os.path.join(base_dir, '.local_data', 'key_map.txt')
 
     print('--- Phase 1: Parsing inventory and generating SQL batches ---')
     
@@ -154,6 +155,8 @@ def main():
                         if t_attr == 's':
                             idx = int(val)
                             val = shared_strings[idx] if idx < len(shared_strings) else ""
+                    if c_idx == 5: # Description
+                        val = re.sub(r'(?:<br\s*/?>\s*)+$', '', val, flags=re.IGNORECASE).strip()
                     cols[c_idx] = val
                 
                 seller_ref = cols[8].strip()

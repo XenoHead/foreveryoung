@@ -985,6 +985,191 @@
         justify-content: center;
       }
     }
+
+    /* =========================
+    FEATURED CRATE SECTION
+    ========================= */
+    .featured-crate-section {
+      padding: 6rem 2rem;
+      background: #060d18;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .crate-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .crate-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      text-align: center;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 15px rgba(255, 212, 71, 0.35);
+    }
+    
+    .crate-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 4rem;
+    }
+    
+    .featured-crate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .crate-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .crate-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      border: 1px solid var(--yellow);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .crate-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 212, 71, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    
+    .crate-card:hover::after {
+      opacity: 0.25;
+    }
+    
+    .crate-card-art-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      overflow: hidden;
+      background: #08111f;
+    }
+    
+    .crate-card-art {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .crate-card:hover .crate-card-art {
+      transform: scale(1.08) rotate(1deg);
+    }
+    
+    .crate-card-vinyl-sleeve {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #111;
+      border: 2px solid #333;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: transform 0.4s ease;
+    }
+    
+    .crate-card-vinyl-sleeve::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+    
+    .crate-card:hover .crate-card-vinyl-sleeve {
+      transform: rotate(180deg) scale(1.1);
+    }
+    
+    .crate-card-info {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      gap: 0.6rem;
+    }
+    
+    .crate-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #FFF;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .crate-card-artist {
+      font-size: 1rem;
+      color: var(--yellow);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .crate-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 0.8rem;
+    }
+    
+    .crate-card-format {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    
+    .crate-card-price {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      font-weight: 600;
+    }
+    
+    @media(max-width: 900px) {
+      .featured-crate-section {
+        padding: 4rem 1.5rem;
+      }
+      .crate-title {
+        font-size: 2.2rem;
+      }
+      .crate-subtitle {
+        margin-bottom: 2.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1002,6 +1187,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="buying-hours.html">Buying Hours</a>
+        <a href="#" id="hot-tips-nav-link" style="color: var(--yellow);">HOT TIPS</a>
         <a href="location.html">Location</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -1018,7 +1204,6 @@
 
       <div class="feature-nav">
         <a href="aisle-gps.html" class="feature-link">AISLE GPS</a>
-        <a href="#" class="feature-link">CRATE DIGGING</a>
       </div>
 
       <div class="front-store-info" style="font-size: 0.8rem; padding: 0.5rem 1.5rem; margin-top: 1rem;">
@@ -1057,6 +1242,8 @@
   </section>
 
 
+
+
   <script>
     const buttons = document.querySelectorAll('.button, .feature-link');
     buttons.forEach(button => {
@@ -1093,7 +1280,93 @@
     }
     updateTicker();
     setInterval(updateTicker, 60000); // Check every minute
+
+    // Featured Crate Fetch & Render
+    async function loadFeaturedCrate() {
+      const grid = document.getElementById('featured-crate-grid');
+      try {
+        const response = await fetch('/api/featured');
+        const data = await response.json();
+        if (data.success && data.results && data.results.length > 0) {
+          grid.innerHTML = '';
+          data.results.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'crate-card';
+            
+            let artHtml = '';
+            if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
+              artHtml = `<img src="${item.Front_Image_URL}" alt="${item.Title}" class="crate-card-art">`;
+            } else {
+              const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
+              const randomColor = colors[item.id % colors.length];
+              artHtml = `
+                <div class="crate-card-art" style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; opacity: 0.25; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
+                </div>
+              `;
+            }
+
+            card.innerHTML = `
+              <div class="crate-card-art-wrapper">
+                ${artHtml}
+                <div class="crate-card-vinyl-sleeve"></div>
+              </div>
+              <div class="crate-card-info">
+                <div class="crate-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
+                <div class="crate-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
+                <div class="crate-card-meta">
+                  <span class="crate-card-format">${item.Format || 'LP'}</span>
+                  <span class="crate-card-price">$${(item.Price || 0.00).toFixed(2)}</span>
+                </div>
+              </div>
+            `;
+
+            card.addEventListener('click', () => {
+              searchResultsModal.style.display = 'flex';
+              searchResultsModalGrid.style.display = 'none';
+              searchResultsModalLoading.style.display = 'none';
+              searchResultsModalBody.style.display = 'block';
+              lastSearchTarget = 'online';
+              openDetails(item);
+            });
+
+            grid.appendChild(card);
+          });
+        } else {
+          grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 3rem; font-style: italic;">No featured items found in this crate.</div>';
+        }
+      } catch (err) {
+        console.error("Error loading featured crate", err);
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #e74c3c; padding: 3rem;">Failed to load featured crate.</div>';
+      }
+    }
+    loadFeaturedCrate();
   </script>
+
+  <!-- Hot Tips Modal -->
+  <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
+    <div class="search-results-modal-content">
+      <div class="search-results-modal-header">
+        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          </button>
+          <span id="hot-tips-modal-close" class="search-results-modal-close">&times;</span>
+        </div>
+      </div>
+      <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever Young</h3>
+        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS' feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for faster.</p>
+        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">Selling Your Collection</h3>
+        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours. Check the 'Buying Hours' page before you haul your collection to the store.</p>
+        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records and make sure the sleeves are in good condition for the best offer.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Search Results Modal -->
   <div id="search-results-modal" class="search-results-modal">
@@ -1205,6 +1478,11 @@
     const searchResultsModalGrid = document.getElementById('search-results-modal-grid');
     const searchResultsModalLoading = document.getElementById('search-results-modal-loading');
 
+    const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
+    const hotTipsModal = document.getElementById('hot-tips-modal');
+    const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
+    const hotTipsModalMaximize = document.getElementById('hot-tips-modal-maximize');
+
     let lastSearchTarget = null;
 
     function buildCheckoutUrl(item) {
@@ -1232,6 +1510,38 @@
       if (e.target === searchResultsModal) {
         searchResultsModal.style.display = 'none';
       }
+    });
+
+    // Hot Tips Modal Logic
+    hotTipsNavLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      hotTipsModal.style.display = 'flex';
+    });
+    hotTipsModalClose.addEventListener('click', () => {
+      hotTipsModal.style.display = 'none';
+    });
+    hotTipsModalMaximize.addEventListener('click', () => {
+      hotTipsModal.classList.toggle('maximized');
+      hotTipsModal.querySelector('.search-results-modal-content').classList.toggle('maximized');
+      
+      if (hotTipsModal.classList.contains('maximized')) {
+        hotTipsModalMaximize.title = 'Restore';
+        hotTipsModalMaximize.innerHTML = `
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"></path>
+          </svg>
+        `;
+      } else {
+        hotTipsModalMaximize.title = 'Maximize';
+        hotTipsModalMaximize.innerHTML = `
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          </svg>
+        `;
+      }
+    });
+    hotTipsModal.addEventListener('click', (e) => {
+      if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
     });
 
     // Maximize toggle
@@ -1351,7 +1661,7 @@
       } else {
         searchResultsModalTitle.textContent = `In-Store Inventory Results: "${query}"`;
         try {
-          const response = await fetch(`/api/inventory-search?query=${encodeURIComponent(query)}${exact ? '&exact=true' : ''}`);
+          const response = await fetch(`/api/inventory-search?query=${encodeURIComponent(query)}`);
           const data = await response.json();
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
@@ -1373,11 +1683,11 @@
                   <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
                   <div class="search-modal-card-details">
                     <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
-                    <span><strong>UPC/Barcode:</strong> ${item.Bar_Code || 'N/A'}</span>
+                    <span><strong>UPC:</strong> ${item.Bar_Code || 'N/A'}</span>
                     <span><strong>Year:</strong> ${item.Release_Date || 'N/A'}</span>
                   </div>
                   <div class="search-modal-card-price">
-                    <span>$${(item.Price || 0.00).toFixed(2)}</span>
+                    <span>$${(item.Price || 0).toFixed(2)}</span>
                     <div style="display: flex; align-items: center; gap: 0.4rem;">
                       <span class="search-modal-card-badge">In Stock: ${item.Quantity || 0}</span>
                       <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>

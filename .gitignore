@@ -4,3 +4,5 @@ MusicStack-Inventory-*.txt
 *.csv
 *.tsv
 db_batches/local_all.sql
+.local_data/
+key_map.txt

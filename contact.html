@@ -998,6 +998,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="buying-hours.html">Buying Hours</a>
+        <a href="#" id="hot-tips-nav-link" style="color: var(--yellow);">HOT TIPS</a>
         <a href="location.html">Location</a>
         <a href="about.html">About</a>
         <a href="contact.html" style="color: var(--yellow);">Contact</a>
@@ -1185,6 +1186,30 @@
       </div>
     </div>
   </div>
+  <!-- Hot Tips Modal -->
+  <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
+    <div class="search-results-modal-content">
+      <div class="search-results-modal-header">
+        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
+        <span id="hot-tips-modal-close" class="search-results-modal-close">&times;</span>
+      </div>
+      <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever Young
+        </h3>
+        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
+          feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
+          faster.</p>
+        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to
+          your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">
+          Selling Your Collection</h3>
+        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours.
+          Check the 'Buying Hours' page before you haul your collection to the store.</p>
+        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records
+          and make sure the sleeves are in good condition for the best offer.</p>
+      </div>
+    </div>
+  </div>
   <script>
     function switchChannel(channel) {
       // Update Buttons
@@ -1208,6 +1233,10 @@
     const searchResultsModalBody = document.getElementById('search-results-modal-body');
     const searchResultsModalGrid = document.getElementById('search-results-modal-grid');
     const searchResultsModalLoading = document.getElementById('search-results-modal-loading');
+
+        const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
+        const hotTipsModal = document.getElementById('hot-tips-modal');
+        const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
 
     let lastSearchTarget = null;
 
@@ -1237,6 +1266,18 @@
         searchResultsModal.style.display = 'none';
       }
     });
+
+        // Hot Tips Modal Logic
+        hotTipsNavLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          hotTipsModal.style.display = 'flex';
+        });
+        hotTipsModalClose.addEventListener('click', () => {
+          hotTipsModal.style.display = 'none';
+        });
+        hotTipsModal.addEventListener('click', (e) => {
+          if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
+        });
 
     // Maximize toggle
     searchResultsModalMaximize.addEventListener('click', () => {
@@ -1355,7 +1396,7 @@
       } else {
         searchResultsModalTitle.textContent = `In-Store Inventory Results: "${query}"`;
         try {
-          const response = await fetch(`/api/inventory-search?query=${encodeURIComponent(query)}${exact ? '&exact=true' : ''}`);
+          const response = await fetch(`/api/instore-search?query=${encodeURIComponent(query)}`);
           const data = await response.json();
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
@@ -1377,11 +1418,11 @@
                   <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
                   <div class="search-modal-card-details">
                     <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
-                    <span><strong>UPC/Barcode:</strong> ${item.Bar_Code || 'N/A'}</span>
-                    <span><strong>Year:</strong> ${item.Release_Date || 'N/A'}</span>
+                    <span><strong>UPC:</strong> ${item.UPC || 'N/A'}</span>
+                    <span><strong>Year:</strong> ${item.Year || 'N/A'}</span>
                   </div>
                   <div class="search-modal-card-price">
-                    <span>$${(item.Price || 0.00).toFixed(2)}</span>
+                    <span>$${(item.SRP || 0).toFixed(2)}</span>
                     <div style="display: flex; align-items: center; gap: 0.4rem;">
                       <span class="search-modal-card-badge">In Stock: ${item.Quantity || 0}</span>
                       <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
@@ -1517,4 +1558,3 @@
 </body>
 
 </html>
-

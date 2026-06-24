@@ -3,11 +3,11 @@ const readline = require('readline');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const INVENTORY_FILE = 'MusicStack-Inventory-2026-06-08-Forever-Young-Records.txt';
+const INVENTORY_FILE = '.local_data/MusicStack-Inventory-2026-06-08-Forever-Young-Records.txt';
 // D1 supports up to 10,000 statements in a single batch request
 const BATCH_SIZE = 9000; 
 const OUTPUT_DIR = path.join(__dirname, 'db_batches');
-const KEY_FILE = 'key_map.txt';
+const KEY_FILE = '.local_data/key_map.txt';
 
 // Helper to escape SQL values
 function escapeSql(val) {

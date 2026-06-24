@@ -640,6 +640,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="buying-hours.html" style="color: var(--yellow);">Buying Hours</a>
+        <a href="#" id="hot-tips-nav-link" style="color: var(--yellow);">HOT TIPS</a>
         <a href="location.html">Location</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -690,6 +691,37 @@
       <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
       <span>WebDev: www.xenohead.com</span>
     </a>
+  </div>
+  <!-- Hot Tips Modal -->
+  <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
+    <div class="search-results-modal-content">
+      <div class="search-results-modal-header">
+        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          </button>
+          <span id="hot-tips-modal-close" class="search-results-modal-close">&times;</span>
+        </div>
+      </div>
+      <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever Young
+        </h3>
+        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
+          feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
+          faster.</p>
+        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to
+          your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">
+          Selling Your Collection</h3>
+        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours.
+          Check the 'Buying Hours' page before you haul your collection to the store.</p>
+        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records
+          and make sure the sleeves are in good condition for the best offer.</p>
+      </div>
+    </div>
   </div>
   <!-- Search Results Modal -->
   <div id="search-results-modal" class="search-results-modal">
@@ -801,6 +833,11 @@
     const searchResultsModalGrid = document.getElementById('search-results-modal-grid');
     const searchResultsModalLoading = document.getElementById('search-results-modal-loading');
 
+      const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
+      const hotTipsModal = document.getElementById('hot-tips-modal');
+      const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
+      const hotTipsModalMaximize = document.getElementById('hot-tips-modal-maximize');
+
     let lastSearchTarget = null;
 
     function buildCheckoutUrl(item) {
@@ -829,6 +866,38 @@
         searchResultsModal.style.display = 'none';
       }
     });
+
+      // Hot Tips Modal Logic
+      hotTipsNavLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        hotTipsModal.style.display = 'flex';
+      });
+      hotTipsModalClose.addEventListener('click', () => {
+        hotTipsModal.style.display = 'none';
+      });
+      hotTipsModalMaximize.addEventListener('click', () => {
+        hotTipsModal.classList.toggle('maximized');
+        hotTipsModal.querySelector('.search-results-modal-content').classList.toggle('maximized');
+        
+        if (hotTipsModal.classList.contains('maximized')) {
+          hotTipsModalMaximize.title = 'Restore';
+          hotTipsModalMaximize.innerHTML = `
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"></path>
+            </svg>
+          `;
+        } else {
+          hotTipsModalMaximize.title = 'Maximize';
+          hotTipsModalMaximize.innerHTML = `
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          `;
+        }
+      });
+      hotTipsModal.addEventListener('click', (e) => {
+        if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
+      });
 
     // Maximize toggle
     searchResultsModalMaximize.addEventListener('click', () => {
@@ -947,7 +1016,7 @@
       } else {
         searchResultsModalTitle.textContent = `In-Store Inventory Results: "${query}"`;
         try {
-          const response = await fetch(`/api/inventory-search?query=${encodeURIComponent(query)}${exact ? '&exact=true' : ''}`);
+          const response = await fetch(`/api/instore-search?upc=${encodeURIComponent(query)}`);
           const data = await response.json();
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
@@ -1102,4 +1171,3 @@
   </script>
 </body>
 </html>
-
