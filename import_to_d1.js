@@ -102,7 +102,7 @@ async function run() {
     keyStream.write(`${recordId}\t${sellerRef || ''}\t${artist || ''}\t${title || ''}\n`);
 
     // Build SQL INSERT statement
-    const sql = `INSERT INTO Online_Inventory (
+    const sql = `INSERT INTO Online_Inventory_Import (
       id, Artist, Title, Format, Discogs_ID, Price, Description, 
       Condition_Media, Condition_Sleeve, Seller_Reference_Number, Quantity, 
       Label, Release_Catalog_Number, Release_Country, Release_Date, Genre, 
@@ -165,15 +165,70 @@ async function run() {
   }
 
   console.log(`\n--- Phase 2: Importing to D1 database (${mode}) ---`);
+
+  // Write reconciliation SQL file
+  const reconcileSql = `PRAGMA foreign_keys=OFF;
+
+-- 1. Delete rows from Online_Inventory that are no longer in the import file (excluding empty reference numbers)
+DELETE FROM Online_Inventory 
+WHERE Seller_Reference_Number IS NOT NULL 
+  AND Seller_Reference_Number NOT IN (
+    SELECT Seller_Reference_Number 
+    FROM Online_Inventory_Import 
+    WHERE Seller_Reference_Number IS NOT NULL
+  );
+
+-- 2. Delete empty-ref rows from Online_Inventory
+DELETE FROM Online_Inventory WHERE Seller_Reference_Number IS NULL OR Seller_Reference_Number = '';
+
+-- 3. Upsert records from Online_Inventory_Import to Online_Inventory
+INSERT INTO Online_Inventory (
+  Artist, Title, Format, Discogs_ID, Price, Description, 
+  Condition_Media, Condition_Sleeve, Seller_Reference_Number, Quantity, 
+  Label, Release_Catalog_Number, Release_Country, Release_Date, Genre, 
+  Front_Image_URL, Back_Image_URL, YouTube_Audio_Image_URLs, Bar_Code, Number_In_Set
+)
+SELECT 
+  Artist, Title, Format, Discogs_ID, Price, Description, 
+  Condition_Media, Condition_Sleeve, Seller_Reference_Number, Quantity, 
+  Label, Release_Catalog_Number, Release_Country, Release_Date, Genre, 
+  Front_Image_URL, Back_Image_URL, YouTube_Audio_Image_URLs, Bar_Code, Number_In_Set
+FROM Online_Inventory_Import WHERE true
+ON CONFLICT(Seller_Reference_Number) WHERE Seller_Reference_Number IS NOT NULL DO UPDATE SET
+  Artist = excluded.Artist,
+  Title = excluded.Title,
+  Format = excluded.Format,
+  Price = excluded.Price,
+  Quantity = excluded.Quantity,
+  Condition_Media = excluded.Condition_Media,
+  Condition_Sleeve = excluded.Condition_Sleeve,
+  Discogs_ID = COALESCE(NULLIF(NULLIF(Online_Inventory.Discogs_ID, ''), 'NULL'), excluded.Discogs_ID),
+  Description = COALESCE(NULLIF(NULLIF(Online_Inventory.Description, ''), 'NULL'), excluded.Description),
+  Label = COALESCE(NULLIF(NULLIF(Online_Inventory.Label, ''), 'NULL'), excluded.Label),
+  Release_Catalog_Number = COALESCE(NULLIF(NULLIF(Online_Inventory.Release_Catalog_Number, ''), 'NULL'), excluded.Release_Catalog_Number),
+  Release_Country = COALESCE(NULLIF(NULLIF(Online_Inventory.Release_Country, ''), 'NULL'), excluded.Release_Country),
+  Release_Date = COALESCE(NULLIF(NULLIF(Online_Inventory.Release_Date, ''), 'NULL'), excluded.Release_Date),
+  Genre = COALESCE(NULLIF(NULLIF(Online_Inventory.Genre, ''), 'NULL'), excluded.Genre),
+  Front_Image_URL = COALESCE(NULLIF(NULLIF(Online_Inventory.Front_Image_URL, ''), 'NULL'), excluded.Front_Image_URL),
+  Back_Image_URL = COALESCE(NULLIF(NULLIF(Online_Inventory.Back_Image_URL, ''), 'NULL'), excluded.Back_Image_URL),
+  YouTube_Audio_Image_URLs = COALESCE(NULLIF(NULLIF(Online_Inventory.YouTube_Audio_Image_URLs, ''), 'NULL'), excluded.YouTube_Audio_Image_URLs),
+  Bar_Code = COALESCE(NULLIF(NULLIF(Online_Inventory.Bar_Code, ''), 'NULL'), excluded.Bar_Code),
+  Number_In_Set = COALESCE(NULLIF(NULLIF(Online_Inventory.Number_In_Set, ''), 'NULL'), excluded.Number_In_Set);
+`;
+
+  const reconcileFile = path.join(OUTPUT_DIR, 'reconcile.sql');
+  fs.writeFileSync(reconcileFile, reconcileSql, 'utf8');
   
   if (mode === '--local') {
     // For local, run the single large file to avoid Node/CLI startup overhead per batch
     console.log(`Executing single local import from ${localSqlFile}...`);
     const start = Date.now();
     try {
-      console.log('Clearing local table Online_Inventory first...');
-      execSync(`npx wrangler d1 execute foreveryoung-db --local --command "DELETE FROM Online_Inventory;"`, { stdio: 'inherit' });
+      console.log('Clearing local table Online_Inventory_Import first...');
+      execSync(`npx wrangler d1 execute foreveryoung-db --local --command "DELETE FROM Online_Inventory_Import;"`, { stdio: 'inherit' });
       execSync(`npx wrangler d1 execute foreveryoung-db --local --file="${localSqlFile}"`, { stdio: 'inherit' });
+      console.log('Reconciling import table with Online_Inventory locally...');
+      execSync(`npx wrangler d1 execute foreveryoung-db --local --file="${reconcileFile}"`, { stdio: 'inherit' });
       console.log(`Local import completed in ${((Date.now() - start) / 1000).toFixed(2)}s`);
     } catch (err) {
       console.error('Local import error:', err.message);
@@ -185,8 +240,8 @@ async function run() {
     const start = Date.now();
     console.log(`Executing remote import of ${totalBatches} batches (each up to ${BATCH_SIZE} rows)...`);
     try {
-      console.log('Clearing remote table Online_Inventory first...');
-      execSync(`npx wrangler d1 execute foreveryoung-db --remote --command "DELETE FROM Online_Inventory;"`, { stdio: 'inherit' });
+      console.log('Clearing remote table Online_Inventory_Import first...');
+      execSync(`npx wrangler d1 execute foreveryoung-db --remote --command "DELETE FROM Online_Inventory_Import;"`, { stdio: 'inherit' });
     } catch (err) {
       console.error('Failed to clear remote table:', err.message);
       process.exit(1);
@@ -203,6 +258,14 @@ async function run() {
         console.log('Stopping remote import due to error.');
         process.exit(1);
       }
+    }
+    
+    console.log('Reconciling import table with Online_Inventory remotely...');
+    try {
+      execSync(`npx wrangler d1 execute foreveryoung-db --remote --file="${reconcileFile}"`, { stdio: 'inherit' });
+    } catch (err) {
+      console.error('Remote reconciliation error:', err.message);
+      process.exit(1);
     }
     console.log(`Remote import completed in ${((Date.now() - start) / 1000).toFixed(2)}s`);
   }

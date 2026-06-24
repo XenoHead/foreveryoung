@@ -4,13 +4,14 @@ export async function onRequestGet(context) {
     const { request, env } = context;
     const url = new URL(request.url);
     const db = env.DB;
-    
+
     const upc = url.searchParams.get('upc') || '';
     const artist = url.searchParams.get('artist') || '';
     const title = url.searchParams.get('album') || ''; // Map 'album' from UI to 'Title'
     const catalog = url.searchParams.get('catalog') || ''; // Map 'catalog' from UI to 'Vendor_Number' or 'Vendor'
     const generalQuery = url.searchParams.get('query') || '';
 
+    const sortOrder = url.searchParams.get('sort') || 'asc';
     if (!upc && !artist && !title && !catalog && !generalQuery) {
       return new Response(JSON.stringify({ error: "At least one search parameter must be provided." }), { status: 400 });
     }
@@ -42,7 +43,11 @@ export async function onRequestGet(context) {
       bindParams.push(`${wildcard}${generalQuery}${wildcard}`, `${wildcard}${generalQuery}${wildcard}`, `${wildcard}${generalQuery}${wildcard}`, `${wildcard}${generalQuery}${wildcard}`);
     }
 
-    query += " LIMIT 50"; // Limit results for safety
+    // Add sorting logic
+    const order = sortOrder.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
+    query += ` ORDER BY Artist ${order}, Title ${order}`;
+
+    query += " LIMIT 50"; // Limit results for safety and performance
 
     const stmt = db.prepare(query);
     const finalStmt = bindParams.length > 0 ? stmt.bind(...bindParams) : stmt;
@@ -68,22 +73,21 @@ export async function onRequestGet(context) {
         Condition_Media: 'N/A',
         Condition_Sleeve: 'N/A',
         Description: 'N/A',
-        Front_Image_URL: '',
-        Back_Image_URL: ''
+        Front_Image_URL: '', // No images for in-store items
+        Back_Image_URL: '',
+        _source: 'instore' // Add source to identify in-store items
       };
     });
 
-    return new Response(JSON.stringify({ success: true, results: mappedResults }), { 
+    return new Response(JSON.stringify({ success: true, results: mappedResults }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), { 
+    return new Response(JSON.stringify({ error: err.message }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });
   }
 }
-
-

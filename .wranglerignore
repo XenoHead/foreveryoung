@@ -2,3 +2,11 @@ db_batches
 *.sql
 key_map.txt
 *.mp4
+.env
+enrichment_log.txt
+run-nightly-enrichment.bat
+enrich_inventory.js
+import_to_d1.js
+import_to_d1.py
+.local_data/
+

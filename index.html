@@ -690,8 +690,74 @@
 
     .search-modal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    /* Results toolbar: sort + filter */
+    .results-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem 0;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(8,17,31,0.6);
+    }
+    .results-toolbar-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 0.2rem;
+      white-space: nowrap;
+    }
+    .rtb-btn {
+      padding: 0.32rem 0.85rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .rtb-btn:hover {
+      background: rgba(255,212,71,0.1);
+      border-color: rgba(255,212,71,0.35);
+      color: var(--yellow);
+    }
+    .rtb-btn.active {
+      background: rgba(255,212,71,0.18);
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+    .rtb-btn.filter-online.active {
+      background: rgba(44,108,255,0.18);
+      border-color: #2C6CFF;
+      color: #7fb3ff;
+    }
+    .rtb-btn.filter-instore.active {
+      background: rgba(46,204,113,0.18);
+      border-color: #2ecc71;
+      color: #2ecc71;
+    }
+    .rtb-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255,255,255,0.12);
+      margin: 0 0.2rem;
+    }
+    .results-count {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
     }
 
     .search-modal-card {
@@ -799,6 +865,56 @@
       background: #2ecc71;
       padding: 0.2rem 0.5rem;
       border-radius: 4px;
+    }
+
+    .in-store-sash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .in-store-sash-ribbon {
+      background: linear-gradient(135deg, var(--blueBright) 0%, #0A2C74 100%);
+      color: #FFF;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 23px;
+      transform: rotate(-45deg) translate(-26px, 8px);
+      width: 128px;
+      display: block;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      text-transform: uppercase;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-search-both-btn {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 212, 71, 0.3);
+      color: var(--yellow);
+      padding: 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      height: 34px;
+      box-sizing: border-box;
+    }
+
+    .nav-search-both-btn:hover {
+      background: var(--yellow);
+      color: var(--dark);
+      box-shadow: 0 0 10px rgba(255, 212, 71, 0.35);
     }
 
     /* Detail View Styles */
@@ -987,6 +1103,209 @@
     }
 
     /* =========================
+    HERO ACCORDION SIDE PANELS
+    ========================= */
+
+    /* Blink keyframe for closed-tab attention */
+    @keyframes tabPulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(255,212,71,0.4), inset 0 0 8px rgba(255,212,71,0.05); opacity: 1; }
+      50%        { box-shadow: 0 0 22px rgba(255,212,71,0.9), inset 0 0 14px rgba(255,212,71,0.2); opacity: 0.85; }
+    }
+    @keyframes tabPulseBlue {
+      0%, 100% { box-shadow: 0 0 8px rgba(44,108,255,0.5), inset 0 0 8px rgba(44,108,255,0.05); opacity: 1; }
+      50%        { box-shadow: 0 0 22px rgba(44,108,255,1), inset 0 0 14px rgba(44,108,255,0.2); opacity: 0.85; }
+    }
+    @keyframes drawerSlideLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+    @keyframes drawerSlideRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to   { transform: translateX(0);    opacity: 1; }
+    }
+
+    .hero-accordion {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: stretch;
+    }
+    .hero-accordion.left  { left: 0; flex-direction: row; }
+    .hero-accordion.right { right: 0; flex-direction: row-reverse; }
+
+    /* The blinking vertical tab */
+    .ha-tab {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      padding: 1.4rem 0.7rem;
+      background: rgba(8,17,31,0.82);
+      border: 1px solid rgba(255,212,71,0.35);
+      color: var(--yellow);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.25s;
+      animation: tabPulse 2s ease-in-out infinite;
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+    .hero-accordion.left  .ha-tab { border-radius: 0 6px 6px 0; border-left: none; }
+    .hero-accordion.right .ha-tab { border-radius: 6px 0 0 6px; border-right: none; }
+    .ha-tab.blue {
+      color: #7fb3ff;
+      border-color: rgba(44,108,255,0.45);
+      animation: tabPulseBlue 2.4s ease-in-out infinite;
+    }
+    .ha-tab:hover { background: rgba(255,212,71,0.08); }
+    .ha-tab.blue:hover { background: rgba(44,108,255,0.1); }
+
+    /* The sliding drawer panel */
+    .ha-drawer {
+      width: 300px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: rgba(6,13,24,0.96);
+      border: 1px solid rgba(255,212,71,0.2);
+      backdrop-filter: blur(14px);
+      padding: 0;
+      display: none;
+      flex-direction: column;
+    }
+    .ha-drawer.open {
+      display: flex;
+    }
+    .hero-accordion.left  .ha-drawer.open { animation: drawerSlideLeft  0.3s ease forwards; border-radius: 0 8px 8px 0; border-left: none; }
+    .hero-accordion.right .ha-drawer.open { animation: drawerSlideRight 0.3s ease forwards; border-radius: 8px 0 0 8px; border-right: none; }
+
+    /* Scrollbar styling */
+    .ha-drawer::-webkit-scrollbar { width: 4px; }
+    .ha-drawer::-webkit-scrollbar-track { background: transparent; }
+    .ha-drawer::-webkit-scrollbar-thumb { background: rgba(255,212,71,0.3); border-radius: 2px; }
+
+    /* Drawer header / sub-tabs (for HOT / RARE) */
+    .ha-drawer-header {
+      display: flex;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .ha-drawer-tab {
+      flex: 1;
+      padding: 0.7rem 0.5rem;
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .ha-drawer-tab.active {
+      color: var(--yellow);
+      border-bottom-color: var(--yellow);
+      background: rgba(255,212,71,0.05);
+    }
+    .ha-drawer-tab.active.blue-tab {
+      color: #7fb3ff;
+      border-bottom-color: #7fb3ff;
+      background: rgba(44,108,255,0.07);
+    }
+
+    /* Mini crate cards inside drawer */
+    .ha-card-list {
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex: 1;
+    }
+    .ha-card {
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .ha-card:hover {
+      background: rgba(255,212,71,0.07);
+      border-color: rgba(255,212,71,0.2);
+    }
+    .ha-card-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #1a2b45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .ha-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ha-card-thumb .ha-thumb-placeholder {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+    }
+    .ha-card-info { flex: 1; min-width: 0; }
+    .ha-card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ha-card-artist {
+      font-size: 0.7rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ha-card-price {
+      font-size: 0.72rem;
+      color: var(--yellow);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .ha-instore-badge {
+      font-size: 0.6rem;
+      background: rgba(44,108,255,0.25);
+      border: 1px solid rgba(44,108,255,0.5);
+      color: #7fb3ff;
+      border-radius: 3px;
+      padding: 1px 4px;
+      margin-top: 2px;
+      display: inline-block;
+    }
+    .ha-empty {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-style: italic;
+      padding: 2rem 1rem;
+    }
+    /* Hide accordions on very small screens */
+    @media (max-width: 700px) { .hero-accordion { display: none; } }
+
+    /* =========================
     FEATURED CRATE SECTION
     ========================= */
     .featured-crate-section {
@@ -1080,34 +1399,8 @@
       transform: scale(1.08) rotate(1deg);
     }
     
-    .crate-card-vinyl-sleeve {
-      position: absolute;
-      right: 15px;
-      bottom: 15px;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #111;
-      border: 2px solid #333;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-      transition: transform 0.4s ease;
-    }
-    
-    .crate-card-vinyl-sleeve::after {
-      content: "";
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--yellow);
-    }
-    
-    .crate-card:hover .crate-card-vinyl-sleeve {
-      transform: rotate(180deg) scale(1.1);
-    }
+
+
     
     .crate-card-info {
       padding: 1.5rem;
@@ -1177,12 +1470,18 @@
   <nav>
     <div class="nav-inner">
       <div class="nav-search-container">
-        <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
         <label class="nav-search-exact-label" style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
           <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact text
         </label>
-        <button id="nav-search-online-btn" class="nav-search-btn online">Search Online</button>
-        <button id="nav-search-instore-btn" class="nav-search-btn instore">Search In-Store</button>
+        <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
+        <button id="nav-search-both-btn" class="nav-search-both-btn" title="Search Both Online & In-Store">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button id="nav-search-online-btn" class="nav-search-btn online">Online</button>
+        <button id="nav-search-instore-btn" class="nav-search-btn instore">In-Store</button>
       </div>
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -1197,6 +1496,28 @@
 
   <section class="hero">
     <div class="hero-image"></div>
+
+    <!-- LEFT ACCORDION: New Releases -->
+    <div class="hero-accordion left" id="ha-new">
+      <div class="ha-drawer" id="ha-new-drawer">
+        <div class="ha-card-list" id="ha-new-list"></div>
+      </div>
+      <div class="ha-tab" id="ha-new-tab" onclick="toggleAccordion('new')">&#9670; NEW RELEASES</div>
+    </div>
+
+    <!-- RIGHT ACCORDION: Hot Albums & Rare Finds -->
+    <div class="hero-accordion right" id="ha-right">
+      <div class="ha-tab blue" id="ha-right-tab" onclick="toggleAccordion('right')">HOT &amp; RARE &#9670;</div>
+      <div class="ha-drawer" id="ha-right-drawer">
+        <div class="ha-drawer-header">
+          <div class="ha-drawer-tab active" id="ha-hot-tab" onclick="switchRightTab('hot')">&#128293; Hot Albums</div>
+          <div class="ha-drawer-tab" id="ha-rare-tab" onclick="switchRightTab('rare')">&#128142; Rare Finds</div>
+        </div>
+        <div class="ha-card-list" id="ha-hot-list"></div>
+        <div class="ha-card-list" id="ha-rare-list" style="display:none"></div>
+      </div>
+    </div>
+
     <div class="hero-content">
       <div class="hero-logo neon">
         <img src="images/fyr-logo-removebg-preview.png" alt="Forever Young Records">
@@ -1225,7 +1546,7 @@
         </div>
         <div class="bottom-item">
           <h3>Since 1984</h3>
-          <p>One of Texas’ legendary independent music destinations</p>
+          <p>One of Texas&#8217; legendary independent music destinations</p>
         </div>
         <div class="bottom-item">
           <h3>Collectors</h3>
@@ -1280,64 +1601,102 @@
     }
     updateTicker();
     setInterval(updateTicker, 60000); // Check every minute
+    
+    // â”€â”€ Hero Accordion helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    let haNewOpen = false, haRightOpen = false, haRightActive = 'hot';
 
-    // Featured Crate Fetch & Render
+    function toggleAccordion(side) {
+      if (side === 'new') {
+        haNewOpen = !haNewOpen;
+        const drawer = document.getElementById('ha-new-drawer');
+        const tab    = document.getElementById('ha-new-tab');
+        drawer.classList.toggle('open', haNewOpen);
+        tab.style.animationPlayState = haNewOpen ? 'paused' : 'running';
+      } else {
+        haRightOpen = !haRightOpen;
+        const drawer = document.getElementById('ha-right-drawer');
+        const tab    = document.getElementById('ha-right-tab');
+        drawer.classList.toggle('open', haRightOpen);
+        tab.style.animationPlayState = haRightOpen ? 'paused' : 'running';
+      }
+    }
+
+    function switchRightTab(which) {
+      haRightActive = which;
+      document.getElementById('ha-hot-list').style.display  = which === 'hot'  ? 'flex' : 'none';
+      document.getElementById('ha-rare-list').style.display = which === 'rare' ? 'flex' : 'none';
+      document.getElementById('ha-hot-tab').classList.toggle('active', which === 'hot');
+      document.getElementById('ha-rare-tab').classList.toggle('active', which === 'rare');
+    }
+
+    function buildHaCard(item) {
+      const isInstore = item._source === 'instore' || !item.Seller_Reference_Number;
+      const el = document.createElement('div');
+      el.className = 'ha-card';
+
+      // thumbnail
+      const thumbEl = document.createElement('div');
+      thumbEl.className = 'ha-card-thumb';
+      if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
+        thumbEl.innerHTML = `<img src="${item.Front_Image_URL}" alt="" loading="lazy">`;
+      } else {
+        const colors = ['#2C6CFF','#0A2C74','#FFD447','#2ecc71','#e74c3c','#9b59b6'];
+        thumbEl.style.background = colors[(item.id || 0) % colors.length];
+        thumbEl.innerHTML = `<span class="ha-thumb-placeholder">${item.Format || 'LP'}</span>`;
+      }
+
+      // info
+      const infoEl = document.createElement('div');
+      infoEl.className = 'ha-card-info';
+      infoEl.innerHTML = `
+        <div class="ha-card-title">${item.Title || 'Unknown'}</div>
+        <div class="ha-card-artist">${item.Artist || ''}</div>
+        ${isInstore ? '<span class="ha-instore-badge">In Store</span>' : ''}
+      `;
+
+      // price
+      const priceEl = document.createElement('div');
+      priceEl.className = 'ha-card-price';
+      priceEl.textContent = '$' + (item.Price || 0).toFixed(2);
+
+      el.appendChild(thumbEl);
+      el.appendChild(infoEl);
+      el.appendChild(priceEl);
+
+      el.addEventListener('click', () => {
+        searchResultsModal.style.display = 'flex';
+        searchResultsModalGrid.style.display = 'none';
+        searchResultsModalLoading.style.display = 'none';
+        searchResultsModalBody.style.display = 'block';
+        item._source = isInstore ? 'instore' : 'online';
+        openDetails(item);
+      });
+      return el;
+    }
+
+    function populateHaList(containerId, items) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      el.innerHTML = '';
+      if (!items || items.length === 0) {
+        el.innerHTML = '<div class="ha-empty">No items in this crate yet.</div>';
+        return;
+      }
+      items.forEach(item => el.appendChild(buildHaCard(item)));
+    }
+
+    // ── Featured Crate Fetch & Render ─────────────────────────────────
     async function loadFeaturedCrate() {
-      const grid = document.getElementById('featured-crate-grid');
       try {
         const response = await fetch('/api/featured');
         const data = await response.json();
-        if (data.success && data.results && data.results.length > 0) {
-          grid.innerHTML = '';
-          data.results.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'crate-card';
-            
-            let artHtml = '';
-            if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
-              artHtml = `<img src="${item.Front_Image_URL}" alt="${item.Title}" class="crate-card-art">`;
-            } else {
-              const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
-              const randomColor = colors[item.id % colors.length];
-              artHtml = `
-                <div class="crate-card-art" style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                  <span style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; opacity: 0.25; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
-                </div>
-              `;
-            }
-
-            card.innerHTML = `
-              <div class="crate-card-art-wrapper">
-                ${artHtml}
-                <div class="crate-card-vinyl-sleeve"></div>
-              </div>
-              <div class="crate-card-info">
-                <div class="crate-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
-                <div class="crate-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
-                <div class="crate-card-meta">
-                  <span class="crate-card-format">${item.Format || 'LP'}</span>
-                  <span class="crate-card-price">$${(item.Price || 0.00).toFixed(2)}</span>
-                </div>
-              </div>
-            `;
-
-            card.addEventListener('click', () => {
-              searchResultsModal.style.display = 'flex';
-              searchResultsModalGrid.style.display = 'none';
-              searchResultsModalLoading.style.display = 'none';
-              searchResultsModalBody.style.display = 'block';
-              lastSearchTarget = 'online';
-              openDetails(item);
-            });
-
-            grid.appendChild(card);
-          });
-        } else {
-          grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--muted); padding: 3rem; font-style: italic;">No featured items found in this crate.</div>';
+        if (data.success && data.results) {
+          populateHaList('ha-new-list',  data.results.new  || []);
+          populateHaList('ha-hot-list',  data.results.hot  || []);
+          populateHaList('ha-rare-list', data.results.rare || []);
         }
       } catch (err) {
-        console.error("Error loading featured crate", err);
-        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #e74c3c; padding: 3rem;">Failed to load featured crate.</div>';
+        console.error('Error loading featured crates', err);
       }
     }
     loadFeaturedCrate();
@@ -1347,7 +1706,7 @@
   <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
     <div class="search-results-modal-content">
       <div class="search-results-modal-header">
-        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
+        <h2 id="hot-tips-modal-title">ðŸ”¥ Hot Tips & Tricks</h2>
         <div style="display: flex; align-items: center; gap: 1.5rem;">
           <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1387,6 +1746,26 @@
         <p style="color: var(--yellow); font-family: 'Outfit', sans-serif;">Scanning catalog archives...</p>
       </div>
       <div id="search-results-modal-body" class="search-results-modal-body">
+        <!-- Results toolbar: sort + filter -->
+        <div class="results-toolbar" id="results-toolbar" style="display:none">
+          <span class="results-toolbar-label">Sort:</span>
+          <button class="rtb-btn sort-btn active" data-sort="location">Location</button>
+          <button class="rtb-btn sort-btn" data-sort="price">Price</button>
+          <button class="rtb-btn sort-btn" data-sort="date">Date</button>
+          <button class="rtb-btn sort-dir-btn" id="sort-dir-btn" title="Toggle Sort Order" data-dir="asc" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.32rem 0.6rem;">
+            <span id="sort-dir-text" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Asc</span>
+            <svg id="sort-dir-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s; transform: rotate(0deg);">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+          </button>
+          <div class="rtb-divider"></div>
+          <span class="results-toolbar-label">Show:</span>
+          <button class="rtb-btn filter-btn filter-all active" data-filter="all">All</button>
+          <button class="rtb-btn filter-btn filter-online" data-filter="online">Online</button>
+          <button class="rtb-btn filter-btn filter-instore" data-filter="instore">In-Store</button>
+          <span class="results-count" id="results-count"></span>
+        </div>
         <div id="search-results-modal-grid" class="search-modal-grid"></div>
 
         <!-- Detail View Panel -->
@@ -1467,6 +1846,7 @@
   <script>
     // Navigation Search Bar & Modal logic
     const navSearchInput = document.getElementById('nav-search-input');
+    const navSearchBothBtn = document.getElementById('nav-search-both-btn');
     const navSearchOnlineBtn = document.getElementById('nav-search-online-btn');
     const navSearchInstoreBtn = document.getElementById('nav-search-instore-btn');
 
@@ -1484,6 +1864,113 @@
     const hotTipsModalMaximize = document.getElementById('hot-tips-modal-maximize');
 
     let lastSearchTarget = null;
+    let allSearchResults = [];   // stores raw results for sort/filter
+    let activeSort = 'location'; // location | price | date
+    let activeFilter = 'all';    // all | online | instore
+    let activeSortDir = 'asc';   // asc | desc
+
+    // ── Results toolbar wiring ────────────────────────────────────────
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('active')) {
+          activeSortDir = activeSortDir === 'asc' ? 'desc' : 'asc';
+          updateSortDirUI();
+        } else {
+          document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeSort = btn.dataset.sort;
+          activeSortDir = 'asc';
+          updateSortDirUI();
+        }
+        applyResultsView();
+      });
+    });
+
+    const sortDirBtn = document.getElementById('sort-dir-btn');
+    const sortDirText = document.getElementById('sort-dir-text');
+    const sortDirIcon = document.getElementById('sort-dir-icon');
+
+    if (sortDirBtn) {
+      sortDirBtn.addEventListener('click', () => {
+        activeSortDir = activeSortDir === 'asc' ? 'desc' : 'asc';
+        updateSortDirUI();
+        applyResultsView();
+      });
+    }
+
+    function updateSortDirUI() {
+      if (!sortDirText || !sortDirIcon) return;
+      if (activeSortDir === 'asc') {
+        sortDirText.textContent = 'Asc';
+        sortDirIcon.style.transform = 'rotate(0deg)';
+      } else {
+        sortDirText.textContent = 'Desc';
+        sortDirIcon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        applyResultsView();
+      });
+    });
+
+    function applyResultsView() {
+      // Filter
+      let items = allSearchResults.slice();
+      if (activeFilter === 'online')  items = items.filter(i => i._source !== 'instore');
+      if (activeFilter === 'instore') items = items.filter(i => i._source === 'instore');
+
+      const dirMultiplier = activeSortDir === 'asc' ? 1 : -1;
+
+      // Sort
+      if (activeSort === 'price') {
+        items.sort((a, b) => {
+          const pa = a.Price || 0;
+          const pb = b.Price || 0;
+          return (pa - pb) * dirMultiplier;
+        });
+      } else if (activeSort === 'date') {
+        items.sort((a, b) => {
+          const da = a.Release_Date || a.Year || '';
+          const db = b.Release_Date || b.Year || '';
+          return da.localeCompare(db) * dirMultiplier;
+        });
+      } else {
+        // location: instore first, then online
+        items.sort((a, b) => {
+          const ai = a._source === 'instore' ? 0 : 1;
+          const bi = b._source === 'instore' ? 0 : 1;
+          return (ai - bi) * dirMultiplier;
+        });
+      }
+
+      searchResultsModalGrid.innerHTML = '';
+      if (items.length === 0) {
+        searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#B6C0D7;">No results match this filter.</div>';
+      } else {
+        items.forEach(item => searchResultsModalGrid.appendChild(createSearchCard(item)));
+      }
+      const countEl = document.getElementById('results-count');
+      if (countEl) countEl.textContent = items.length + ' result' + (items.length !== 1 ? 's' : '');
+    }
+
+    function showToolbar(hasResults) {
+      const tb = document.getElementById('results-toolbar');
+      if (tb) tb.style.display = hasResults ? 'flex' : 'none';
+    }
+
+    function resetToolbar() {
+      activeSort = 'location';
+      activeFilter = 'all';
+      activeSortDir = 'asc';
+      updateSortDirUI();
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === 'location'));
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+    }
 
     function buildCheckoutUrl(item) {
       const p = new URLSearchParams();
@@ -1497,7 +1984,7 @@
       p.set('genre', item.Genre || '');
       p.set('condMedia', item.Condition_Media || '');
       p.set('condSleeve', item.Condition_Sleeve || '');
-      if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL') p.set('image', item.Front_Image_URL);
+      if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) p.set('image', item.Front_Image_URL);
       if (item.Seller_Reference_Number) p.set('ref', item.Seller_Reference_Number);
       return 'checkout.html?' + p.toString();
     }
@@ -1566,6 +2053,98 @@
       }
     });
 
+    function createSearchCard(item) {
+      const card = document.createElement('div');
+      card.className = 'search-modal-card';
+      const isInstore = item._source === 'instore';
+
+      let artHtml = '';
+      if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
+        artHtml = `<img src="${item.Front_Image_URL}" alt="${item.Title}">`;
+      } else {
+        const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
+        const randomColor = colors[item.id % colors.length];
+        
+        if (isInstore) {
+          artHtml = `
+            <div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: 'Oswald', sans-serif; font-size: 3rem; opacity: 0.15; font-weight: 700; color: #fff;">FYR</span>
+            </div>
+          `;
+        } else {
+          artHtml = `
+            <div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
+            </div>
+          `;
+        }
+      }
+
+      // Add "In Store" banner overlay if it's an in-store item
+      const bannerHtml = isInstore ? `<div class="in-store-sash"><span class="in-store-sash-ribbon">In Store</span></div>` : '';
+
+      if (isInstore) {
+        card.innerHTML = `
+          <div class="search-modal-card-art" style="height: 120px;">
+            ${bannerHtml}
+            ${artHtml}
+          </div>
+          <div class="search-modal-card-info">
+            <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
+            <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
+            <div class="search-modal-card-details">
+              <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
+              <span><strong>UPC:</strong> ${item.Bar_Code || 'N/A'}</span>
+              <span><strong>Year:</strong> ${item.Release_Date || 'N/A'}</span>
+            </div>
+            <div class="search-modal-card-price">
+              <span>$${(item.Price || 0).toFixed(2)}</span>
+              <div style="display: flex; align-items: center; gap: 0.4rem;">
+                <span class="search-modal-card-badge">In Stock: ${item.Quantity || 0}</span>
+                <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        card.innerHTML = `
+          <div class="search-modal-card-art">
+            ${bannerHtml}
+            ${artHtml}
+          </div>
+          <div class="search-modal-card-info">
+            <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
+            <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
+            <div class="search-modal-card-details">
+              <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
+              <span><strong>Label:</strong> ${item.Label || 'N/A'} (${item.Release_Catalog_Number || 'N/A'})</span>
+              <span><strong>Country:</strong> ${item.Release_Country || 'N/A'}</span>
+              <span><strong>Genre:</strong> ${item.Genre || 'N/A'}</span>
+            </div>
+            <div class="search-modal-card-price">
+              <span>$${(item.Price || 0.00).toFixed(2)}</span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button class="search-modal-card-btn buy-btn">Buy Online</button>
+                <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        card.querySelector('.buy-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.location.href = buildCheckoutUrl(item);
+        });
+      }
+
+      card.querySelector('.details-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDetails(item);
+      });
+
+      return card;
+    }
+
     async function triggerSearch(target, keepOpen = false) {
       const query = navSearchInput.value.trim();
       if (!query) return;
@@ -1588,129 +2167,79 @@
       if (target === 'online') {
         searchResultsModalTitle.textContent = `Online Catalog Results: "${query}"`;
         try {
-          const response = await fetch(`/api/online-search?query=${encodeURIComponent(query)}&type=all&limit=20${exact ? '&exact=true' : ''}`);
+          const response = await fetch(`/api/online-search?query=${encodeURIComponent(query)}&type=all&limit=40${exact ? '&exact=true' : ''}`);
           const data = await response.json();
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
-
           if (data.success && data.results && data.results.length > 0) {
-            data.results.forEach(item => {
-              const card = document.createElement('div');
-              card.className = 'search-modal-card';
-
-              let artHtml = '';
-              if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
-                artHtml = `<img src="${item.Front_Image_URL}" alt="${item.Title}">`;
-              } else {
-                const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
-                const randomColor = colors[item.id % colors.length];
-                artHtml = `
-                  <div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
-                  </div>
-                `;
-              }
-
-              const buyFind = item.Seller_Reference_Number || `${item.Artist} ${item.Title}`;
-              const buyUrl = `https://www.musicstack.com/my/index.cgi?seller=725319&currency=USD&find=${encodeURIComponent(buyFind)}`;
-
-              card.innerHTML = `
-                <div class="search-modal-card-art">
-                  ${artHtml}
-                </div>
-                <div class="search-modal-card-info">
-                  <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
-                  <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
-                  <div class="search-modal-card-details">
-                    <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
-                    <span><strong>Label:</strong> ${item.Label || 'N/A'} (${item.Release_Catalog_Number || 'N/A'})</span>
-                    <span><strong>Country:</strong> ${item.Release_Country || 'N/A'}</span>
-                    <span><strong>Genre:</strong> ${item.Genre || 'N/A'}</span>
-                  </div>
-                  <div class="search-modal-card-price">
-                    <span>$${(item.Price || 0.00).toFixed(2)}</span>
-                    <div style="display: flex; gap: 0.4rem;">
-                      <button class="search-modal-card-btn buy-btn">Buy Online</button>
-                      <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
-                    </div>
-                  </div>
-                </div>
-              `;
-
-              card.querySelector('.buy-btn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                window.location.href = buildCheckoutUrl(item);
-              });
-
-              card.querySelector('.details-btn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                openDetails(item);
-              });
-
-              searchResultsModalGrid.appendChild(card);
-            });
+            allSearchResults = data.results.map(r => ({ ...r, _source: 'online' }));
+            resetToolbar();
+            showToolbar(true);
+            applyResultsView();
           } else {
-            searchResultsModalGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #B6C0D7;">No matching online items found.</div>';
+            allSearchResults = [];
+            showToolbar(false);
+            searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#B6C0D7;">No matching online items found.</div>';
           }
         } catch (err) {
           console.error(err);
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
-          searchResultsModalGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #e74c3c;">Failed to load online search results.</div>';
+          allSearchResults = []; showToolbar(false);
+          searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#e74c3c;">Failed to load online search results.</div>';
         }
-      } else {
+      } else if (target === 'instore') {
         searchResultsModalTitle.textContent = `In-Store Inventory Results: "${query}"`;
         try {
-          const response = await fetch(`/api/inventory-search?query=${encodeURIComponent(query)}`);
+          const response = await fetch(`/api/inventory-search?query=${encodeURIComponent(query)}&limit=40`);
           const data = await response.json();
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
-
           if (data.success && data.results && data.results.length > 0) {
-            data.results.forEach(item => {
-              const card = document.createElement('div');
-              card.className = 'search-modal-card';
-
-              const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
-              const randomColor = colors[item.id % colors.length];
-
-              card.innerHTML = `
-                <div class="search-modal-card-art" style="background: ${randomColor}; height: 120px;">
-                  <span style="font-family: 'Oswald', sans-serif; font-size: 3rem; opacity: 0.15; font-weight: 700; color: #fff;">FYR</span>
-                </div>
-                <div class="search-modal-card-info">
-                  <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
-                  <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
-                  <div class="search-modal-card-details">
-                    <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
-                    <span><strong>UPC:</strong> ${item.Bar_Code || 'N/A'}</span>
-                    <span><strong>Year:</strong> ${item.Release_Date || 'N/A'}</span>
-                  </div>
-                  <div class="search-modal-card-price">
-                    <span>$${(item.Price || 0).toFixed(2)}</span>
-                    <div style="display: flex; align-items: center; gap: 0.4rem;">
-                      <span class="search-modal-card-badge">In Stock: ${item.Quantity || 0}</span>
-                      <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
-                    </div>
-                  </div>
-                </div>
-              `;
-
-              card.querySelector('.details-btn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                openDetails(item);
-              });
-
-              searchResultsModalGrid.appendChild(card);
-            });
+            allSearchResults = data.results.map(r => ({ ...r, _source: 'instore' }));
+            resetToolbar();
+            showToolbar(true);
+            applyResultsView();
           } else {
-            searchResultsModalGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #B6C0D7;">No matching in-store items found.</div>';
+            allSearchResults = [];
+            showToolbar(false);
+            searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#B6C0D7;">No matching in-store items found.</div>';
           }
         } catch (err) {
           console.error(err);
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
-          searchResultsModalGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #e74c3c;">Failed to load in-store search results.</div>';
+          allSearchResults = []; showToolbar(false);
+          searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#e74c3c;">Failed to load in-store search results.</div>';
+        }
+      } else if (target === 'both') {
+        searchResultsModalTitle.textContent = `All Catalog Results: "${query}"`;
+        try {
+          const onlinePromise = fetch(`/api/online-search?query=${encodeURIComponent(query)}&type=all&limit=40${exact ? '&exact=true' : ''}`).then(r => r.json()).catch(err => { console.error(err); return { success: false, results: [] }; });
+          const instorePromise = fetch(`/api/inventory-search?query=${encodeURIComponent(query)}&limit=40`).then(r => r.json()).catch(err => { console.error(err); return { success: false, results: [] }; });
+          
+          const [onlineData, instoreData] = await Promise.all([onlinePromise, instorePromise]);
+          searchResultsModalLoading.style.display = 'none';
+          searchResultsModalBody.style.display = 'block';
+
+          const onlineResults = (onlineData?.success && onlineData.results) ? onlineData.results.map(r => ({ ...r, _source: 'online' })) : [];
+          const instoreResults = (instoreData?.success && instoreData.results) ? instoreData.results.map(r => ({ ...r, _source: 'instore' })) : [];
+          allSearchResults = [...instoreResults, ...onlineResults];
+
+          if (allSearchResults.length > 0) {
+            resetToolbar();
+            showToolbar(true);
+            applyResultsView();
+          } else {
+            showToolbar(false);
+            searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#B6C0D7;">No matching items found in-store or online.</div>';
+          }
+        } catch (err) {
+          console.error(err);
+          searchResultsModalLoading.style.display = 'none';
+          searchResultsModalBody.style.display = 'block';
+          allSearchResults = []; showToolbar(false);
+          searchResultsModalGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#e74c3c;">Failed to load search results.</div>';
         }
       }
     }
@@ -1750,7 +2279,7 @@
       
       const actionsContainer = document.getElementById('detail-actions-container');
       actionsContainer.innerHTML = '';
-      if (lastSearchTarget === 'online') {
+      if (item._source === 'online') {
         const buyBtn = document.createElement('button');
         buyBtn.className = 'search-modal-card-btn buy-btn';
         buyBtn.textContent = 'Buy Online';
@@ -1768,7 +2297,7 @@
       document.getElementById('detail-spec-genre').textContent = cleanVal(item.Genre);
       document.getElementById('detail-spec-label').textContent = cleanVal(item.Label);
       const catalogLabel = document.getElementById('detail-spec-catalog-label');
-      if (lastSearchTarget === 'online') {
+      if (item._source === 'online') {
         catalogLabel.textContent = 'Catalog Number';
       } else {
         catalogLabel.textContent = 'Vendor Number';
@@ -1781,7 +2310,7 @@
       document.getElementById('detail-spec-cond-media').textContent = cleanVal(item.Condition_Media);
       document.getElementById('detail-spec-cond-sleeve').textContent = cleanVal(item.Condition_Sleeve);
       const refContainer = document.getElementById('detail-spec-ref-container');
-      if (lastSearchTarget === 'online') {
+      if (item._source === 'online') {
         refContainer.style.display = 'block';
         document.getElementById('detail-spec-ref').textContent = cleanVal(item.Seller_Reference_Number);
       } else {
@@ -1805,12 +2334,13 @@
       searchResultsModalGrid.style.display = 'grid';
     });
 
+    navSearchBothBtn.addEventListener('click', () => triggerSearch('both'));
     navSearchOnlineBtn.addEventListener('click', () => triggerSearch('online'));
     navSearchInstoreBtn.addEventListener('click', () => triggerSearch('instore'));
     navSearchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        triggerSearch('online'); // default to online search
+        triggerSearch('both'); // default to searching both
       }
     });
 

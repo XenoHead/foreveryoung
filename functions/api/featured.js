@@ -3,31 +3,70 @@ export async function onRequestGet(context) {
     const { env } = context;
     const db = env.DB;
     
-    // 1. Get the featured references setting
-    const setting = await db.prepare("SELECT value FROM Settings WHERE key = ?").bind("featured_items").first();
+    // Fetch values for new, hot, rare crates
+    const results = { new: [], hot: [], rare: [] };
     
-    let items = [];
-    if (setting && setting.value) {
-      const refs = setting.value.split(',').map(r => r.trim()).filter(r => r.length > 0);
-      if (refs.length > 0) {
-        const placeholders = refs.map(() => '?').join(',');
-        const query = `SELECT * FROM Online_Inventory WHERE Seller_Reference_Number IN (${placeholders}) OR Bar_Code IN (${placeholders})`;
-        const result = await db.prepare(query).bind(...refs, ...refs).all();
-        items = result.results;
+    for (const k of ["new", "hot", "rare"]) {
+      const setting = await db.prepare("SELECT value FROM Settings WHERE key = ?").bind("featured_" + k).first();
+      let items = [];
+      if (setting && setting.value) {
+        const refs = setting.value.split(',').map(r => r.trim()).filter(r => r.length > 0);
+        if (refs.length > 0) {
+          // 1. Fetch from Online_Inventory
+          const placeholders = refs.map(() => '?').join(',');
+          const query = `SELECT * FROM Online_Inventory WHERE Seller_Reference_Number IN (${placeholders}) OR Bar_Code IN (${placeholders})`;
+          const result = await db.prepare(query).bind(...refs, ...refs).all();
+          
+          const onlineItems = (result.results || []).map(item => ({ ...item, _source: 'online' }));
+          
+          // Identify missing references/UPCs
+          const foundRefs = new Set();
+          onlineItems.forEach(item => {
+            if (item.Seller_Reference_Number) foundRefs.add(item.Seller_Reference_Number.toLowerCase());
+            if (item.Bar_Code) foundRefs.add(item.Bar_Code.toLowerCase());
+          });
+          
+          const missingRefs = refs.filter(r => !foundRefs.has(r.toLowerCase()));
+          let instoreItems = [];
+          
+          if (missingRefs.length > 0) {
+            // 2. Fetch from Inventory (In-Store)
+            const instorePlaceholders = missingRefs.map(() => '?').join(',');
+            const instoreQuery = `SELECT * FROM Inventory WHERE UPC IN (${instorePlaceholders}) OR Vendor_Number IN (${instorePlaceholders})`;
+            const instoreResult = await db.prepare(instoreQuery).bind(...missingRefs, ...missingRefs).all();
+            
+            instoreItems = (instoreResult.results || []).map(item => ({
+              id: item.id,
+              Artist: item.Artist,
+              Title: item.Title,
+              Format: item.Format,
+              Price: parseFloat(item.SRP) || 0.00,
+              Bar_Code: item.UPC,
+              Quantity: item.Quantity,
+              _source: 'instore'
+            }));
+          }
+          
+          items = [...onlineItems, ...instoreItems];
+        }
+      }
+      results[k] = items;
+    }
+    
+    // Fallback logic if any crate is empty
+    for (const k of ["new", "hot", "rare"]) {
+      if (results[k].length === 0) {
+        // Fallback: load latest 6 items
+        const fallbackResult = await db.prepare(`
+          SELECT * FROM Online_Inventory 
+          WHERE Seller_Reference_Number IS NOT NULL AND Seller_Reference_Number != ''
+          ORDER BY id DESC LIMIT 6
+        `).all();
+        results[k] = (fallbackResult.results || []).map(item => ({ ...item, _source: 'online' }));
       }
     }
     
-    // Fallback: If no items found, return 6 default items
-    if (items.length === 0) {
-      const fallbackResult = await db.prepare(`
-        SELECT * FROM Online_Inventory 
-        WHERE Seller_Reference_Number IS NOT NULL AND Seller_Reference_Number != ''
-        ORDER BY id DESC LIMIT 6
-      `).all();
-      items = fallbackResult.results;
-    }
-    
-    return new Response(JSON.stringify({ success: true, results: items }), {
+    return new Response(JSON.stringify({ success: true, results }), {
       status: 200,
       headers: { 
         "Content-Type": "application/json",

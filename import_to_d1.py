@@ -216,7 +216,7 @@ def main():
 
                     # Escape for SQL
                     sql = (
-                        f"INSERT INTO Online_Inventory ("
+                        f"INSERT INTO Online_Inventory_Import ("
                         f"id, Artist, Title, Format, Discogs_ID, Price, Description, "
                         f"Condition_Media, Condition_Sleeve, Seller_Reference_Number, Quantity, "
                         f"Label, Release_Catalog_Number, Release_Country, Release_Date, Genre, "
@@ -277,14 +277,69 @@ def main():
 
     print(f"\n--- Phase 2: Importing to D1 database ({mode}) ---")
     
-    # 1. Clear Online_Inventory table
-    print("Clearing Online_Inventory first...")
-    run_cmd(f'npx wrangler d1 execute {DB_NAME} {mode_flag} --command "DELETE FROM Online_Inventory;"')
+    reconcile_sql = """PRAGMA foreign_keys=OFF;
+
+-- 1. Delete rows from Online_Inventory that are no longer in the import file (excluding empty reference numbers)
+DELETE FROM Online_Inventory 
+WHERE Seller_Reference_Number IS NOT NULL 
+  AND Seller_Reference_Number NOT IN (
+    SELECT Seller_Reference_Number 
+    FROM Online_Inventory_Import 
+    WHERE Seller_Reference_Number IS NOT NULL
+  );
+
+-- 2. Delete empty-ref rows from Online_Inventory
+DELETE FROM Online_Inventory WHERE Seller_Reference_Number IS NULL OR Seller_Reference_Number = '';
+
+-- 3. Upsert records from Online_Inventory_Import to Online_Inventory
+INSERT INTO Online_Inventory (
+  Artist, Title, Format, Discogs_ID, Price, Description, 
+  Condition_Media, Condition_Sleeve, Seller_Reference_Number, Quantity, 
+  Label, Release_Catalog_Number, Release_Country, Release_Date, Genre, 
+  Front_Image_URL, Back_Image_URL, YouTube_Audio_Image_URLs, Bar_Code, Number_In_Set
+)
+SELECT 
+  Artist, Title, Format, Discogs_ID, Price, Description, 
+  Condition_Media, Condition_Sleeve, Seller_Reference_Number, Quantity, 
+  Label, Release_Catalog_Number, Release_Country, Release_Date, Genre, 
+  Front_Image_URL, Back_Image_URL, YouTube_Audio_Image_URLs, Bar_Code, Number_In_Set
+FROM Online_Inventory_Import WHERE true
+ON CONFLICT(Seller_Reference_Number) WHERE Seller_Reference_Number IS NOT NULL DO UPDATE SET
+  Artist = excluded.Artist,
+  Title = excluded.Title,
+  Format = excluded.Format,
+  Price = excluded.Price,
+  Quantity = excluded.Quantity,
+  Condition_Media = excluded.Condition_Media,
+  Condition_Sleeve = excluded.Condition_Sleeve,
+  Discogs_ID = COALESCE(NULLIF(NULLIF(Online_Inventory.Discogs_ID, ''), 'NULL'), excluded.Discogs_ID),
+  Description = COALESCE(NULLIF(NULLIF(Online_Inventory.Description, ''), 'NULL'), excluded.Description),
+  Label = COALESCE(NULLIF(NULLIF(Online_Inventory.Label, ''), 'NULL'), excluded.Label),
+  Release_Catalog_Number = COALESCE(NULLIF(NULLIF(Online_Inventory.Release_Catalog_Number, ''), 'NULL'), excluded.Release_Catalog_Number),
+  Release_Country = COALESCE(NULLIF(NULLIF(Online_Inventory.Release_Country, ''), 'NULL'), excluded.Release_Country),
+  Release_Date = COALESCE(NULLIF(NULLIF(Online_Inventory.Release_Date, ''), 'NULL'), excluded.Release_Date),
+  Genre = COALESCE(NULLIF(NULLIF(Online_Inventory.Genre, ''), 'NULL'), excluded.Genre),
+  Front_Image_URL = COALESCE(NULLIF(NULLIF(Online_Inventory.Front_Image_URL, ''), 'NULL'), excluded.Front_Image_URL),
+  Back_Image_URL = COALESCE(NULLIF(NULLIF(Online_Inventory.Back_Image_URL, ''), 'NULL'), excluded.Back_Image_URL),
+  YouTube_Audio_Image_URLs = COALESCE(NULLIF(NULLIF(Online_Inventory.YouTube_Audio_Image_URLs, ''), 'NULL'), excluded.YouTube_Audio_Image_URLs),
+  Bar_Code = COALESCE(NULLIF(NULLIF(Online_Inventory.Bar_Code, ''), 'NULL'), excluded.Bar_Code),
+  Number_In_Set = COALESCE(NULLIF(NULLIF(Online_Inventory.Number_In_Set, ''), 'NULL'), excluded.Number_In_Set);
+"""
+
+    reconcile_file = os.path.join(output_dir, 'reconcile.sql')
+    with open(reconcile_file, 'w', encoding='utf-8') as rf:
+        rf.write(reconcile_sql)
+
+    # 1. Clear Online_Inventory_Import table
+    print("Clearing Online_Inventory_Import first...")
+    run_cmd(f'npx wrangler d1 execute {DB_NAME} {mode_flag} --command "DELETE FROM Online_Inventory_Import;"')
 
     if is_local:
         # For local, execute the single large SQL file
         print(f"Executing single local import from {local_sql_file}...")
         run_cmd(f'npx wrangler d1 execute {DB_NAME} --local --file="{local_sql_file}"')
+        print("Reconciling import table with Online_Inventory locally...")
+        run_cmd(f'npx wrangler d1 execute {DB_NAME} --local --file="{reconcile_file}"')
     else:
         # For remote, execute the batch files sequentially to avoid request limits
         total_batches = batch_index
@@ -293,6 +348,8 @@ def main():
             batch_file = os.path.join(output_dir, f"batch_{i}.sql")
             print(f"[{i}/{total_batches}] Executing {batch_file}...")
             run_cmd(f'npx wrangler d1 execute {DB_NAME} --remote --file="{batch_file}"')
+        print("Reconciling import table with Online_Inventory remotely...")
+        run_cmd(f'npx wrangler d1 execute {DB_NAME} --remote --file="{reconcile_file}"')
 
     print("\nImport process finished successfully!")
 
