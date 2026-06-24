@@ -22,3 +22,20 @@ CREATE TABLE IF NOT EXISTS Online_Inventory (
   Bar_Code TEXT,
   Number_In_Set TEXT
 );
+
+-- Schema for Inventory table matching remote/production D1
+CREATE TABLE IF NOT EXISTS Inventory (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  UPC TEXT NOT NULL,
+  Quantity INTEGER DEFAULT 0,
+  Format TEXT,
+  Artist TEXT,
+  Title TEXT,
+  Vendor_Number TEXT,
+  OOP TEXT,
+  Year TEXT,
+  Vendor TEXT,
+  Modified TEXT,
+  SRP TEXT
+);
+

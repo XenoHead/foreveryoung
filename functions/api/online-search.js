@@ -34,26 +34,29 @@ export async function onRequestGet(context) {
       }
     }
 
+    const exactVal = url.searchParams.get('exact') === 'true';
+    const wildcard = exactVal ? '' : '%';
+
     // Filter by Query text
     if (queryVal) {
       if (typeVal === 'artist') {
         filterSql += " AND Artist LIKE ?";
-        bindParams.push(`%${queryVal}%`);
+        bindParams.push(`${wildcard}${queryVal}${wildcard}`);
       } else if (typeVal === 'title') {
         filterSql += " AND Title LIKE ?";
-        bindParams.push(`%${queryVal}%`);
+        bindParams.push(`${wildcard}${queryVal}${wildcard}`);
       } else if (typeVal === 'label') {
         filterSql += " AND Label LIKE ?";
-        bindParams.push(`%${queryVal}%`);
+        bindParams.push(`${wildcard}${queryVal}${wildcard}`);
       } else if (typeVal === 'genre') {
         filterSql += " AND Genre LIKE ?";
-        bindParams.push(`%${queryVal}%`);
+        bindParams.push(`${wildcard}${queryVal}${wildcard}`);
       } else if (typeVal === 'barcode') {
         filterSql += " AND Bar_Code LIKE ?";
-        bindParams.push(`%${queryVal}%`);
+        bindParams.push(`${wildcard}${queryVal}${wildcard}`);
       } else {
         filterSql += " AND (Artist LIKE ? OR Title LIKE ?)";
-        bindParams.push(`%${queryVal}%`, `%${queryVal}%`);
+        bindParams.push(`${wildcard}${queryVal}${wildcard}`, `${wildcard}${queryVal}${wildcard}`);
       }
     }
 

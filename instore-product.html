@@ -458,6 +458,16 @@
         resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #e74c3c;">Failed to load inventory data.</div>';
       }
     });
+
+    // Check for query parameter on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const queryParam = params.get('query');
+      if (queryParam) {
+        searchInput.value = queryParam;
+        searchBtn.click();
+      }
+    });
   </script>
   <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
     <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">

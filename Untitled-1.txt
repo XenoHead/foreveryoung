@@ -1,0 +1,4 @@
+npx wrangler d1 execute foreveryoung-db --local --file=schema.sql
+node import_to_d1.js --local
+npx wrangler pages dev .
+node server.js

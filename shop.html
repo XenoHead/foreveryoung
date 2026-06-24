@@ -529,8 +529,11 @@
   <div class="container">
     <div class="search-panel">
       <form id="search-form" class="search-row" action="#" method="GET">
-        <div class="search-input-wrapper">
+        <div class="search-input-wrapper" style="display: flex; flex-direction: column; justify-content: center; gap: 0.3rem;">
           <input type="text" name="find" id="search-query" placeholder="Search our massive online inventory...">
+          <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.82rem; color: var(--muted); cursor: pointer; user-select: none; width: fit-content; margin-top: 0.15rem;">
+            <input type="checkbox" id="search-exact" style="accent-color: var(--yellow);"> Exact text
+          </label>
         </div>
         
         <div style="flex: 1; min-width: 150px;">
@@ -778,6 +781,23 @@
       }
     });
 
+    function buildCheckoutUrl(item) {
+      const p = new URLSearchParams();
+      p.set('title', item.Title || '');
+      p.set('artist', item.Artist || '');
+      p.set('price', item.Price || 0);
+      p.set('format', item.Format || '');
+      p.set('label', item.Label || '');
+      p.set('catalog', item.Release_Catalog_Number || '');
+      p.set('country', item.Release_Country || '');
+      p.set('genre', item.Genre || '');
+      p.set('condMedia', item.Condition_Media || '');
+      p.set('condSleeve', item.Condition_Sleeve || '');
+      if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL') p.set('image', item.Front_Image_URL);
+      if (item.Seller_Reference_Number) p.set('ref', item.Seller_Reference_Number);
+      return 'checkout.html?' + p.toString();
+    }
+
     async function performSearch(params = {}) {
       resultsGrid.innerHTML = '';
       loadingSpinner.style.display = 'block';
@@ -788,6 +808,7 @@
       if (params.type) urlParams.set('type', params.type);
       if (params.format) urlParams.set('format', params.format);
       if (params.letter) urlParams.set('letter', params.letter);
+      if (params.exact) urlParams.set('exact', params.exact);
       
       // Pagination parameters
       urlParams.set('page', currentPage);
@@ -819,9 +840,6 @@
               `;
             }
 
-            const buyFind = item.Seller_Reference_Number || `${item.Artist} ${item.Title}`;
-            const buyUrl = `https://www.musicstack.com/my/index.cgi?seller=725319&currency=USD&find=${encodeURIComponent(buyFind)}`;
-            
             card.innerHTML = `
               <div class="record-art" id="art-${item.id}">
                 ${artHtml}
@@ -840,10 +858,15 @@
                 </div>
                 <div class="record-price">
                   <span>$${(item.Price || 0.00).toFixed(2)}</span>
-                  <button class="buy-btn" onclick="window.open('${buyUrl}', '_blank')">Buy Online</button>
+                  <button class="buy-btn">Buy Online</button>
                 </div>
               </div>
             `;
+
+            card.querySelector('.buy-btn').addEventListener('click', (e) => {
+              e.stopPropagation();
+              window.location.href = buildCheckoutUrl(item);
+            });
             
             resultsGrid.appendChild(card);
 
@@ -886,7 +909,8 @@
       lastSearchParams = {
         query: searchQuery.value.trim(),
         type: searchType.value,
-        format: searchFormat.value
+        format: searchFormat.value,
+        exact: document.getElementById('search-exact').checked
       };
       executeQuery();
     });
@@ -928,6 +952,27 @@
       currentPage++;
       executeQuery();
       window.scrollTo({ top: searchForm.offsetTop - 100, behavior: 'smooth' });
+    });
+
+    // Check for query parameter on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const queryParam = params.get('query');
+      const exactParam = params.get('exact') === 'true';
+      if (queryParam) {
+        searchQuery.value = queryParam;
+        const exactCheck = document.getElementById('search-exact');
+        if (exactCheck) exactCheck.checked = exactParam;
+        currentPage = 1;
+        currentLimit = parseInt(searchLimit.value, 10);
+        lastSearchParams = {
+          query: queryParam.trim(),
+          type: searchType.value,
+          format: searchFormat.value,
+          exact: exactParam
+        };
+        executeQuery();
+      }
     });
   </script>
 </body>

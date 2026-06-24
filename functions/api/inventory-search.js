@@ -8,30 +8,38 @@ export async function onRequestGet(context) {
     const upc = url.searchParams.get('upc') || '';
     const artist = url.searchParams.get('artist') || '';
     const title = url.searchParams.get('album') || ''; // Map 'album' from UI to 'Title'
-    const catalog = url.searchParams.get('catalog') || ''; // Map 'catalog' from UI to 'Vendor_Number'
+    const catalog = url.searchParams.get('catalog') || ''; // Map 'catalog' from UI to 'Vendor_Number' or 'Vendor'
+    const generalQuery = url.searchParams.get('query') || '';
 
-    if (!upc && !artist && !title && !catalog) {
+    if (!upc && !artist && !title && !catalog && !generalQuery) {
       return new Response(JSON.stringify({ error: "At least one search parameter must be provided." }), { status: 400 });
     }
 
     let query = "SELECT * FROM Inventory WHERE 1=1";
     let bindParams = [];
 
+    const exactVal = url.searchParams.get('exact') === 'true';
+    const wildcard = exactVal ? '' : '%';
+
     if (upc) {
       query += " AND UPC LIKE ?";
-      bindParams.push(`%${upc}%`);
+      bindParams.push(`${wildcard}${upc}${wildcard}`);
     }
     if (artist) {
       query += " AND Artist LIKE ?";
-      bindParams.push(`%${artist}%`);
+      bindParams.push(`${wildcard}${artist}${wildcard}`);
     }
     if (title) {
       query += " AND Title LIKE ?";
-      bindParams.push(`%${title}%`);
+      bindParams.push(`${wildcard}${title}${wildcard}`);
     }
     if (catalog) {
-      query += " AND Vendor_Number = ?";
-      bindParams.push(catalog);
+      query += " AND (Vendor LIKE ? OR Vendor_Number LIKE ?)";
+      bindParams.push(`${wildcard}${catalog}${wildcard}`, `${wildcard}${catalog}${wildcard}`);
+    }
+    if (generalQuery) {
+      query += " AND (Artist LIKE ? OR Title LIKE ? OR UPC LIKE ? OR Vendor LIKE ?)";
+      bindParams.push(`${wildcard}${generalQuery}${wildcard}`, `${wildcard}${generalQuery}${wildcard}`, `${wildcard}${generalQuery}${wildcard}`, `${wildcard}${generalQuery}${wildcard}`);
     }
 
     query += " LIMIT 50"; // Limit results for safety
@@ -40,7 +48,32 @@ export async function onRequestGet(context) {
     const finalStmt = bindParams.length > 0 ? stmt.bind(...bindParams) : stmt;
     const results = await finalStmt.all();
 
-    return new Response(JSON.stringify({ success: true, results: results.results }), { 
+    const mappedResults = results.results.map(item => {
+      const cleanPrice = (item.SRP) ? parseFloat(item.SRP.replace(/[^0-9.]/g, '')) : 0.00;
+      return {
+        id: item.id,
+        Artist: item.Artist || '',
+        Title: item.Title || '',
+        Format: item.Format || '',
+        Price: isNaN(cleanPrice) ? 0.00 : cleanPrice,
+        Quantity: item.Quantity !== null ? item.Quantity : 0,
+        Bar_Code: item.UPC || 'N/A',
+        Release_Catalog_Number: item.Vendor_Number || 'N/A',
+        Vendor: item.Vendor || '',
+        Label: item.Vendor || 'N/A',
+        Release_Country: 'N/A',
+        Release_Date: item.Year || 'N/A',
+        Genre: 'N/A',
+        Discogs_ID: 'N/A',
+        Condition_Media: 'N/A',
+        Condition_Sleeve: 'N/A',
+        Description: 'N/A',
+        Front_Image_URL: '',
+        Back_Image_URL: ''
+      };
+    });
+
+    return new Response(JSON.stringify({ success: true, results: mappedResults }), { 
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
@@ -52,3 +85,5 @@ export async function onRequestGet(context) {
     });
   }
 }
+
+
