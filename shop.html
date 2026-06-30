@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop | Forever Young Records</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --dark: #08111F;
@@ -14,7 +17,7 @@
       --yellow: #FFD447;
       --green: #2ecc71;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
@@ -45,7 +48,7 @@
       width: 100%;
       padding: 2rem;
       text-align: center;
-      background: linear-gradient(180deg, rgba(21,43,77,0.8) 0%, rgba(8,17,31,0) 100%);
+      background: linear-gradient(180deg, rgba(21, 43, 77, 0.8) 0%, rgba(8, 17, 31, 0) 100%);
       z-index: 10;
     }
 
@@ -77,7 +80,7 @@
       border-radius: 16px;
       padding: 2rem;
       backdrop-filter: blur(10px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       margin-bottom: 3rem;
     }
 
@@ -94,7 +97,8 @@
       position: relative;
     }
 
-    input[type="text"], select {
+    input[type="text"],
+    select {
       width: 100%;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 212, 71, 0.3);
@@ -105,8 +109,9 @@
       font-family: 'Outfit', sans-serif;
       transition: all 0.3s;
     }
-    
-    input[type="text"]:focus, select:focus {
+
+    input[type="text"]:focus,
+    select:focus {
       outline: none;
       border-color: var(--yellow);
       box-shadow: 0 0 15px rgba(255, 212, 71, 0.2);
@@ -156,7 +161,7 @@
       gap: 0.5rem;
       justify-content: center;
       padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .browse-letters a {
@@ -197,7 +202,7 @@
     }
 
     .record-card:hover {
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
       border-color: rgba(255, 212, 71, 0.35);
       background: rgba(255, 255, 255, 0.05);
     }
@@ -310,7 +315,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* Modal Styles */
@@ -519,6 +526,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -529,13 +537,15 @@
   <div class="container">
     <div class="search-panel">
       <form id="search-form" class="search-row" action="#" method="GET">
-        <div class="search-input-wrapper" style="display: flex; flex-direction: column; justify-content: center; gap: 0.3rem;">
+        <div class="search-input-wrapper"
+          style="display: flex; flex-direction: column; justify-content: center; gap: 0.3rem;">
           <input type="text" name="find" id="search-query" placeholder="Search our massive online inventory...">
-          <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.82rem; color: var(--muted); cursor: pointer; user-select: none; width: fit-content; margin-top: 0.15rem;">
+          <label
+            style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.82rem; color: var(--muted); cursor: pointer; user-select: none; width: fit-content; margin-top: 0.15rem;">
             <input type="checkbox" id="search-exact" style="accent-color: var(--yellow);"> Exact text
           </label>
         </div>
-        
+
         <div style="flex: 1; min-width: 150px;">
           <select name="search_type" id="search-type">
             <option value="artist">Artist Search</option>
@@ -583,7 +593,8 @@
       </form>
 
       <div class="browse-letters">
-        <span style="color: #B6C0D7; display: flex; align-items: center; margin-right: 0.5rem; font-family: 'Oswald', sans-serif;">BROWSE:</span>
+        <span
+          style="color: #B6C0D7; display: flex; align-items: center; margin-right: 0.5rem; font-family: 'Oswald', sans-serif;">BROWSE:</span>
         <a href="#">#</a>
         <a href="#">A</a>
         <a href="#">B</a>
@@ -631,8 +642,10 @@
     </div>
   </div>
 
-  <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
-    <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
+  <div
+    style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
+    <a href="https://www.xenohead.com" target="_blank"
+      style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
       <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
       <span>WebDev: www.xenohead.com</span>
     </a>
@@ -662,6 +675,21 @@
 
   <script>
     const searchForm = document.getElementById('search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const queryValue = searchQuery.value.trim();
+        if (!queryValue) return;
+
+        const shopParams = new URLSearchParams();
+        shopParams.set('query', queryValue);
+        if (searchFormat) shopParams.set('format', searchFormat.value);
+
+        // Forces clear routing directly into your database's retrieval engine
+        window.location.href = '/online-products?' + shopParams.toString();
+      });
+    }
     const searchQuery = document.getElementById('search-query');
     const searchType = document.getElementById('search-type');
     const searchFormat = document.getElementById('search-format');
@@ -674,6 +702,28 @@
     const prevPageBtn = document.getElementById('prev-page-btn');
     const nextPageBtn = document.getElementById('next-page-btn');
     const pageInfo = document.getElementById('page-info');
+
+    // State
+    let currentPage = 1;
+    let currentLimit = 10;
+    let lastSearchParams = {};
+
+    // 2. Attach the Submit Event Listener AFTER elements are declared
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const queryValue = searchQuery.value.trim();
+        if (!queryValue) return;
+
+        const shopParams = new URLSearchParams();
+        shopParams.set('query', queryValue);
+        if (searchFormat) shopParams.set('format', searchFormat.value);
+
+        // Forces clean routing directly into your database's retrieval engine
+        window.location.href = '/online-products?' + shopParams.toString();
+      });
+    }
 
     // Modal elements
     const imageModal = document.getElementById('image-modal');
@@ -707,7 +757,7 @@
 
       // 3. Set Secondary Thumbnails
       modalSecondaryImages.innerHTML = '';
-      
+
       // Front cover thumb
       if (isActualImage) {
         const frontThumb = document.createElement('img');
@@ -716,7 +766,7 @@
         frontThumb.addEventListener('click', () => { modalImg.src = item.Front_Image_URL; });
         modalSecondaryImages.appendChild(frontThumb);
       }
-      
+
       // Back cover thumb
       if (item.Back_Image_URL && item.Back_Image_URL !== 'NULL' && item.Back_Image_URL.startsWith('http')) {
         const backThumb = document.createElement('img');
@@ -809,7 +859,7 @@
       if (params.format) urlParams.set('format', params.format);
       if (params.letter) urlParams.set('letter', params.letter);
       if (params.exact) urlParams.set('exact', params.exact);
-      
+
       // Pagination parameters
       urlParams.set('page', currentPage);
       urlParams.set('limit', currentLimit);
@@ -817,17 +867,17 @@
       try {
         const response = await fetch(`/api/online-search?${urlParams.toString()}`);
         const data = await response.json();
-        
+
         loadingSpinner.style.display = 'none';
 
         if (data.success && data.results && data.results.length > 0) {
           data.results.forEach(item => {
             const card = document.createElement('div');
             card.className = 'record-card';
-            
+
             // Choose image
             let artHtml = '';
-            
+
             if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
               artHtml = `<img src="${item.Front_Image_URL}" alt="${item.Title}">`;
             } else {
@@ -867,7 +917,7 @@
               e.stopPropagation();
               window.location.href = buildCheckoutUrl(item);
             });
-            
+
             resultsGrid.appendChild(card);
 
             // Add click handler to thumbnail to zoom and display detailed sheet
@@ -883,7 +933,7 @@
           prevPageBtn.disabled = currentPage === 1;
           nextPageBtn.disabled = currentPage === totalPages;
           paginationControls.style.display = 'flex';
-          
+
         } else {
           resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #B6C0D7; font-size: 1.2rem;">No matching online items found.</div>';
           paginationControls.style.display = 'none';
@@ -976,5 +1026,5 @@
     });
   </script>
 </body>
-</html>
 
+</html>

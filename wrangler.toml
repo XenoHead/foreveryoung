@@ -6,3 +6,6 @@ compatibility_date = "2024-06-07"
 binding = "DB"
 database_name = "foreveryoung-db"
 database_id = "4977069b-0252-40ab-895f-103ff41a6d22"
+
+[ai]
+binding = "AI"

@@ -278,6 +278,7 @@ async function fetchReleaseDetails(releaseId, token) {
 
   return {
     Discogs_ID: String(data.id),
+    Discogs_url: `https://www.discogs.com/release/${data.id}`,
     Bar_Code: barcodeStr,
     Front_Image_URL: frontImg,
     Back_Image_URL: backImg,
@@ -362,6 +363,7 @@ async function run() {
       // Write UPDATE query
       const sql = `UPDATE Online_Inventory SET 
         Discogs_ID = ${escapeSql(details.Discogs_ID)},
+        Discogs_url = ${escapeSql(details.Discogs_url)},
         Bar_Code = COALESCE(NULLIF(NULLIF(Bar_Code, ''), 'NULL'), ${escapeSql(details.Bar_Code)}),
         Front_Image_URL = COALESCE(NULLIF(NULLIF(Front_Image_URL, ''), 'NULL'), ${escapeSql(details.Front_Image_URL)}),
         Back_Image_URL = COALESCE(NULLIF(NULLIF(Back_Image_URL, ''), 'NULL'), ${escapeSql(details.Back_Image_URL)}),

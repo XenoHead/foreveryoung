@@ -3,10 +3,11 @@ export async function onRequestGet(context) {
     const { env } = context;
     const db = env.DB;
     
-    // Fetch values for new, hot, rare crates
-    const results = { new: [], hot: [], rare: [] };
+    // Fetch values for new, new_releases, hot, rare, temp1, temp2, genres crates
+    const results = { new: [], new_releases: [], hot: [], rare: [], temp1: [], temp2: [], genres: [] };
+    const keys = ["new", "new_releases", "hot", "rare", "temp1", "temp2", "genres"];
     
-    for (const k of ["new", "hot", "rare"]) {
+    for (const k of keys) {
       const setting = await db.prepare("SELECT value FROM Settings WHERE key = ?").bind("featured_" + k).first();
       let items = [];
       if (setting && setting.value) {
@@ -54,7 +55,7 @@ export async function onRequestGet(context) {
     }
     
     // Fallback logic if any crate is empty
-    for (const k of ["new", "hot", "rare"]) {
+    for (const k of keys) {
       if (results[k].length === 0) {
         // Fallback: load latest 6 items
         const fallbackResult = await db.prepare(`

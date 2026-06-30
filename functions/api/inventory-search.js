@@ -16,7 +16,7 @@ export async function onRequestGet(context) {
       return new Response(JSON.stringify({ error: "At least one search parameter must be provided." }), { status: 400 });
     }
 
-    let query = "SELECT * FROM Inventory WHERE 1=1";
+    let query = "SELECT * FROM Inventory WHERE 1=1 AND Quantity > 0";
     let bindParams = [];
 
     const exactVal = url.searchParams.get('exact') === 'true';

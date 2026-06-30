@@ -21,7 +21,7 @@ export async function onRequestGet(context) {
     }
     const offset = (page - 1) * limit;
 
-    let filterSql = "";
+    let filterSql = " AND Quantity > 0";
     let bindParams = [];
 
     // Filter by Letter (A-Z or 0-9)

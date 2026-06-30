@@ -1,4 +1,106 @@
 npx wrangler d1 execute foreveryoung-db --local --file=schema.sql
 npx wrangler pages dev .
 node server.js
-y
+
+
+
+…\ForeverYoung > npx wrangler pages dev . --port 8788
+…\staff.foreveryoung > npx wrangler dev --port 8789
+
+customer = …\ForeverYoung\index.html
+staff = …\staff.foreveryoung\index.html
+
+ok this might be doozey. But the online items.
+MOST of them are incomplete. 
+But all of them have a 'Seller Reference Number' like "8110-SC2026-0302-CASS-USED-1007"
+
+which is a direct link to discogs:
+https://www.discogs.com/release/6872273-Adeva-Love-Or-Lust
+
+In this example.
+Can we run nightly batches to fill in discogsid, upc (if available), 2 images, label, cat#, etc.
+
+And run in batches of 100 er so.
+And most importantly not let any imports after wards over right the data?
+
+Maybe can we try it on the first 2100?
+
+
+The primary field that determines whether an item has been successfully enriched is Discogs_ID:
+
+If Discogs_ID is populated (e.g. 5903031 or any numeric string): The script has successfully run on it, fetched data from Discogs, and updated all the fields (image URLs, labels, catalog numbers, genre, tracks, etc.). The script will skip this item on all future runs.
+If Discogs_ID is NULL (or empty): The script has NOT successfully run on it. This could mean:
+The script hasn't reached it yet (it works through the database in batches of 100).
+The script did run on it but was unable to find a matching release on Discogs using its barcode, catalog number, or artist + title search.
+How to check this:
+In the Staff Portal (Online Product Editor):
+
+When you select a product, the Discogs ID field will show its numeric ID if it has been enriched. If it's blank, it hasn't been matched yet.
+Using the Wrangler Command Line:
+
+To count how many have been successfully enriched:
+
+bash
+
+npx wrangler d1 execute foreveryoung-db --remote --command "SELECT count(*) FROM Online_Inventory WHERE Discogs_ID IS NOT NULL"
+
+To count how many are still pending / not matched:
+bash
+npx wrangler d1 execute foreveryoung-db --remote --command "SELECT count(*) FROM Online_Inventory WHERE Discogs_ID IS NULL"
+
+To see the list of recently enriched items:
+bash
+npx wrangler d1 execute foreveryoung-db --remote --command "SELECT id, Artist, Title, Format, Discogs_ID, Front_Image_URL FROM Online_Inventory WHERE Discogs_ID IS NOT NULL ORDER BY id DESC LIMIT 10"
+
+
+
+Using the Wrangler Command Line:
+
+To count how many have been successfully enriched:
+bash
+npx wrangler d1 execute foreveryoung-db --remote --command "SELECT count(*) FROM Online_Inventory WHERE Discogs_ID IS NOT NULL"
+To count how many are still pending / not matched:
+bash
+npx wrangler d1 execute foreveryoung-db --remote --command "SELECT count(*) FROM Online_Inventory WHERE Discogs_ID IS NULL"
+To see the list of recently enriched items:
+bash
+npx wrangler d1 execute foreveryoung-db --remote --command "SELECT id, Artist, Title, Format, Discogs_ID, Front_Image_URL FROM Online_Inventory WHERE Discogs_ID IS NOT NULL ORDER BY id DESC LIMIT 10"
+
+
+1. Count of successfully enriched items
+Shows the total number of items that have been updated with Discogs metadata so far:
+
+SELECT count(*) AS enriched_count 
+FROM Online_Inventory 
+WHERE Discogs_ID IS NOT NULL;
+
+2. Count of pending items (not yet enriched)
+Shows the total number of items still waiting for matching/enrichment:
+
+
+SELECT count(*) AS pending_count 
+FROM Online_Inventory 
+WHERE Discogs_ID IS NULL;
+
+3. Count of enriched items in the Trial range (ID <= 2100)
+Shows how many of the first 2,100 target items have been completed:
+
+SELECT count(*) AS enriched_trial_count 
+FROM Online_Inventory 
+WHERE Discogs_ID IS NOT NULL AND id <= 2100;
+
+4. Count of pending items in the Trial range (ID <= 2100)
+Shows how many items under ID 2,100 still need to be processed:
+
+SELECT count(*) AS pending_trial_count 
+FROM Online_Inventory 
+WHERE Discogs_ID IS NULL AND id <= 2100;
+
+5. View the most recently enriched items
+Displays details and image URLs of the last 10 items processed by the script:
+
+SELECT id, Artist, Title, Format, Discogs_ID, Front_Image_URL 
+FROM Online_Inventory 
+WHERE Discogs_ID IS NOT NULL 
+ORDER BY id DESC 
+LIMIT 10;
