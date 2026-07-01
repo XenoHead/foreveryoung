@@ -1,2 +1,5 @@
 …\ForeverYoung > npx wrangler pages dev . --port 8788
 …\staff.foreveryoung > npx wrangler dev --port 8789
+
+customer = …\ForeverYoung\index.html
+staff = …\staff.foreveryoung\index.html
