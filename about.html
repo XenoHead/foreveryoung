@@ -195,6 +195,40 @@
       object-position: center 30%;
       filter: contrast(1.1);
     }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 1rem 0;
+      width: 100%;
+    }
+    .about-highlight-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .about-highlight-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 212, 71, 0.3);
+    }
+    .about-highlight-item h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.2rem;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+    .about-highlight-item p {
+      color: var(--cream);
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 0;
+    }
     
     @media(max-width:900px) {
       .vinyl-sidebar { width: 140px; opacity: 0.3; }
@@ -668,6 +702,22 @@
       </div>
     </div>
 
+    <!-- Highlights Section -->
+    <div class="about-highlights">
+      <div class="about-highlight-item">
+        <h3>250K+</h3>
+        <p>Vinyl, tapes, CDs, memorabilia & collectibles</p>
+      </div>
+      <div class="about-highlight-item">
+        <h3>Since 1984</h3>
+        <p>One of Texas&#8217; legendary independent music destinations</p>
+      </div>
+      <div class="about-highlight-item">
+        <h3>Collectors</h3>
+        <p>Rare finds, deep catalog discoveries, and music history</p>
+      </div>
+    </div>
+
     <div class="about-image">
       <img src="images/dancing-fools.jpg" alt="Forever Young Records Art">
     </div>
@@ -676,7 +726,6 @@
   <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
     <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
       <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
-      <span>WebDev: www.xenohead.com</span>
     </a>
   </div>
   <!-- Hot Tips Modal -->

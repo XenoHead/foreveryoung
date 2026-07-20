@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forever Young Records</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -53,11 +56,25 @@
     }
 
     @keyframes grainMove {
-      0% { transform: translate(0px, 0px); }
-      25% { transform: translate(-2px, 1px); }
-      50% { transform: translate(2px, -1px); }
-      75% { transform: translate(-1px, 2px); }
-      100% { transform: translate(0px, 0px); }
+      0% {
+        transform: translate(0px, 0px);
+      }
+
+      25% {
+        transform: translate(-2px, 1px);
+      }
+
+      50% {
+        transform: translate(2px, -1px);
+      }
+
+      75% {
+        transform: translate(-1px, 2px);
+      }
+
+      100% {
+        transform: translate(0px, 0px);
+      }
     }
 
     /* =========================
@@ -92,10 +109,12 @@
       flex-shrink: 0;
       transition: all 0.3s ease;
     }
+
     .nav-logo-toggle:hover img {
       transform: scale(1.08);
       filter: drop-shadow(0 0 12px rgba(255, 212, 71, 0.5));
     }
+
     .nav-logo-toggle.active img {
       transform: rotate(-180deg) scale(0.9);
       opacity: 0.6;
@@ -147,22 +166,20 @@
 
     /* Horizontal New Releases drawer styles */
     #ha-new_releases-drawer {
-      width: auto;
-      max-width: 850px;
+      width: 680px;
     }
-    
+
     #ha-new_releases-list {
-      flex-direction: row;
-      flex-wrap: nowrap;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.2rem;
       padding: 1.2rem;
-      overflow-x: auto;
     }
 
     #ha-new_releases-list .ha-card {
       flex-direction: column;
       align-items: stretch;
-      width: 190px;
+      width: auto;
       padding: 0.8rem;
       text-align: center;
     }
@@ -319,7 +336,7 @@
       position: absolute;
       inset: 0;
       background-image:
-        url('images/juke-box-1-removebg-1.png'),
+        url('images/jukebox_irl-nbg.png'),
         linear-gradient(rgba(8, 17, 31, 0.65), rgba(8, 17, 31, 0.85)),
         url('images/brick-bg.png');
       background-size: contain, auto, cover;
@@ -328,8 +345,13 @@
     }
 
     @keyframes slowZoom {
-      from { transform: scale(1.05); }
-      to { transform: scale(1.1); }
+      from {
+        transform: scale(1.05);
+      }
+
+      to {
+        transform: scale(1.1);
+      }
     }
 
     /* =========================
@@ -455,7 +477,7 @@
       font-size: 1.2rem;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-bottom: none;
-      box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .shopping-box {
@@ -466,7 +488,7 @@
       backdrop-filter: blur(8px);
       width: 100%;
       text-align: left;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     /* =========================
@@ -509,16 +531,18 @@
       background: rgba(0, 0, 0, 0.45);
       padding: 1rem 1.5rem;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(8px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
+
     .front-store-info p {
       margin: 0;
       color: var(--cream);
       text-shadow: none !important;
       line-height: 1.5;
     }
+
     .front-store-info strong {
       color: var(--yellow);
       font-weight: 600;
@@ -610,11 +634,21 @@
     }
 
     @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
         opacity: 1;
         filter: drop-shadow(0 0 8px rgba(255, 212, 71, 0.4)) drop-shadow(0 0 25px rgba(255, 212, 71, 0.2));
       }
-      20%, 24%, 55% {
+
+      20%,
+      24%,
+      55% {
         opacity: 0.8;
         filter: drop-shadow(0 0 2px rgba(255, 212, 71, 0.1));
       }
@@ -624,8 +658,15 @@
     ANIMATION
     ========================= */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0px); }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0px);
+      }
     }
 
 
@@ -662,30 +703,57 @@
     }
 
     @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
     }
 
     /* =========================
     MOBILE
     ========================= */
     @media(max-width:900px) {
-      .nav-inner { flex-direction: column; gap: 1rem; }
-      .nav-search-container { margin-right: 0; width: 100%; justify-content: center; }
-      .nav-search-input { max-width: 100%; }
+      .nav-inner {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-search-container {
+        margin-right: 0;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-search-input {
+        max-width: 100%;
+      }
+
       .nav-links {
         justify-content: center;
         gap: 1rem;
         flex-wrap: wrap;
       }
-      .nav-links a { font-size: 0.85rem; }
+
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+
       .hero {
         min-height: auto;
         padding-top: 120px;
         padding-bottom: 140px;
       }
-      .hero-content p { font-size: 1rem; }
-      .bottom-inner { justify-content: center; }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+
+      .bottom-inner {
+        justify-content: center;
+      }
     }
 
     /* =========================
@@ -714,7 +782,7 @@
       border-radius: 12px;
       width: 100%;
       max-width: 1000px;
-      max-height: 85vh;
+      max-height: 92vh;
       display: flex;
       flex-direction: column;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
@@ -801,7 +869,9 @@
     }
 
     @keyframes search-spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .search-modal-grid {
@@ -818,9 +888,10 @@
       gap: 0.6rem;
       padding: 0.75rem 1rem 0;
       flex-wrap: wrap;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: rgba(8,17,31,0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(8, 17, 31, 0.6);
     }
+
     .results-toolbar-label {
       font-size: 0.72rem;
       font-weight: 700;
@@ -830,11 +901,12 @@
       margin-right: 0.2rem;
       white-space: nowrap;
     }
+
     .rtb-btn {
       padding: 0.32rem 0.85rem;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.04);
       color: var(--muted);
       font-family: 'Outfit', sans-serif;
       font-size: 0.75rem;
@@ -843,32 +915,38 @@
       transition: all 0.18s;
       white-space: nowrap;
     }
+
     .rtb-btn:hover {
-      background: rgba(255,212,71,0.1);
-      border-color: rgba(255,212,71,0.35);
+      background: rgba(255, 212, 71, 0.1);
+      border-color: rgba(255, 212, 71, 0.35);
       color: var(--yellow);
     }
+
     .rtb-btn.active {
-      background: rgba(255,212,71,0.18);
+      background: rgba(255, 212, 71, 0.18);
       border-color: var(--yellow);
       color: var(--yellow);
     }
+
     .rtb-btn.filter-online.active {
-      background: rgba(44,108,255,0.18);
+      background: rgba(44, 108, 255, 0.18);
       border-color: #2C6CFF;
       color: #7fb3ff;
     }
+
     .rtb-btn.filter-instore.active {
-      background: rgba(46,204,113,0.18);
+      background: rgba(46, 204, 113, 0.18);
       border-color: #2ecc71;
       color: #2ecc71;
     }
+
     .rtb-divider {
       width: 1px;
       height: 20px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.12);
       margin: 0 0.2rem;
     }
+
     .results-count {
       margin-left: auto;
       font-size: 0.72rem;
@@ -1087,7 +1165,7 @@
       justify-content: center;
       flex-shrink: 0;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .detail-view-art img {
@@ -1206,13 +1284,16 @@
         align-items: center;
         text-align: center;
       }
+
       .detail-view-art {
         width: 160px;
         height: 160px;
       }
+
       .detail-main-title {
         font-size: 1.8rem;
       }
+
       .detail-main-price-stock {
         justify-content: center;
       }
@@ -1224,20 +1305,55 @@
 
     /* Blink keyframe for closed-tab attention */
     @keyframes tabPulse {
-      0%, 100% { box-shadow: 0 0 8px rgba(255,212,71,0.4), inset 0 0 8px rgba(255,212,71,0.05); opacity: 1; }
-      50%        { box-shadow: 0 0 22px rgba(255,212,71,0.9), inset 0 0 14px rgba(255,212,71,0.2); opacity: 0.85; }
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(255, 212, 71, 0.4), inset 0 0 8px rgba(255, 212, 71, 0.05);
+        opacity: 1;
+      }
+
+      50% {
+        box-shadow: 0 0 22px rgba(255, 212, 71, 0.9), inset 0 0 14px rgba(255, 212, 71, 0.2);
+        opacity: 0.85;
+      }
     }
+
     @keyframes tabPulseBlue {
-      0%, 100% { box-shadow: 0 0 8px rgba(44,108,255,0.5), inset 0 0 8px rgba(44,108,255,0.05); opacity: 1; }
-      50%        { box-shadow: 0 0 22px rgba(44,108,255,1), inset 0 0 14px rgba(44,108,255,0.2); opacity: 0.85; }
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(44, 108, 255, 0.5), inset 0 0 8px rgba(44, 108, 255, 0.05);
+        opacity: 1;
+      }
+
+      50% {
+        box-shadow: 0 0 22px rgba(44, 108, 255, 1), inset 0 0 14px rgba(44, 108, 255, 0.2);
+        opacity: 0.85;
+      }
     }
+
     @keyframes drawerSlideLeft {
-      from { transform: translateX(-100%); opacity: 0; }
-      to   { transform: translateX(0);    opacity: 1; }
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
+
     @keyframes drawerSlideRight {
-      from { transform: translateX(100%); opacity: 0; }
-      to   { transform: translateX(0);    opacity: 1; }
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
 
     .hero-accordion {
@@ -1248,16 +1364,28 @@
       display: flex;
       align-items: stretch;
     }
-    .hero-accordion.left  { left: 0; flex-direction: row; }
-    .hero-accordion.right { right: 0; flex-direction: row-reverse; }
+
+    .hero-accordion:has(.ha-drawer.open) {
+      transform: translateY(-15%) !important;
+    }
+
+    .hero-accordion.left {
+      left: 0;
+      flex-direction: row;
+    }
+
+    .hero-accordion.right {
+      right: 0;
+      flex-direction: row-reverse;
+    }
 
     /* The blinking vertical tab */
     .ha-tab {
       writing-mode: vertical-rl;
       text-orientation: mixed;
       padding: 1.4rem 0.7rem;
-      background: rgba(8,17,31,0.82);
-      border: 1px solid rgba(255,212,71,0.35);
+      background: rgba(8, 17, 31, 0.82);
+      border: 1px solid rgba(255, 212, 71, 0.35);
       color: var(--yellow);
       font-family: 'Oswald', sans-serif;
       font-size: 1rem;
@@ -1271,45 +1399,81 @@
       backdrop-filter: blur(8px);
       white-space: nowrap;
     }
-    .hero-accordion.left  .ha-tab { border-radius: 0 6px 6px 0; border-left: none; }
-    .hero-accordion.right .ha-tab { border-radius: 6px 0 0 6px; border-right: none; }
+
+    .hero-accordion.left .ha-tab {
+      border-radius: 0 6px 6px 0;
+      border-left: none;
+    }
+
+    .hero-accordion.right .ha-tab {
+      border-radius: 6px 0 0 6px;
+      border-right: none;
+    }
+
     .ha-tab.blue {
       color: #7fb3ff;
-      border-color: rgba(44,108,255,0.45);
+      border-color: rgba(44, 108, 255, 0.45);
       animation: tabPulseBlue 2.4s ease-in-out infinite;
     }
-    .ha-tab:hover { background: rgba(255,212,71,0.08); }
-    .ha-tab.blue:hover { background: rgba(44,108,255,0.1); }
+
+    .ha-tab:hover {
+      background: rgba(255, 212, 71, 0.08);
+    }
+
+    .ha-tab.blue:hover {
+      background: rgba(44, 108, 255, 0.1);
+    }
 
     /* The sliding drawer panel */
     .ha-drawer {
       width: 300px;
-      max-height: 70vh;
+      max-height: 85vh;
       overflow-y: auto;
-      background: rgba(6,13,24,0.96);
-      border: 1px solid rgba(255,212,71,0.2);
+      background: rgba(6, 13, 24, 0.96);
+      border: 1px solid rgba(255, 212, 71, 0.2);
       backdrop-filter: blur(14px);
       padding: 0;
       display: none;
       flex-direction: column;
     }
+
     .ha-drawer.open {
       display: flex;
     }
-    .hero-accordion.left  .ha-drawer.open { animation: drawerSlideLeft  0.3s ease forwards; border-radius: 0 8px 8px 0; border-left: none; }
-    .hero-accordion.right .ha-drawer.open { animation: drawerSlideRight 0.3s ease forwards; border-radius: 8px 0 0 8px; border-right: none; }
+
+    .hero-accordion.left .ha-drawer.open {
+      animation: drawerSlideLeft 0.3s ease forwards;
+      border-radius: 0 8px 8px 0;
+      border-left: none;
+    }
+
+    .hero-accordion.right .ha-drawer.open {
+      animation: drawerSlideRight 0.3s ease forwards;
+      border-radius: 8px 0 0 8px;
+      border-right: none;
+    }
 
     /* Scrollbar styling */
-    .ha-drawer::-webkit-scrollbar { width: 4px; }
-    .ha-drawer::-webkit-scrollbar-track { background: transparent; }
-    .ha-drawer::-webkit-scrollbar-thumb { background: rgba(255,212,71,0.3); border-radius: 2px; }
+    .ha-drawer::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .ha-drawer::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .ha-drawer::-webkit-scrollbar-thumb {
+      background: rgba(255, 212, 71, 0.3);
+      border-radius: 2px;
+    }
 
     /* Drawer header / sub-tabs (for HOT / RARE) */
     .ha-drawer-header {
       display: flex;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       flex-shrink: 0;
     }
+
     .ha-drawer-tab {
       flex: 1;
       padding: 0.7rem 0.5rem;
@@ -1324,15 +1488,17 @@
       border-bottom: 2px solid transparent;
       transition: all 0.2s;
     }
+
     .ha-drawer-tab.active {
       color: var(--yellow);
       border-bottom-color: var(--yellow);
-      background: rgba(255,212,71,0.05);
+      background: rgba(255, 212, 71, 0.05);
     }
+
     .ha-drawer-tab.active.blue-tab {
       color: #7fb3ff;
       border-bottom-color: #7fb3ff;
-      background: rgba(44,108,255,0.07);
+      background: rgba(44, 108, 255, 0.07);
     }
 
     /* Mini crate cards inside drawer */
@@ -1343,21 +1509,24 @@
       gap: 0.6rem;
       flex: 1;
     }
+
     .ha-card {
       display: flex;
       gap: 0.65rem;
       align-items: center;
       padding: 0.5rem 0.6rem;
       border-radius: 6px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       cursor: pointer;
       transition: background 0.2s, border-color 0.2s;
     }
+
     .ha-card:hover {
-      background: rgba(255,212,71,0.07);
-      border-color: rgba(255,212,71,0.2);
+      background: rgba(255, 212, 71, 0.07);
+      border-color: rgba(255, 212, 71, 0.2);
     }
+
     .ha-card-thumb {
       width: 48px;
       height: 48px;
@@ -1370,15 +1539,26 @@
       justify-content: center;
       overflow: hidden;
     }
-    .ha-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    .ha-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .ha-card-thumb .ha-thumb-placeholder {
       font-family: 'Oswald', sans-serif;
       font-size: 0.65rem;
       font-weight: 700;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255, 255, 255, 0.25);
       text-align: center;
     }
-    .ha-card-info { flex: 1; min-width: 0; }
+
+    .ha-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
     .ha-card-title {
       font-family: 'Oswald', sans-serif;
       font-size: 0.8rem;
@@ -1388,6 +1568,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .ha-card-artist {
       font-size: 0.7rem;
       color: var(--muted);
@@ -1395,22 +1576,25 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .ha-card-price {
       font-size: 0.72rem;
       color: var(--yellow);
       font-weight: 600;
       flex-shrink: 0;
     }
+
     .ha-instore-badge {
       font-size: 0.6rem;
-      background: rgba(44,108,255,0.25);
-      border: 1px solid rgba(44,108,255,0.5);
+      background: rgba(44, 108, 255, 0.25);
+      border: 1px solid rgba(44, 108, 255, 0.5);
       color: #7fb3ff;
       border-radius: 3px;
       padding: 1px 4px;
       margin-top: 2px;
       display: inline-block;
     }
+
     .ha-empty {
       text-align: center;
       color: var(--muted);
@@ -1418,8 +1602,13 @@
       font-style: italic;
       padding: 2rem 1rem;
     }
+
     /* Hide accordions on very small screens */
-    @media (max-width: 700px) { .hero-accordion { display: none; } }
+    @media (max-width: 700px) {
+      .hero-accordion {
+        display: none;
+      }
+    }
 
     /* =========================
     FEATURED CRATE SECTION
@@ -1430,12 +1619,12 @@
       position: relative;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
-    
+
     .crate-container {
       max-width: 1200px;
       margin: 0 auto;
     }
-    
+
     .crate-title {
       font-family: 'Oswald', sans-serif;
       font-size: 3rem;
@@ -1446,20 +1635,20 @@
       margin-bottom: 0.5rem;
       text-shadow: 0 0 15px rgba(255, 212, 71, 0.35);
     }
-    
+
     .crate-subtitle {
       text-align: center;
       color: var(--muted);
       font-size: 1.1rem;
       margin-bottom: 4rem;
     }
-    
+
     .featured-crate-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 2.5rem;
     }
-    
+
     .crate-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1471,7 +1660,7 @@
       cursor: pointer;
       position: relative;
     }
-    
+
     .crate-card::after {
       content: "";
       position: absolute;
@@ -1482,17 +1671,17 @@
       transition: opacity 0.3s ease;
       pointer-events: none;
     }
-    
+
     .crate-card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 212, 71, 0.1);
       background: rgba(255, 255, 255, 0.04);
     }
-    
+
     .crate-card:hover::after {
       opacity: 0.25;
     }
-    
+
     .crate-card-art-wrapper {
       position: relative;
       width: 100%;
@@ -1500,7 +1689,7 @@
       overflow: hidden;
       background: #08111f;
     }
-    
+
     .crate-card-art {
       position: absolute;
       top: 0;
@@ -1510,14 +1699,14 @@
       object-fit: cover;
       transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
-    
+
     .crate-card:hover .crate-card-art {
       transform: scale(1.08) rotate(1deg);
     }
-    
 
 
-    
+
+
     .crate-card-info {
       padding: 1.5rem;
       display: flex;
@@ -1525,7 +1714,7 @@
       flex-grow: 1;
       gap: 0.6rem;
     }
-    
+
     .crate-card-title {
       font-size: 1.2rem;
       font-weight: 600;
@@ -1534,7 +1723,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    
+
     .crate-card-artist {
       font-size: 1rem;
       color: var(--yellow);
@@ -1543,7 +1732,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    
+
     .crate-card-meta {
       display: flex;
       justify-content: space-between;
@@ -1552,7 +1741,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       padding-top: 0.8rem;
     }
-    
+
     .crate-card-format {
       font-size: 0.8rem;
       color: var(--muted);
@@ -1560,44 +1749,52 @@
       letter-spacing: 1px;
       font-weight: 600;
     }
-    
+
     .crate-card-price {
       font-family: 'Oswald', sans-serif;
       font-size: 1.3rem;
       color: var(--cream);
       font-weight: 600;
     }
-    
+
     @media(max-width: 900px) {
       .featured-crate-section {
         padding: 4rem 1.5rem;
       }
+
       .crate-title {
         font-size: 2.2rem;
       }
+
       .crate-subtitle {
         margin-bottom: 2.5rem;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <nav style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+  <nav
+    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
     <div class="nav-inner">
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem;">
         <div class="nav-logo-toggle" id="nav-logo-toggle" onclick="toggleTopBar()" title="Hide/Show Navigation Bar">
-          <img src="images/fyr-logo-removebg-preview.png" alt="Forever Young Records" style="height: 38px; filter: drop-shadow(0 0 8px rgba(255, 212, 71, 0.3)); transition: transform 0.3s;">
+          <img src="images/fyr-logo-removebg-preview.png" alt="Forever Young Records"
+            style="height: 38px; filter: drop-shadow(0 0 8px rgba(255, 212, 71, 0.3)); transition: transform 0.3s;">
         </div>
       </div>
       <div class="nav-content-wrap" id="nav-content-wrap">
         <div class="nav-search-container">
-          <label class="nav-search-exact-label" title="Only search for exactly what you type when checked" style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
+          <label class="nav-search-exact-label" title="Only search for exactly what you type when checked"
+            style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
             <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact
           </label>
-          <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
+          <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..."
+            class="nav-search-input">
           <button id="nav-search-both-btn" class="nav-search-both-btn" title="Search online and in store">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
@@ -1614,8 +1811,10 @@
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
           </div>
-          <div class="nav-logo-toggle" id="nav-logo-toggle-right" onclick="toggleMenuLinks()" title="Hide/Show Menu Links">
-            <img src="images/fyr-logo-removebg-preview.png" alt="Toggle Menu Links" style="height: 32px; filter: drop-shadow(0 0 6px rgba(255, 212, 71, 0.25)); transition: transform 0.3s;">
+          <div class="nav-logo-toggle" id="nav-logo-toggle-right" onclick="toggleMenuLinks()"
+            title="Hide/Show Menu Links">
+            <img src="images/fyr-logo-removebg-preview.png" alt="Toggle Menu Links"
+              style="height: 32px; filter: drop-shadow(0 0 6px rgba(255, 212, 71, 0.25)); transition: transform 0.3s;">
           </div>
         </div>
       </div>
@@ -1630,35 +1829,28 @@
       <div class="ha-drawer open" id="ha-new_releases-drawer">
         <div class="ha-card-list" id="ha-new_releases-list"></div>
       </div>
-      <div class="ha-tab" id="ha-new_releases-tab" style="animation-play-state: paused;" onclick="toggleAccordion('new_releases')">&#9670; NEW RELEASES</div>
+      <div class="ha-tab" id="ha-new_releases-tab" style="animation-play-state: paused;"
+        onclick="toggleAccordion('new_releases')">&#9670; NEW RELEASES</div>
     </div>
 
-    <!-- LEFT ACCORDION 2: Employee Picks -->
-    <div class="hero-accordion left" id="ha-new" style="top: 62%;">
-      <div class="ha-drawer" id="ha-new-drawer">
-        <div class="ha-card-list" id="ha-new-list"></div>
-      </div>
-      <div class="ha-tab" id="ha-new-tab" onclick="toggleAccordion('new')">&#9670; FYR FAVS</div>
-    </div>
-
-    <!-- LEFT ACCORDION 3: Genres -->
-    <div class="hero-accordion left" id="ha-genres" style="top: 82%;">
-      <div class="ha-drawer" id="ha-genres-drawer">
-        <div class="ha-card-list" id="ha-genres-list"></div>
-      </div>
-      <div class="ha-tab" id="ha-genres-tab" onclick="toggleAccordion('genres')">&#9670; GENRES</div>
-    </div>
-
-    <!-- RIGHT ACCORDION 1: Temp1 -->
-    <div class="hero-accordion right" id="ha-temp1" style="top: 22%;">
+    <!-- RIGHT ACCORDION 1: Temp1 (Hidden) -->
+    <div class="hero-accordion right" id="ha-temp1" style="top: 22%; display: none;">
       <div class="ha-tab blue" id="ha-temp1-tab" onclick="toggleAccordion('temp1')">TEMP 1 &#9670;</div>
       <div class="ha-drawer" id="ha-temp1-drawer">
         <div class="ha-card-list" id="ha-temp1-list"></div>
       </div>
     </div>
 
+    <!-- RIGHT ACCORDION 1b: FYR FAVS -->
+    <div class="hero-accordion right" id="ha-new" style="top: 20%;">
+      <div class="ha-tab blue" id="ha-new-tab" onclick="toggleAccordion('new')">FYR FAVS &#9670;</div>
+      <div class="ha-drawer" id="ha-new-drawer">
+        <div class="ha-card-list" id="ha-new-list"></div>
+      </div>
+    </div>
+
     <!-- RIGHT ACCORDION 2: Hot Albums & Rare Finds -->
-    <div class="hero-accordion right" id="ha-right" style="top: 50%;">
+    <div class="hero-accordion right" id="ha-right" style="top: 40%;">
       <div class="ha-tab blue" id="ha-right-tab" onclick="toggleAccordion('right')">RARE &#9670;</div>
       <div class="ha-drawer" id="ha-right-drawer">
         <div class="ha-drawer-header">
@@ -1670,37 +1862,75 @@
       </div>
     </div>
 
-    <!-- RIGHT ACCORDION 3: Temp2 -->
-    <div class="hero-accordion right" id="ha-temp2" style="top: 78%;">
+    <!-- RIGHT ACCORDION 3: Temp2 (Hidden) -->
+    <div class="hero-accordion right" id="ha-temp2" style="top: 78%; display: none;">
       <div class="ha-tab blue" id="ha-temp2-tab" onclick="toggleAccordion('temp2')">TEMP 2 &#9670;</div>
       <div class="ha-drawer" id="ha-temp2-drawer">
         <div class="ha-card-list" id="ha-temp2-list"></div>
       </div>
     </div>
 
-    <div class="bottom-bar">
-      <div class="bottom-inner">
-        <div class="bottom-item">
-          <h3>250K+</h3>
-          <p>Vinyl, tapes, CDs, memorabilia & collectibles</p>
-        </div>
-        <div class="bottom-item">
-          <h3>Since 1984</h3>
-          <p>One of Texas&#8217; legendary independent music destinations</p>
-        </div>
-        <div class="bottom-item">
-          <h3>Collectors</h3>
-          <p>Rare finds, deep catalog discoveries, and music history</p>
-        </div>
+    <!-- RIGHT ACCORDION 3b: Genres -->
+    <div class="hero-accordion right" id="ha-genres" style="top: 60%;">
+      <div class="ha-tab blue" id="ha-genres-tab" onclick="toggleAccordion('genres')">GENRES &#9670;</div>
+      <div class="ha-drawer" id="ha-genres-drawer">
+        <div class="ha-card-list" id="ha-genres-list"></div>
       </div>
-      <div class="xeno-credit" style="padding-bottom: 0.6rem;">
-        <a href="https://www.xenohead.com" target="_blank">
-          <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 20px; width: auto; border-radius: 2px; opacity: 0.8; filter: drop-shadow(0 0 4px rgba(44, 108, 255, 0.4));">
-          <span style="color: var(--blueBright);">WebDev: www.xenohead.com</span>
-        </a>
-      </div>
-      <div class="ticker-wrap" style="max-width: 100%; border-radius: 0; border-left: none; border-right: none; margin: 0;">
-        <div class="ticker-content" id="ticker-text">Loading message...</div>
+    </div>
+
+    <!-- RIGHT ACCORDION 4: Lil' Dave AI Chatbot -->
+    <div class="hero-accordion right" id="ha-dave" style="top: 80%;">
+      <div class="ha-tab blue" id="ha-dave-tab" onclick="toggleAccordion('dave')">Lil' Dave AI &#9670;</div>
+      <div class="ha-drawer" id="ha-dave-drawer" style="width: 350px;">
+        <div class="fyr-chat-window" id="fyr-chat-window" style="display: flex; opacity: 1; pointer-events: all; transform: none; margin: 0; border: none; max-height: 70vh; border-radius: 0; box-shadow: none;">
+          <!-- Header -->
+          <div class="fyr-chat-header">
+            <div class="fyr-chat-title-wrap">
+              <div class="fyr-chat-icon-pulse"></div>
+              <h4 class="fyr-chat-title">Little Dave AI</h4>
+              <span class="fyr-chat-subtitle">FYR Music Expert</span>
+            </div>
+            <button class="fyr-chat-close" onclick="toggleChatbot()" title="Close chat">&times;</button>
+          </div>
+
+          <!-- Messages -->
+          <div class="fyr-chat-messages" id="fyr-chat-messages">
+            <!-- Initial Message -->
+            <div class="fyr-msg bot">
+              <div class="fyr-msg-bubble">
+                <p>Hey! I'm little Dave. Welcome to our new web site! But we STILL don't sell records, we sell a service!</p>
+                <div class="fyr-suggestions-wrap">
+                  <button class="fyr-suggestion-pill"
+                    onclick="sendSuggestion('Who played drums on Steely Dan\'s \'Aja\'?')">🎸 Who played drums on Steely
+                    Dan's "Aja"?</button>
+                  <button class="fyr-suggestion-pill" onclick="sendSuggestion('What was the #1 billboard song in 1974?')">📅
+                    What was the #1 billboard song in 1974?</button>
+                  <button class="fyr-suggestion-pill"
+                    onclick="sendSuggestion('Tell me a cool vinyl record trivia fact!')">🔍 Tell me a cool vinyl record
+                    trivia fact!</button>
+                </div>
+              </div>
+              <div class="fyr-msg-meta">Little Dave AI • Just now</div>
+            </div>
+          </div>
+
+          <!-- Footer Input -->
+          <div class="fyr-chat-footer">
+            <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)" style="margin: 0;">
+              <div class="fyr-chat-input-bar">
+                <input type="text" id="fyr-chat-input" class="fyr-chat-input"
+                  placeholder="Ask about music history, trivia..." autocomplete="off">
+                <button type="submit" class="fyr-chat-send" title="Send message">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1711,20 +1941,22 @@
   <style>
     /* Chatbot Container */
     .fyr-chat-container {
-      position: fixed;
-      bottom: 105px; /* Stay clear of the bottom ticker */
-      right: 30px;
+      position: absolute;
+      bottom: 25%;
+      /* Centered in front of the jukebox doors */
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 9999;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
       font-family: 'Outfit', sans-serif;
     }
 
     /* Floating Toggle Button */
     .fyr-chat-toggle {
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--blueBright) 0%, #152B4D 100%);
       border: 2px solid var(--yellow);
@@ -1735,15 +1967,19 @@
       justify-content: center;
       position: relative;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      overflow: visible; /* Let the nameplate overflow the circle slightly */
+      overflow: visible;
+      /* Let the nameplate overflow the circle slightly */
     }
+
     .fyr-chat-toggle:hover {
       transform: scale(1.08) translateY(-3px);
       box-shadow: 0 12px 40px rgba(44, 108, 255, 0.6), 0 0 15px rgba(255, 212, 71, 0.3);
     }
+
     .fyr-chat-toggle:active {
       transform: scale(0.95);
     }
+
     .fyr-chat-toggle img {
       width: 100%;
       height: 100%;
@@ -1751,6 +1987,7 @@
       object-fit: cover;
       transition: transform 0.8s ease-in-out;
     }
+
     .fyr-chat-toggle:hover img {
       transform: scale(1.05);
     }
@@ -1764,7 +2001,7 @@
       background: var(--yellow);
       color: var(--dark);
       font-family: 'Oswald', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.75rem;
       font-weight: 700;
       padding: 0.15rem 0.45rem;
       border-radius: 4px;
@@ -1790,10 +2027,22 @@
       box-shadow: 0 0 8px #e74c3c;
       animation: fyr-badge-pulse 2s infinite;
     }
+
     @keyframes fyr-badge-pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(231, 76, 60, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(231, 76, 60, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+      }
     }
 
     /* Chat Window Card */
@@ -1817,6 +2066,7 @@
       pointer-events: none;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2);
     }
+
     .fyr-chat-window.open {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -1832,11 +2082,13 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .fyr-chat-title-wrap {
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
+
     .fyr-chat-icon-pulse {
       width: 8px;
       height: 8px;
@@ -1845,11 +2097,21 @@
       box-shadow: 0 0 8px var(--yellow);
       animation: pulse-yellow 1.5s infinite;
     }
+
     @keyframes pulse-yellow {
-      0% { box-shadow: 0 0 0 0 rgba(255, 212, 71, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(255, 212, 71, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 212, 71, 0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 212, 71, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(255, 212, 71, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 212, 71, 0);
+      }
     }
+
     .fyr-chat-title {
       font-family: 'Oswald', sans-serif;
       font-size: 1.15rem;
@@ -1859,11 +2121,13 @@
       text-transform: uppercase;
       margin: 0;
     }
+
     .fyr-chat-subtitle {
       font-size: 0.72rem;
       color: var(--muted);
       margin-left: 0.4rem;
     }
+
     .fyr-chat-close {
       background: none;
       border: none;
@@ -1875,6 +2139,7 @@
       padding: 0;
       transition: opacity 0.2s, transform 0.2s;
     }
+
     .fyr-chat-close:hover {
       opacity: 1;
       transform: scale(1.1);
@@ -1889,16 +2154,20 @@
       flex-direction: column;
       gap: 1rem;
     }
+
     .fyr-chat-messages::-webkit-scrollbar {
       width: 6px;
     }
+
     .fyr-chat-messages::-webkit-scrollbar-track {
       background: transparent;
     }
+
     .fyr-chat-messages::-webkit-scrollbar-thumb {
       background: rgba(44, 108, 255, 0.3);
       border-radius: 4px;
     }
+
     .fyr-chat-messages::-webkit-scrollbar-thumb:hover {
       background: rgba(44, 108, 255, 0.5);
     }
@@ -1910,18 +2179,29 @@
       flex-direction: column;
       animation: fyr-fade-in-up 0.25s ease-out forwards;
     }
+
     @keyframes fyr-fade-in-up {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .fyr-msg.user {
       align-self: flex-end;
       align-items: flex-end;
     }
+
     .fyr-msg.bot {
       align-self: flex-start;
       align-items: flex-start;
     }
+
     .fyr-msg-bubble {
       padding: 0.75rem 1rem;
       border-radius: 16px;
@@ -1929,31 +2209,39 @@
       line-height: 1.45;
       word-wrap: break-word;
     }
+
     .fyr-msg.user .fyr-msg-bubble {
       background: rgba(44, 108, 255, 0.22);
       border: 1px solid rgba(44, 108, 255, 0.35);
       color: var(--cream);
       border-bottom-right-radius: 4px;
     }
+
     .fyr-msg.bot .fyr-msg-bubble {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--cream);
       border-bottom-left-radius: 4px;
     }
+
     .fyr-msg-bubble p {
       margin-bottom: 0.5rem;
     }
+
     .fyr-msg-bubble p:last-child {
       margin-bottom: 0;
     }
-    .fyr-msg-bubble ul, .fyr-msg-bubble ol {
+
+    .fyr-msg-bubble ul,
+    .fyr-msg-bubble ol {
       padding-left: 1.2rem;
       margin: 0.4rem 0;
     }
+
     .fyr-msg-bubble li {
       margin-bottom: 0.2rem;
     }
+
     .fyr-msg-meta {
       font-size: 0.65rem;
       color: var(--muted);
@@ -1968,6 +2256,7 @@
       gap: 0.4rem;
       margin-top: 0.6rem;
     }
+
     .fyr-suggestion-pill {
       background: rgba(255, 212, 71, 0.06);
       border: 1px solid rgba(255, 212, 71, 0.25);
@@ -1979,6 +2268,7 @@
       text-align: left;
       transition: all 0.2s;
     }
+
     .fyr-suggestion-pill:hover {
       background: rgba(255, 212, 71, 0.12);
       border-color: rgba(255, 212, 71, 0.5);
@@ -1992,6 +2282,7 @@
       padding: 4px 6px;
       align-items: center;
     }
+
     .fyr-dot {
       width: 6px;
       height: 6px;
@@ -1999,11 +2290,26 @@
       border-radius: 50%;
       animation: fyr-dot-bounce 1.4s infinite ease-in-out both;
     }
-    .fyr-dot:nth-child(1) { animation-delay: -0.32s; }
-    .fyr-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    .fyr-dot:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .fyr-dot:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
     @keyframes fyr-dot-bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1.0); }
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+      }
+
+      40% {
+        transform: scale(1.0);
+      }
     }
 
     /* Input Footer */
@@ -2012,6 +2318,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(8, 17, 31, 0.5);
     }
+
     .fyr-chat-input-bar {
       display: flex;
       align-items: center;
@@ -2022,10 +2329,12 @@
       padding: 0.3rem 0.3rem 0.3rem 1rem;
       transition: border-color 0.25s, box-shadow 0.25s;
     }
+
     .fyr-chat-input-bar:focus-within {
       border-color: var(--blueBright);
       box-shadow: 0 0 12px rgba(44, 108, 255, 0.25);
     }
+
     .fyr-chat-input {
       flex: 1;
       background: none;
@@ -2036,10 +2345,12 @@
       font-size: 0.88rem;
       padding: 0.4rem 0;
     }
+
     .fyr-chat-input::placeholder {
       color: var(--muted);
       opacity: 0.6;
     }
+
     .fyr-chat-send {
       width: 32px;
       height: 32px;
@@ -2053,68 +2364,16 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .fyr-chat-send:hover {
       background: #4784ff;
       transform: scale(1.05);
     }
+
     .fyr-chat-send:active {
       transform: scale(0.95);
     }
   </style>
-
-  <!-- HTML Structure -->
-  <div class="fyr-chat-container" id="fyr-chatbot-container">
-    <!-- Chat Window -->
-    <div class="fyr-chat-window" id="fyr-chat-window">
-      <!-- Header -->
-      <div class="fyr-chat-header">
-        <div class="fyr-chat-title-wrap">
-          <div class="fyr-chat-icon-pulse"></div>
-          <h4 class="fyr-chat-title">Little Dave</h4>
-          <span class="fyr-chat-subtitle">FYR Music Expert</span>
-        </div>
-        <button class="fyr-chat-close" onclick="toggleChatbot()" title="Close chat">&times;</button>
-      </div>
-
-      <!-- Messages -->
-      <div class="fyr-chat-messages" id="fyr-chat-messages">
-        <!-- Initial Message -->
-        <div class="fyr-msg bot">
-          <div class="fyr-msg-bubble">
-            <p>"We dont sell records, we sell a service."<br><br>Hey there, music fan! 🎧 I'm <strong>Little Dave</strong>, your virtual vinyl assistant. Ask me anything about music history, session players, trivia, or who played what on your favorite track!</p>
-            <div class="fyr-suggestions-wrap">
-              <button class="fyr-suggestion-pill" onclick="sendSuggestion('Who played drums on Steely Dan\'s \'Aja\'?')">🎸 Who played drums on Steely Dan's "Aja"?</button>
-              <button class="fyr-suggestion-pill" onclick="sendSuggestion('What was the #1 billboard song in 1974?')">📅 What was the #1 billboard song in 1974?</button>
-              <button class="fyr-suggestion-pill" onclick="sendSuggestion('Tell me a cool vinyl record trivia fact!')">🔍 Tell me a cool vinyl record trivia fact!</button>
-            </div>
-          </div>
-          <div class="fyr-msg-meta">Little Dave • Just now</div>
-        </div>
-      </div>
-
-      <!-- Footer Input -->
-      <div class="fyr-chat-footer">
-        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)" style="margin: 0;">
-          <div class="fyr-chat-input-bar">
-            <input type="text" id="fyr-chat-input" class="fyr-chat-input" placeholder="Ask about music history, trivia..." autocomplete="off">
-            <button type="submit" class="fyr-chat-send" title="Send message">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Toggle Button -->
-    <button class="fyr-chat-toggle" id="fyr-chat-toggle" onclick="toggleChatbot()" title="Chat with Little Dave">
-      <div class="fyr-chat-badge" id="fyr-chat-badge"></div>
-      <img id="fyr-chat-vinyl" src="images/little_dave.jpg" alt="Little Dave">
-      <div class="fyr-chat-nameplate">Little Dave</div>
-    </button>
-  </div>
 
   <script>
     const buttons = document.querySelectorAll('.button, .feature-link');
@@ -2152,7 +2411,7 @@
     }
     updateTicker();
     setInterval(updateTicker, 60000); // Check every minute
-    
+
     // â”€â”€ Hero Accordion helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     const accordionStates = {
       new_releases: true,
@@ -2166,7 +2425,7 @@
     function toggleAccordion(side) {
       accordionStates[side] = !accordionStates[side];
       const drawer = document.getElementById(`ha-${side}-drawer`);
-      const tab    = document.getElementById(`ha-${side}-tab`);
+      const tab = document.getElementById(`ha-${side}-tab`);
       if (drawer) drawer.classList.toggle('open', accordionStates[side]);
       if (tab) tab.style.animationPlayState = accordionStates[side] ? 'paused' : 'running';
     }
@@ -2199,7 +2458,7 @@
 
     function switchRightTab(which) {
       haRightActive = which;
-      document.getElementById('ha-hot-list').style.display  = which === 'hot'  ? 'flex' : 'none';
+      document.getElementById('ha-hot-list').style.display = which === 'hot' ? 'flex' : 'none';
       document.getElementById('ha-rare-list').style.display = which === 'rare' ? 'flex' : 'none';
       document.getElementById('ha-hot-tab').classList.toggle('active', which === 'hot');
       document.getElementById('ha-rare-tab').classList.toggle('active', which === 'rare');
@@ -2216,7 +2475,7 @@
       if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
         thumbEl.innerHTML = `<img src="${item.Front_Image_URL}" alt="" loading="lazy">`;
       } else {
-        const colors = ['#2C6CFF','#0A2C74','#FFD447','#2ecc71','#e74c3c','#9b59b6'];
+        const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
         thumbEl.style.background = colors[(item.id || 0) % colors.length];
         thumbEl.innerHTML = `<span class="ha-thumb-placeholder">${item.Format || 'LP'}</span>`;
       }
@@ -2267,13 +2526,13 @@
         const response = await fetch('/api/featured');
         const data = await response.json();
         if (data.success && data.results) {
-          populateHaList('ha-new_releases-list', data.results.new_releases || []);
-          populateHaList('ha-new-list',           data.results.new          || []);
-          populateHaList('ha-genres-list',        data.results.genres       || []);
-          populateHaList('ha-hot-list',           data.results.hot          || []);
-          populateHaList('ha-rare-list',          data.results.rare         || []);
-          populateHaList('ha-temp1-list',         data.results.temp1        || []);
-          populateHaList('ha-temp2-list',         data.results.temp2        || []);
+          populateHaList('ha-new_releases-list', (data.results.new_releases || []).slice(0, 6));
+          populateHaList('ha-new-list', data.results.new || []);
+          populateHaList('ha-genres-list', data.results.genres || []);
+          populateHaList('ha-hot-list', data.results.hot || []);
+          populateHaList('ha-rare-list', data.results.rare || []);
+          populateHaList('ha-temp1-list', data.results.temp1 || []);
+          populateHaList('ha-temp2-list', data.results.temp2 || []);
         }
       } catch (err) {
         console.error('Error loading featured crates', err);
@@ -2289,7 +2548,8 @@
         <h2 id="hot-tips-modal-title">ðŸ”¥ Hot Tips & Tricks</h2>
         <div style="display: flex; align-items: center; gap: 1.5rem;">
           <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             </svg>
           </button>
@@ -2297,12 +2557,19 @@
         </div>
       </div>
       <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever Young</h3>
-        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS' feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for faster.</p>
-        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">Selling Your Collection</h3>
-        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours. Check the 'Buying Hours' page before you haul your collection to the store.</p>
-        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records and make sure the sleeves are in good condition for the best offer.</p>
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever
+          Young</h3>
+        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
+          feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
+          faster.</p>
+        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to
+          your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">
+          Selling Your Collection</h3>
+        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours.
+          Check the 'Buying Hours' page before you haul your collection to the store.</p>
+        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records
+          and make sure the sleeves are in good condition for the best offer.</p>
       </div>
     </div>
   </div>
@@ -2314,7 +2581,8 @@
         <h2 id="search-results-modal-title">Search Results</h2>
         <div style="display: flex; align-items: center; gap: 1.5rem;">
           <button id="search-results-modal-maximize" class="search-results-modal-maximize" title="Maximize">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             </svg>
           </button>
@@ -2332,9 +2600,12 @@
           <button class="rtb-btn sort-btn active" data-sort="location">Location</button>
           <button class="rtb-btn sort-btn" data-sort="price">Price</button>
           <button class="rtb-btn sort-btn" data-sort="date">Date</button>
-          <button class="rtb-btn sort-dir-btn" id="sort-dir-btn" title="Toggle Sort Order" data-dir="asc" style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.32rem 0.6rem;">
+          <button class="rtb-btn sort-dir-btn" id="sort-dir-btn" title="Toggle Sort Order" data-dir="asc"
+            style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.32rem 0.6rem;">
             <span id="sort-dir-text" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Asc</span>
-            <svg id="sort-dir-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s; transform: rotate(0deg);">
+            <svg id="sort-dir-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              style="transition: transform 0.2s; transform: rotate(0deg);">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <polyline points="5 12 12 5 19 12"></polyline>
             </svg>
@@ -2366,7 +2637,7 @@
                 <div class="detail-main-actions" id="detail-actions-container"></div>
               </div>
             </div>
-            
+
             <div class="detail-specs-grid">
               <div class="detail-spec-item">
                 <span class="detail-spec-label">Format</span>
@@ -2413,7 +2684,7 @@
                 <span id="detail-spec-ref" class="detail-spec-value">N/A</span>
               </div>
             </div>
-            
+
             <div id="detail-description-block" class="detail-description-block">
               <h5>Description / Notes</h5>
               <p id="detail-description">No description available.</p>
@@ -2502,7 +2773,7 @@
     function applyResultsView() {
       // Filter
       let items = allSearchResults.slice();
-      if (activeFilter === 'online')  items = items.filter(i => i._source !== 'instore');
+      if (activeFilter === 'online') items = items.filter(i => i._source !== 'instore');
       if (activeFilter === 'instore') items = items.filter(i => i._source === 'instore');
 
       const dirMultiplier = activeSortDir === 'asc' ? 1 : -1;
@@ -2602,7 +2873,7 @@
       hotTipsModalMaximize.addEventListener('click', () => {
         hotTipsModal.classList.toggle('maximized');
         hotTipsModal.querySelector('.search-results-modal-content').classList.toggle('maximized');
-        
+
         if (hotTipsModal.classList.contains('maximized')) {
           hotTipsModalMaximize.title = 'Restore';
           hotTipsModalMaximize.innerHTML = `
@@ -2631,7 +2902,7 @@
       searchResultsModalMaximize.addEventListener('click', () => {
         searchResultsModal.classList.toggle('maximized');
         document.querySelector('.search-results-modal-content').classList.toggle('maximized');
-        
+
         if (searchResultsModal.classList.contains('maximized')) {
           searchResultsModalMaximize.title = 'Restore';
           searchResultsModalMaximize.innerHTML = `
@@ -2661,7 +2932,7 @@
       } else {
         const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
         const randomColor = colors[item.id % colors.length];
-        
+
         if (isInstore) {
           artHtml = `
             <div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
@@ -2814,7 +3085,7 @@
         try {
           const onlinePromise = fetch(`/api/online-search?query=${encodeURIComponent(query)}&type=all&limit=40${exact ? '&exact=true' : ''}`).then(r => r.json()).catch(err => { console.error(err); return { success: false, results: [] }; });
           const instorePromise = fetch(`/api/inventory-search?query=${encodeURIComponent(query)}&limit=40`).then(r => r.json()).catch(err => { console.error(err); return { success: false, results: [] }; });
-          
+
           const [onlineData, instoreData] = await Promise.all([onlinePromise, instorePromise]);
           searchResultsModalLoading.style.display = 'none';
           searchResultsModalBody.style.display = 'block';
@@ -2846,11 +3117,11 @@
       searchResultsModalGrid.style.display = 'none';
       const detailViewContainer = document.getElementById('search-results-modal-detail-view');
       detailViewContainer.style.display = 'block';
-      
+
       document.getElementById('detail-title').textContent = item.Title || 'Unknown Title';
       document.getElementById('detail-artist').textContent = item.Artist || 'Unknown Artist';
       document.getElementById('detail-price').textContent = `$${(item.Price || 0.00).toFixed(2)}`;
-      
+
       const stockBadge = document.getElementById('detail-stock-badge');
       if (item.Quantity !== undefined) {
         stockBadge.textContent = `In Stock: ${item.Quantity}`;
@@ -2859,7 +3130,7 @@
       } else {
         stockBadge.style.display = 'none';
       }
-      
+
       const artContainer = document.getElementById('detail-art-container');
       artContainer.innerHTML = '';
       if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
@@ -2874,7 +3145,7 @@
         artContainer.style.backgroundImage = 'none';
         artContainer.innerHTML = `<span style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>`;
       }
-      
+
       const actionsContainer = document.getElementById('detail-actions-container');
       actionsContainer.innerHTML = '';
       if (item._source === 'online') {
@@ -2888,9 +3159,9 @@
         });
         actionsContainer.appendChild(buyBtn);
       }
-      
+
       const cleanVal = (val) => (val && val !== 'NULL' && val.toString().trim() !== '') ? val : 'N/A';
-      
+
       document.getElementById('detail-spec-format').textContent = cleanVal(item.Format);
       document.getElementById('detail-spec-genre').textContent = cleanVal(item.Genre);
       document.getElementById('detail-spec-label').textContent = cleanVal(item.Label);
@@ -2914,7 +3185,7 @@
       } else {
         refContainer.style.display = 'none';
       }
-      
+
       const descBlock = document.getElementById('detail-description-block');
       const descText = document.getElementById('detail-description');
       const desc = cleanVal(item.Description);
@@ -2976,29 +3247,7 @@
     document.head.appendChild(fyrChatSpinStyle);
 
     function toggleChatbot() {
-      const windowEl = document.getElementById('fyr-chat-window');
-      const toggleEl = document.getElementById('fyr-chat-toggle');
-      const badgeEl = document.getElementById('fyr-chat-badge');
-      const vinylEl = document.getElementById('fyr-chat-vinyl');
-      
-      const isOpen = windowEl.classList.toggle('open');
-      toggleEl.classList.toggle('active', isOpen);
-      
-      if (isOpen) {
-        if (badgeEl) badgeEl.remove(); // Remove notification badge
-        fyrBotHasOpened = true;
-        
-        // Brief vinyl spin when opened
-        vinylEl.style.animation = 'none';
-        setTimeout(() => {
-          vinylEl.style.animation = 'spin 1.2s ease-out';
-        }, 50);
-
-        // Auto-focus input
-        setTimeout(() => {
-          document.getElementById('fyr-chat-input').focus();
-        }, 300);
-      }
+      toggleAccordion('dave');
     }
 
     function formatMarkdown(text) {
@@ -3008,10 +3257,16 @@
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
-      
+
+      // Markdown Images: ![alt](src)
+      html = html.replace(/!\[(.*?)\]\((.*?)\)/g, (match, alt, src) => {
+        const cleanSrc = src.replace(/\\/g, '/');
+        return `<img src="${cleanSrc}" alt="${alt}" style="max-width: 100%; border-radius: 8px; margin-top: 0.5rem; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">`;
+      });
+
       // Bold **text**
       html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      
+
       // Italics *text* or _text_
       html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
       html = html.replace(/_(.*?)_/g, '<em>$1</em>');
@@ -3020,7 +3275,7 @@
       const lines = html.split('\n');
       let inList = false;
       let processedLines = [];
-      
+
       for (let line of lines) {
         const trimmed = line.trim();
         if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
@@ -3038,12 +3293,12 @@
         }
       }
       if (inList) processedLines.push('</ul>');
-      
+
       html = processedLines.join('\n');
-      
+
       // Convert newlines to breaks
       html = html.replace(/\n/g, '<br>');
-      
+
       return html;
     }
 
@@ -3058,17 +3313,17 @@
       const container = document.getElementById('fyr-chat-messages');
       const msgEl = document.createElement('div');
       msgEl.className = `fyr-msg ${role}`;
-      
+
       const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const senderName = role === 'bot' ? 'Little Dave' : 'You';
-      
+      const senderName = role === 'bot' ? 'Little Dave AI' : 'You';
+
       msgEl.innerHTML = `
         <div class="fyr-msg-bubble">
           ${role === 'bot' ? formatMarkdown(text) : escapeHtml(text)}
         </div>
         <div class="fyr-msg-meta">${senderName} • ${timeString}</div>
       `;
-      
+
       container.appendChild(msgEl);
       container.scrollTop = container.scrollHeight;
     }
@@ -3080,18 +3335,18 @@
 
     async function handleChatSubmit(e) {
       if (e) e.preventDefault();
-      
+
       const inputEl = document.getElementById('fyr-chat-input');
       const messageText = inputEl.value.trim();
       if (!messageText) return;
-      
+
       // Clear input
       inputEl.value = '';
-      
+
       // Append user message
       appendMessage('user', messageText);
       fyrChatHistory.push({ role: 'user', content: messageText });
-      
+
       // Add typing indicator
       const container = document.getElementById('fyr-chat-messages');
       const typingEl = document.createElement('div');
@@ -3108,11 +3363,11 @@
       `;
       container.appendChild(typingEl);
       container.scrollTop = container.scrollHeight;
-      
+
       // Continuous vinyl spin while fetching response
       const vinylEl = document.getElementById('fyr-chat-vinyl');
       vinylEl.style.animation = 'continuous-spin 2s linear infinite';
-      
+
       // Gather active page context to send to Little Dave
       const pageContext = {
         searchQuery: navSearchInput ? navSearchInput.value.trim() : '',
@@ -3135,39 +3390,40 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             messages: fyrChatHistory,
             pageContext: pageContext
           })
         });
-        
+
         // Remove typing indicator
         const indicator = document.getElementById('fyr-typing-indicator');
         if (indicator) indicator.remove();
-        
+
         // Stop spinning
         vinylEl.style.animation = 'none';
-        
+
         if (!res.ok) {
           const errData = await res.json().catch(() => ({}));
           throw new Error(errData.error || `HTTP error ${res.status}`);
         }
-        
+
         const data = await res.json();
         const botReply = data.response;
-        
+
         appendMessage('bot', botReply);
         fyrChatHistory.push({ role: 'assistant', content: botReply });
-        
+
       } catch (err) {
         console.error("GrooveAI Error:", err);
         const indicator = document.getElementById('fyr-typing-indicator');
         if (indicator) indicator.remove();
         vinylEl.style.animation = 'none';
-        
+
         appendMessage('bot', `Oops! 🎵 I hit a scratch on the record. Could you try asking that again? (Error: ${err.message})`);
       }
     }
   </script>
 </body>
+
 </html>

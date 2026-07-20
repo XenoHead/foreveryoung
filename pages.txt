@@ -1,0 +1,4 @@
+customer: npx wrangler pages dev . --port 8788
+
+staff: npx wrangler pages dev ./public --port 8789 --persist-to ../ForeverYoung/.wrangler/state
+
