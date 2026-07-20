@@ -1,48 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Location | Forever Young Records</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { background: #08111F; color: #FFF8DF; overflow-x: hidden; font-family: 'Outfit', sans-serif; }
-    
-    :root { 
-      --blue: #0A2C74; 
-      --blueBright: #2C6CFF; 
-      --yellow: #FFD447; 
-      --cream: #FFF8DF; 
-      --dark: #08111F; 
-      --muted: #B6C0D7; 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #08111F;
+      color: #FFF8DF;
+      overflow-x: hidden;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    :root {
+      --blue: #0A2C74;
+      --blueBright: #2C6CFF;
+      --yellow: #FFD447;
+      --cream: #FFF8DF;
+      --dark: #08111F;
+      --muted: #B6C0D7;
+    }
+
     /* Film Grain */
     body::before {
-      content: ""; 
-      position: fixed; 
+      content: "";
+      position: fixed;
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      opacity: 0.06; 
-      pointer-events: none; 
-      z-index: 999; 
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 999;
       animation: grainMove 8s steps(2) infinite;
     }
-    @keyframes grainMove { 
-      0% { transform: translate(0px, 0px); } 
-      25% { transform: translate(-2px, 1px); } 
-      50% { transform: translate(2px, -1px); } 
-      75% { transform: translate(-1px, 2px); } 
-      100% { transform: translate(0px, 0px); } 
+
+    @keyframes grainMove {
+      0% {
+        transform: translate(0px, 0px);
+      }
+
+      25% {
+        transform: translate(-2px, 1px);
+      }
+
+      50% {
+        transform: translate(2px, -1px);
+      }
+
+      75% {
+        transform: translate(-1px, 2px);
+      }
+
+      100% {
+        transform: translate(0px, 0px);
+      }
     }
-    
+
     /* Navigation */
-    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
-    .nav-inner { max-width: 1400px; margin: auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(8, 17, 31, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: auto;
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .nav-search-container {
       display: flex;
       align-items: center;
@@ -106,11 +155,41 @@
       color: var(--dark);
       box-shadow: 0 0 12px rgba(44, 108, 255, 0.35);
     }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
-    .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 50%; background-color: var(--yellow); transition: all 0.3s ease; transform: translateX(-50%); }
-    .nav-links a:hover { color: var(--yellow); text-shadow: 0 0 10px rgba(255, 212, 71, 0.4); }
-    .nav-links a:hover::after { width: 100%; }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      background-color: var(--yellow);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow);
+      text-shadow: 0 0 10px rgba(255, 212, 71, 0.4);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
     /* Vinyl Sidebar */
     .vinyl-sidebar {
@@ -135,6 +214,7 @@
       text-align: center;
       background: linear-gradient(to bottom, rgba(10, 44, 116, 0.2), transparent);
     }
+
     .about-header h1 {
       font-family: 'Oswald', sans-serif;
       font-size: 4rem;
@@ -143,6 +223,7 @@
       letter-spacing: 2px;
       margin-bottom: 1rem;
     }
+
     .about-header p.subtitle {
       color: var(--muted);
       font-size: 1.2rem;
@@ -162,35 +243,60 @@
     }
 
     .about-block {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       padding: 2rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
-    
+
     .map-container iframe {
       width: 100%;
       height: 500px;
       border: 0;
       border-radius: 12px;
       filter: invert(90%) hue-rotate(180deg) brightness(1.1) contrast(1.1);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     @media(max-width:900px) {
-      .vinyl-sidebar { width: 140px; opacity: 0.3; }
-      .nav-inner { flex-direction: column; gap: 1rem; }
-      .nav-search-container { margin-right: 0; width: 100%; justify-content: center; }
-      .nav-search-input { max-width: 100%; }
+      .vinyl-sidebar {
+        width: 140px;
+        opacity: 0.3;
+      }
+
+      .nav-inner {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-search-container {
+        margin-right: 0;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-search-input {
+        max-width: 100%;
+      }
+
       .nav-links {
         justify-content: center;
         gap: 1rem;
         flex-wrap: wrap;
       }
-      .nav-links a { font-size: 0.85rem; }
-      .about-header h1 { font-size: 2.5rem; }
-      .about-block { padding: 2rem; }
+
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+
+      .about-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-block {
+        padding: 2rem;
+      }
     }
 
     /* =========================
@@ -306,7 +412,9 @@
     }
 
     @keyframes search-spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .search-modal-grid {
@@ -476,7 +584,7 @@
       justify-content: center;
       flex-shrink: 0;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .detail-view-art img {
@@ -595,13 +703,16 @@
         align-items: center;
         text-align: center;
       }
+
       .detail-view-art {
         width: 160px;
         height: 160px;
       }
+
       .detail-main-title {
         font-size: 1.8rem;
       }
+
       .detail-main-price-stock {
         justify-content: center;
       }
@@ -609,22 +720,23 @@
   </style>
   </style>
 </head>
+
 <body>
   <div class="vinyl-sidebar"></div>
   <nav>
     <div class="nav-inner">
       <div class="nav-search-container">
         <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
-        <label class="nav-search-exact-label" style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
+        <label class="nav-search-exact-label"
+          style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
           <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact text
         </label>
-        <button id="nav-search-online-btn" class="nav-search-btn online">Search Online</button>
-        <button id="nav-search-instore-btn" class="nav-search-btn instore">Search In-Store</button>
+        <button id="nav-search-online-btn" class="nav-search-btn online">Online</button>
+        <button id="nav-search-instore-btn" class="nav-search-btn instore">IN-STORE</button>
       </div>
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="buying-hours.html">Buying Hours</a>
-        <a href="#" id="hot-tips-nav-link" style="color: var(--yellow);">HOT TIPS</a>
         <a href="location.html" style="color: var(--yellow);">Location</a>
         <a href="aisle-gps.html">Aisle GPS</a>
         <a href="about.html">About</a>
@@ -640,12 +752,16 @@
 
   <main class="about-content">
     <div class="map-container">
-      <iframe src="https://maps.google.com/maps?q=Forever%20Young%20Records,%202955%20S%20State%20Hwy%20161,%20Grand%20Prairie,%20TX%2075052&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+      <iframe
+        src="https://maps.google.com/maps?q=Forever%20Young%20Records,%202955%20S%20State%20Hwy%20161,%20Grand%20Prairie,%20TX%2075052&t=&z=15&ie=UTF8&iwloc=&output=embed"
+        allowfullscreen="" loading="lazy"></iframe>
     </div>
   </main>
 
-  <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
-    <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
+  <div
+    style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
+    <a href="https://www.xenohead.com" target="_blank"
+      style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
       <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
     </a>
   </div>
@@ -656,7 +772,8 @@
         <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
         <div style="display: flex; align-items: center; gap: 1.5rem;">
           <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             </svg>
           </button>
@@ -664,7 +781,8 @@
         </div>
       </div>
       <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever Young
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever
+          Young
         </h3>
         <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
           feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
@@ -687,7 +805,8 @@
         <h2 id="search-results-modal-title">Search Results</h2>
         <div style="display: flex; align-items: center; gap: 1.5rem;">
           <button id="search-results-modal-maximize" class="search-results-modal-maximize" title="Maximize">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             </svg>
           </button>
@@ -719,7 +838,7 @@
                 <div class="detail-main-actions" id="detail-actions-container"></div>
               </div>
             </div>
-            
+
             <div class="detail-specs-grid">
               <div class="detail-spec-item">
                 <span class="detail-spec-label">Format</span>
@@ -766,7 +885,7 @@
                 <span id="detail-spec-ref" class="detail-spec-value">N/A</span>
               </div>
             </div>
-            
+
             <div id="detail-description-block" class="detail-description-block">
               <h5>Description / Notes</h5>
               <p id="detail-description">No description available.</p>
@@ -790,10 +909,10 @@
     const searchResultsModalGrid = document.getElementById('search-results-modal-grid');
     const searchResultsModalLoading = document.getElementById('search-results-modal-loading');
 
-      const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
-      const hotTipsModal = document.getElementById('hot-tips-modal');
-      const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
-      const hotTipsModalMaximize = document.getElementById('hot-tips-modal-maximize');
+    const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
+    const hotTipsModal = document.getElementById('hot-tips-modal');
+    const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
+    const hotTipsModalMaximize = document.getElementById('hot-tips-modal-maximize');
 
     let lastSearchTarget = null;
 
@@ -824,43 +943,43 @@
       }
     });
 
-      // Hot Tips Modal Logic
-      hotTipsNavLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        hotTipsModal.style.display = 'flex';
-      });
-      hotTipsModalClose.addEventListener('click', () => {
-        hotTipsModal.style.display = 'none';
-      });
-      hotTipsModalMaximize.addEventListener('click', () => {
-        hotTipsModal.classList.toggle('maximized');
-        hotTipsModal.querySelector('.search-results-modal-content').classList.toggle('maximized');
-        
-        if (hotTipsModal.classList.contains('maximized')) {
-          hotTipsModalMaximize.title = 'Restore';
-          hotTipsModalMaximize.innerHTML = `
+    // Hot Tips Modal Logic
+    hotTipsNavLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      hotTipsModal.style.display = 'flex';
+    });
+    hotTipsModalClose.addEventListener('click', () => {
+      hotTipsModal.style.display = 'none';
+    });
+    hotTipsModalMaximize.addEventListener('click', () => {
+      hotTipsModal.classList.toggle('maximized');
+      hotTipsModal.querySelector('.search-results-modal-content').classList.toggle('maximized');
+
+      if (hotTipsModal.classList.contains('maximized')) {
+        hotTipsModalMaximize.title = 'Restore';
+        hotTipsModalMaximize.innerHTML = `
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"></path>
             </svg>
           `;
-        } else {
-          hotTipsModalMaximize.title = 'Maximize';
-          hotTipsModalMaximize.innerHTML = `
+      } else {
+        hotTipsModalMaximize.title = 'Maximize';
+        hotTipsModalMaximize.innerHTML = `
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             </svg>
           `;
-        }
-      });
-      hotTipsModal.addEventListener('click', (e) => {
-        if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
-      });
+      }
+    });
+    hotTipsModal.addEventListener('click', (e) => {
+      if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
+    });
 
     // Maximize toggle
     searchResultsModalMaximize.addEventListener('click', () => {
       searchResultsModal.classList.toggle('maximized');
       document.querySelector('.search-results-modal-content').classList.toggle('maximized');
-      
+
       if (searchResultsModal.classList.contains('maximized')) {
         searchResultsModalMaximize.title = 'Restore';
         searchResultsModalMaximize.innerHTML = `
@@ -1031,11 +1150,11 @@
       searchResultsModalGrid.style.display = 'none';
       const detailViewContainer = document.getElementById('search-results-modal-detail-view');
       detailViewContainer.style.display = 'block';
-      
+
       document.getElementById('detail-title').textContent = item.Title || 'Unknown Title';
       document.getElementById('detail-artist').textContent = item.Artist || 'Unknown Artist';
       document.getElementById('detail-price').textContent = `$${(item.Price || 0.00).toFixed(2)}`;
-      
+
       const stockBadge = document.getElementById('detail-stock-badge');
       if (item.Quantity !== undefined) {
         stockBadge.textContent = `In Stock: ${item.Quantity}`;
@@ -1044,7 +1163,7 @@
       } else {
         stockBadge.style.display = 'none';
       }
-      
+
       const artContainer = document.getElementById('detail-art-container');
       artContainer.innerHTML = '';
       if (item.Front_Image_URL && item.Front_Image_URL !== 'NULL' && item.Front_Image_URL.startsWith('http')) {
@@ -1059,7 +1178,7 @@
         artContainer.style.backgroundImage = 'none';
         artContainer.innerHTML = `<span style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>`;
       }
-      
+
       const actionsContainer = document.getElementById('detail-actions-container');
       actionsContainer.innerHTML = '';
       if (lastSearchTarget === 'online') {
@@ -1073,9 +1192,9 @@
         });
         actionsContainer.appendChild(buyBtn);
       }
-      
+
       const cleanVal = (val) => (val && val !== 'NULL' && val.toString().trim() !== '') ? val : 'N/A';
-      
+
       document.getElementById('detail-spec-format').textContent = cleanVal(item.Format);
       document.getElementById('detail-spec-genre').textContent = cleanVal(item.Genre);
       document.getElementById('detail-spec-label').textContent = cleanVal(item.Label);
@@ -1099,7 +1218,7 @@
       } else {
         refContainer.style.display = 'none';
       }
-      
+
       const descBlock = document.getElementById('detail-description-block');
       const descText = document.getElementById('detail-description');
       const desc = cleanVal(item.Description);
@@ -1127,4 +1246,5 @@
     });
   </script>
 </body>
+
 </html>

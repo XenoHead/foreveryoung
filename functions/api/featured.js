@@ -1,8 +1,22 @@
 export async function onRequestGet(context) {
   try {
-    const { env } = context;
+    const { request, env } = context;
     const db = env.DB;
-    
+    const url = new URL(request.url);
+    const type = url.searchParams.get('type');
+
+    await db.prepare(`CREATE TABLE IF NOT EXISTS Settings (key TEXT PRIMARY KEY, value TEXT)`).run();
+
+    if (type === 'config') {
+      const row = await db.prepare(`SELECT value FROM Settings WHERE key='crate_config'`).first();
+      const config = row ? JSON.parse(row.value || '{}') : {};
+      return new Response(JSON.stringify({ success: true, config }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+      });
+    }
+
+
     // Fetch values for new, new_releases, hot, rare, temp1, temp2, genres crates
     const results = { new: [], new_releases: [], hot: [], rare: [], temp1: [], temp2: [], genres: [] };
     const keys = ["new", "new_releases", "hot", "rare", "temp1", "temp2", "genres"];

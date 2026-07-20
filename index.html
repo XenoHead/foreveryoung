@@ -339,7 +339,7 @@
         url('images/jukebox_irl-nbg.png'),
         linear-gradient(rgba(8, 17, 31, 0.65), rgba(8, 17, 31, 0.85)),
         url('images/brick-bg.png');
-      background-size: contain, auto, cover;
+      background-size: 825px, auto, 250px;
       background-position: center, center, center;
       background-repeat: no-repeat, repeat, repeat;
     }
@@ -1429,7 +1429,7 @@
       width: 300px;
       max-height: 85vh;
       overflow-y: auto;
-      background: rgba(6, 13, 24, 0.96);
+      background: rgba(6, 13, 24, 0.85);
       border: 1px solid rgba(255, 212, 71, 0.2);
       backdrop-filter: blur(14px);
       padding: 0;
@@ -1792,7 +1792,7 @@
           </label>
           <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..."
             class="nav-search-input">
-          <button id="nav-search-both-btn" class="nav-search-both-btn" title="Search online and in store">
+          <button id="nav-search-both-btn" class="nav-search-both-btn" title="Online and in store">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
               stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
@@ -1834,7 +1834,7 @@
     </div>
 
     <!-- RIGHT ACCORDION 1: Temp1 (Hidden) -->
-    <div class="hero-accordion right" id="ha-temp1" style="top: 22%; display: none;">
+    <div class="hero-accordion right" id="ha-temp1" style="top: 32%; display: none;">
       <div class="ha-tab blue" id="ha-temp1-tab" onclick="toggleAccordion('temp1')">TEMP 1 &#9670;</div>
       <div class="ha-drawer" id="ha-temp1-drawer">
         <div class="ha-card-list" id="ha-temp1-list"></div>
@@ -1842,7 +1842,7 @@
     </div>
 
     <!-- RIGHT ACCORDION 1b: FYR FAVS -->
-    <div class="hero-accordion right" id="ha-new" style="top: 20%;">
+    <div class="hero-accordion right" id="ha-new" style="top: 40%;">
       <div class="ha-tab blue" id="ha-new-tab" onclick="toggleAccordion('new')">FYR FAVS &#9670;</div>
       <div class="ha-drawer" id="ha-new-drawer">
         <div class="ha-card-list" id="ha-new-list"></div>
@@ -1850,7 +1850,7 @@
     </div>
 
     <!-- RIGHT ACCORDION 2: Hot Albums & Rare Finds -->
-    <div class="hero-accordion right" id="ha-right" style="top: 40%;">
+    <div class="hero-accordion right" id="ha-right" style="top: 60%;">
       <div class="ha-tab blue" id="ha-right-tab" onclick="toggleAccordion('right')">RARE &#9670;</div>
       <div class="ha-drawer" id="ha-right-drawer">
         <div class="ha-drawer-header">
@@ -1863,7 +1863,7 @@
     </div>
 
     <!-- RIGHT ACCORDION 3: Temp2 (Hidden) -->
-    <div class="hero-accordion right" id="ha-temp2" style="top: 78%; display: none;">
+    <div class="hero-accordion right" id="ha-temp2" style="top: 80%; display: none;">
       <div class="ha-tab blue" id="ha-temp2-tab" onclick="toggleAccordion('temp2')">TEMP 2 &#9670;</div>
       <div class="ha-drawer" id="ha-temp2-drawer">
         <div class="ha-card-list" id="ha-temp2-list"></div>
@@ -1871,7 +1871,7 @@
     </div>
 
     <!-- RIGHT ACCORDION 3b: Genres -->
-    <div class="hero-accordion right" id="ha-genres" style="top: 60%;">
+    <div class="hero-accordion right" id="ha-genres" style="top: 80%;">
       <div class="ha-tab blue" id="ha-genres-tab" onclick="toggleAccordion('genres')">GENRES &#9670;</div>
       <div class="ha-drawer" id="ha-genres-drawer">
         <div class="ha-card-list" id="ha-genres-list"></div>
@@ -1879,10 +1879,11 @@
     </div>
 
     <!-- RIGHT ACCORDION 4: Lil' Dave AI Chatbot -->
-    <div class="hero-accordion right" id="ha-dave" style="top: 80%;">
+    <div class="hero-accordion right" id="ha-dave" style="top: 20%;">
       <div class="ha-tab blue" id="ha-dave-tab" onclick="toggleAccordion('dave')">Lil' Dave AI &#9670;</div>
       <div class="ha-drawer" id="ha-dave-drawer" style="width: 350px;">
-        <div class="fyr-chat-window" id="fyr-chat-window" style="display: flex; opacity: 1; pointer-events: all; transform: none; margin: 0; border: none; max-height: 70vh; border-radius: 0; box-shadow: none;">
+        <div class="fyr-chat-window" id="fyr-chat-window"
+          style="display: flex; opacity: 1; pointer-events: all; transform: none; margin: 0; border: none; max-height: 70vh; border-radius: 0; box-shadow: none;">
           <!-- Header -->
           <div class="fyr-chat-header">
             <div class="fyr-chat-title-wrap">
@@ -1898,12 +1899,14 @@
             <!-- Initial Message -->
             <div class="fyr-msg bot">
               <div class="fyr-msg-bubble">
-                <p>Hey! I'm little Dave. Welcome to our new web site! But we STILL don't sell records, we sell a service!</p>
+                <p>Hey! I'm little Dave. Welcome to our new web site! But we STILL don't sell records, we sell a
+                  service!</p>
                 <div class="fyr-suggestions-wrap">
                   <button class="fyr-suggestion-pill"
                     onclick="sendSuggestion('Who played drums on Steely Dan\'s \'Aja\'?')">🎸 Who played drums on Steely
                     Dan's "Aja"?</button>
-                  <button class="fyr-suggestion-pill" onclick="sendSuggestion('What was the #1 billboard song in 1974?')">📅
+                  <button class="fyr-suggestion-pill"
+                    onclick="sendSuggestion('What was the #1 billboard song in 1974?')">📅
                     What was the #1 billboard song in 1974?</button>
                   <button class="fyr-suggestion-pill"
                     onclick="sendSuggestion('Tell me a cool vinyl record trivia fact!')">🔍 Tell me a cool vinyl record
@@ -2536,6 +2539,72 @@
         }
       } catch (err) {
         console.error('Error loading featured crates', err);
+      }
+
+      // Apply crate config (names + enabled)
+      try {
+        const cfgRes = await fetch('/api/featured?type=config');
+        const cfgData = await cfgRes.json();
+        if (cfgData.success && cfgData.config) {
+          const cfg = cfgData.config;
+          const names = cfg.names || {};
+
+          // Rename existing tabs
+          const tabLabels = {
+            'ha-new_releases-tab': names.new_releases || 'NEW RELEASES',
+            'ha-new-tab': names.new || 'FYR FAVS',
+            'ha-right-tab': (names.hot || 'HOT') + ' / ' + (names.rare || 'RARE'),
+            'ha-hot-tab': names.hot || 'Hot Albums',
+            'ha-rare-tab': names.rare || 'Rare Finds',
+            'ha-genres-tab': names.genres || 'GENRES',
+            'ha-temp1-tab': names.temp1 || 'EXTRA 1',
+            'ha-temp2-tab': names.temp2 || 'EXTRA 2',
+          };
+          Object.entries(tabLabels).forEach(([id, label]) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = (id.endsWith('-tab') && !['ha-hot-tab', 'ha-rare-tab'].includes(id))
+              ? (el.classList.contains('blue') ? label + ' \u25C6' : '\u25C6 ' + label)
+              : label;
+          });
+
+          // Show/hide and reposition right-side accordions
+          const temp1El = document.getElementById('ha-temp1');
+          const temp2El = document.getElementById('ha-temp2');
+          const newEl = document.getElementById('ha-new');
+          const rightEl = document.getElementById('ha-right');
+          const genresEl = document.getElementById('ha-genres');
+          const hotTab = document.getElementById('ha-hot-tab');
+          const rareTab = document.getElementById('ha-rare-tab');
+
+          if (temp1El) temp1El.style.display = cfg.temp1_enabled ? '' : 'none';
+          if (temp2El) temp2El.style.display = cfg.temp2_enabled ? '' : 'none';
+          if (newEl) newEl.style.display = cfg.new_enabled !== false ? '' : 'none';
+          if (genresEl) genresEl.style.display = cfg.genres_enabled !== false ? '' : 'none';
+
+          const hotEnabled = cfg.hot_enabled !== false;
+          const rareEnabled = cfg.rare_enabled !== false;
+          if (rightEl) {
+            rightEl.style.display = (hotEnabled || rareEnabled) ? '' : 'none';
+            if (hotTab) hotTab.style.display = hotEnabled ? '' : 'none';
+            if (rareTab) rareTab.style.display = rareEnabled ? '' : 'none';
+            if (!hotEnabled && rareEnabled) switchRightTab('rare');
+            if (hotEnabled && !rareEnabled) switchRightTab('hot');
+          }
+
+          // Collect visible right accordions and space them equally below Dave
+          const rightAccordions = ['ha-temp1', 'ha-new', 'ha-right', 'ha-temp2', 'ha-genres']
+            .map(id => ({ id, el: document.getElementById(id) }))
+            .filter(a => a.el && a.el.style.display !== 'none');
+          const count = rightAccordions.length;
+          if (count > 0) {
+            const step = count > 1 ? 40 / (count - 1) : 0;
+            rightAccordions.forEach((a, i) => {
+              a.el.style.top = `${40 + (count > 1 ? step * i : 0)}%`;
+            });
+          }
+        }
+      } catch (err) {
+        console.error('Error loading crate config', err);
       }
     }
     loadFeaturedCrate();

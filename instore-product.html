@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop | Forever Young Records</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --dark: #08111F;
@@ -14,7 +17,7 @@
       --yellow: #FFD447;
       --green: #2ecc71;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
@@ -45,7 +48,7 @@
       width: 100%;
       padding: 2rem;
       text-align: center;
-      background: linear-gradient(180deg, rgba(21,43,77,0.8) 0%, rgba(8,17,31,0) 100%);
+      background: linear-gradient(180deg, rgba(21, 43, 77, 0.8) 0%, rgba(8, 17, 31, 0) 100%);
       z-index: 10;
     }
 
@@ -77,7 +80,7 @@
       border-radius: 16px;
       padding: 2rem;
       backdrop-filter: blur(10px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       margin-bottom: 3rem;
     }
 
@@ -94,7 +97,8 @@
       position: relative;
     }
 
-    input[type="text"], select {
+    input[type="text"],
+    select {
       width: 100%;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 212, 71, 0.3);
@@ -105,8 +109,9 @@
       font-family: 'Outfit', sans-serif;
       transition: all 0.3s;
     }
-    
-    input[type="text"]:focus, select:focus {
+
+    input[type="text"]:focus,
+    select:focus {
       outline: none;
       border-color: var(--yellow);
       box-shadow: 0 0 15px rgba(255, 212, 71, 0.2);
@@ -156,7 +161,7 @@
       gap: 0.5rem;
       justify-content: center;
       padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .browse-letters a {
@@ -195,7 +200,7 @@
 
     .record-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
       border-color: rgba(255, 212, 71, 0.3);
     }
 
@@ -206,7 +211,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       position: relative;
     }
 
@@ -288,10 +293,13 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -302,11 +310,11 @@
   <div class="container">
     <div class="search-panel">
       <div class="search-row" id="search-form">
-        
+
         <div class="search-input-wrapper">
           <input type="text" name="find" id="search-query" placeholder="Search our massive inventory...">
         </div>
-        
+
         <div style="flex: 1; min-width: 150px;">
           <select name="search_type" id="search-type">
             <option value="artist">Artist Search</option>
@@ -340,11 +348,12 @@
           </select>
         </div>
 
-        <button id="do-search-btn" class="search-btn">Search In-Store</button>
+        <button id="do-search-btn" class="search-btn">IN-STORE</button>
       </div>
 
       <div class="browse-letters" style="display: none;">
-        <span style="color: #B6C0D7; display: flex; align-items: center; margin-right: 0.5rem; font-family: 'Oswald', sans-serif;">BROWSE:</span>
+        <span
+          style="color: #B6C0D7; display: flex; align-items: center; margin-right: 0.5rem; font-family: 'Oswald', sans-serif;">BROWSE:</span>
         <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=0-9" target="_blank">#</a>
         <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=a" target="_blank">A</a>
         <a href="https://www.musicstack.com/my/index.cgi?seller=725319&find=b" target="_blank">B</a>
@@ -375,61 +384,61 @@
       </div>
     </div>
 
-  <div class="loading-state" id="loading-spinner">
-    <div class="spinner"></div>
-    <p>Searching inventory...</p>
-  </div>
-
-  <div class="container" style="padding-top: 0;">
-    <div class="results-grid" id="results-grid">
-      <!-- Records will be injected here -->
+    <div class="loading-state" id="loading-spinner">
+      <div class="spinner"></div>
+      <p>Searching inventory...</p>
     </div>
-  </div>
 
-  <script>
-    const searchBtn = document.getElementById('do-search-btn');
-    const searchInput = document.getElementById('search-query');
-    const searchType = document.getElementById('search-type');
-    const resultsGrid = document.getElementById('results-grid');
-    const loadingSpinner = document.getElementById('loading-spinner');
+    <div class="container" style="padding-top: 0;">
+      <div class="results-grid" id="results-grid">
+        <!-- Records will be injected here -->
+      </div>
+    </div>
 
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        searchBtn.click();
-      }
-    });
+    <script>
+      const searchBtn = document.getElementById('do-search-btn');
+      const searchInput = document.getElementById('search-query');
+      const searchType = document.getElementById('search-type');
+      const resultsGrid = document.getElementById('results-grid');
+      const loadingSpinner = document.getElementById('loading-spinner');
 
-    searchBtn.addEventListener('click', async () => {
-      const queryVal = searchInput.value.trim();
-      const typeVal = searchType.value;
-      if (!queryVal) return;
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          searchBtn.click();
+        }
+      });
 
-      // Construct API URL
-      let apiUrl = `/api/inventory-search?`;
-      if (typeVal === 'artist') apiUrl += `artist=${encodeURIComponent(queryVal)}`;
-      if (typeVal === 'title') apiUrl += `title=${encodeURIComponent(queryVal)}`;
-      if (typeVal === 'barcode') apiUrl += `upc=${encodeURIComponent(queryVal)}`;
-      if (typeVal === 'label') apiUrl += `catalog=${encodeURIComponent(queryVal)}`;
+      searchBtn.addEventListener('click', async () => {
+        const queryVal = searchInput.value.trim();
+        const typeVal = searchType.value;
+        if (!queryVal) return;
 
-      resultsGrid.innerHTML = '';
-      loadingSpinner.style.display = 'block';
+        // Construct API URL
+        let apiUrl = `/api/inventory-search?`;
+        if (typeVal === 'artist') apiUrl += `artist=${encodeURIComponent(queryVal)}`;
+        if (typeVal === 'title') apiUrl += `title=${encodeURIComponent(queryVal)}`;
+        if (typeVal === 'barcode') apiUrl += `upc=${encodeURIComponent(queryVal)}`;
+        if (typeVal === 'label') apiUrl += `catalog=${encodeURIComponent(queryVal)}`;
 
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        
-        loadingSpinner.style.display = 'none';
+        resultsGrid.innerHTML = '';
+        loadingSpinner.style.display = 'block';
 
-        if (data.success && data.results.length > 0) {
-          data.results.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'record-card';
-            
-            // Generate a placeholder background color for the art
-            const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            card.innerHTML = `
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+
+          loadingSpinner.style.display = 'none';
+
+          if (data.success && data.results.length > 0) {
+            data.results.forEach(item => {
+              const card = document.createElement('div');
+              card.className = 'record-card';
+
+              // Generate a placeholder background color for the art
+              const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
+              const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+              card.innerHTML = `
               <div class="record-art" style="${item.Image_URL ? '' : 'background: ' + randomColor + ';'}">
                 ${item.Image_URL
                   ? `<img src="${item.Image_URL}" alt="Album Art" style="width: 100%; height: 100%; object-fit: cover;">`
@@ -450,33 +459,35 @@
                 </div>
               </div>
             `;
-            resultsGrid.appendChild(card);
-          });
-        } else {
-          resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #B6C0D7; font-size: 1.2rem;">No matching items currently in stock.</div>';
+              resultsGrid.appendChild(card);
+            });
+          } else {
+            resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #B6C0D7; font-size: 1.2rem;">No matching items currently in stock.</div>';
+          }
+        } catch (err) {
+          console.error(err);
+          loadingSpinner.style.display = 'none';
+          resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #e74c3c;">Failed to load inventory data.</div>';
         }
-      } catch (err) {
-        console.error(err);
-        loadingSpinner.style.display = 'none';
-        resultsGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #e74c3c;">Failed to load inventory data.</div>';
-      }
-    });
+      });
 
-    // Check for query parameter on load
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const queryParam = params.get('query');
-      if (queryParam) {
-        searchInput.value = queryParam;
-        searchBtn.click();
-      }
-    });
-  </script>
-  <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
-    <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
-      <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
-    </a>
-  </div>
+      // Check for query parameter on load
+      window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const queryParam = params.get('query');
+        if (queryParam) {
+          searchInput.value = queryParam;
+          searchBtn.click();
+        }
+      });
+    </script>
+    <div
+      style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
+      <a href="https://www.xenohead.com" target="_blank"
+        style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
+        <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
+      </a>
+    </div>
 </body>
-</html>
 
+</html>
