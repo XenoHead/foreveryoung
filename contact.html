@@ -226,12 +226,10 @@
     /* Layout */
     .contact-container {
       max-width: 1400px;
-      /* Increased max-width to let TV be bigger without clipping content */
       margin: 0 auto 6rem;
       padding: 2rem;
       display: grid;
       grid-template-columns: 1.4fr 1fr;
-      /* left side (TV) is bigger */
       gap: 4rem;
       position: relative;
       z-index: 2;
@@ -303,9 +301,7 @@
       box-shadow: 0 10px 20px rgba(255, 212, 71, 0.2);
     }
 
-    /* Right Column (Contact Form Wrapper) */
-
-    /* Live Broadcast TV Interface */
+    /* Live Broadcast Interface Ticker */
     .ticker-tape-container {
       grid-column: 1 / -1;
       background: var(--dark);
@@ -339,202 +335,313 @@
       }
     }
 
-    /* TV & Controls Layout */
-    .tv-layout-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      /* Align left */
-      gap: 1.5rem;
-    }
-
-    /* The Physical TV Image Wrapper */
-    .tv-physical-wrapper {
-      position: relative;
-      flex: 1;
-      width: 100%;
-      max-width: 660px;
-      /* Restrict max width so the Facebook plugin (max 500px) fills the screen perfectly */
-      aspect-ratio: 1.1 / 1;
-      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
-    }
-
-    .tv-physical-wrapper::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url('images/tv-0.png');
-      background-size: 100% 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      z-index: 20;
-    }
-
-    .tv-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      width: 60px;
-    }
-
-    .tv-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      color: var(--muted);
-      padding: 0.4rem 0.2rem;
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border-radius: 6px;
-    }
-
-    .tv-btn.active,
-    .tv-btn:hover {
-      background: var(--yellow);
-      color: var(--dark);
-      border-color: var(--yellow);
-      box-shadow: 0 0 10px rgba(255, 212, 71, 0.3);
-      transform: scale(1.05);
-    }
-
-    @keyframes occasionalFlicker {
-      0% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-
-      94% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-
-      95% {
-        opacity: 0.7;
-        filter: brightness(1.3);
-      }
-
-      96% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-
-      97% {
-        opacity: 0.9;
-        filter: brightness(0.8);
-      }
-
-      98% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-
-      100% {
-        opacity: 1;
-        filter: brightness(1);
-      }
-    }
-
-    .crt-container {
-      position: absolute;
-      top: 14%;
-      left: 13.5%;
-      width: 72%;
-      height: 62%;
-      background: #000;
-      border-radius: 6%;
-      overflow: hidden;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-      animation: occasionalFlicker 6s infinite;
-    }
-
-    .crt-screen {
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    /* Feed containers - Opacity fix for Twitter widget rendering */
+    /* Feed Panel Container Styles */
     .feed-panel {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      opacity: 0;
-      pointer-events: none;
-      background: #fff;
-      transition: opacity 0.3s ease;
+      background: #000;
+      display: none;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    .feed-panel.active {
       display: flex;
-      justify-content: stretch;
+    }
+
+    #feed-tk {
+      overflow-x: auto !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #feed-tk.active {
+      display: block !important;
+    }
+
+    #feed-tk iframe,
+    #feed-tk blockquote {
+      min-height: 720px !important;
+      min-width: 100% !important;
     }
 
     #feed-fb iframe {
       width: 100% !important;
       min-width: 100% !important;
-    }
-
-    .feed-panel.active {
-      opacity: 1;
-      pointer-events: auto;
-      z-index: 5;
+      height: 100% !important;
     }
 
     .feed-panel.dark-feed {
       background: #000;
     }
 
-    /* The TV Scanlines & Static Overlay */
-    .crt-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      background-size: 100% 4px, 6px 100%;
-      z-index: 10;
-      pointer-events: none;
-      /* Let clicks pass through to the embeds */
+    /* ==========================================
+       DRIVE-IN THEATER SCREEN STYLES
+       ========================================== */
+    .drivein-layout-wrapper {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 2rem;
+      width: 100%;
     }
 
-    .crt-static {
+    /* Billboard Structure */
+    .drivein-screen-structure {
+      position: relative;
+      flex: 1;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Screen Wooden/Metal Frame */
+    .drivein-screen-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #111;
+      border: 12px solid #1c1815;
+      /* Outer timber border */
+      outline: 2px solid #000;
+      border-radius: 4px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 50px rgba(255, 212, 71, 0.08);
+      /* Ambient screen backlight */
+      overflow: hidden;
+    }
+
+    /* The Canvas screen area */
+    .drivein-screen {
+      width: 100%;
+      height: 100%;
+      background: #050505;
+      position: relative;
+    }
+
+    /* Projector Cone Light Effect */
+    .projector-light-beam {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 140px;
+      background: conic-gradient(from 160deg at 50% 0%, rgba(255, 255, 255, 0.12) 0deg, transparent 40deg);
+      pointer-events: none;
+      z-index: 15;
+      filter: blur(8px);
+    }
+
+    /* Film Dust / Grain Effect overlay */
+    .film-dust-overlay {
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
-      z-index: 11;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
       pointer-events: none;
-      mix-blend-mode: screen;
-      animation: staticFlicker 0.1s infinite;
+      z-index: 10;
+      mix-blend-mode: overlay;
     }
 
-    @keyframes staticFlicker {
-      0% {
-        transform: translate(0, 0);
+    /* Support Beams underneath screen */
+    .drivein-support-posts {
+      width: 80%;
+      height: 45px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10%;
+    }
+
+    .drivein-support-posts .post {
+      width: 24px;
+      height: 100%;
+      background: linear-gradient(90deg, #151210 0%, #2b2420 50%, #0d0b0a 100%);
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.8);
+    }
+
+    /* ==========================================
+       DRIVE-IN CAR SPEAKER BOX CONTROLS
+       ========================================== */
+
+    .drivein-speaker-box {
+      background: linear-gradient(145deg, #2a2d32, #181a1d);
+      border: 2px solid #3a3f47;
+      border-radius: 12px;
+      padding: 1.2rem;
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .speaker-grille {
+      display: flex;
+      justify-content: space-between;
+      background: #111;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #000;
+    }
+
+    .speaker-grille span {
+      width: 4px;
+      height: 24px;
+      background: #222;
+      border-radius: 2px;
+      box-shadow: inset 0 0 2px #000;
+    }
+
+    @font-face {
+      font-family: 'DinerItalic';
+      src: url('fonts/DinerItalic.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .drivein-title {
+      font-family: 'DinerItalic', cursive, sans-serif;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      text-align: center;
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(255, 212, 71, 0.8), 0 0 15px rgba(255, 212, 71, 0.5), 0 2px 4px #000;
+      letter-spacing: 1.5px;
+      background: rgba(12, 14, 18, 0.9);
+      padding: 2px 14px;
+      border: 1px solid rgba(255, 212, 71, 0.4);
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      animation: neonTitleFlicker 3.5s infinite alternate;
+    }
+
+    @keyframes neonTitleFlicker {
+
+      0%,
+      100% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 212, 71, 0.9), 0 0 18px rgba(255, 212, 71, 0.7), 0 0 30px rgba(255, 212, 71, 0.4);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 212, 71, 0.3);
       }
 
-      100% {
-        transform: translate(2px, -2px);
+      41.99% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 212, 71, 0.9), 0 0 18px rgba(255, 212, 71, 0.7), 0 0 30px rgba(255, 212, 71, 0.4);
       }
+
+      42% {
+        opacity: 0.35;
+        text-shadow: 0 0 2px rgba(255, 212, 71, 0.2);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+      }
+
+      43% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 212, 71, 0.9), 0 0 18px rgba(255, 212, 71, 0.7);
+      }
+
+      45% {
+        opacity: 0.4;
+        text-shadow: 0 0 2px rgba(255, 212, 71, 0.2);
+      }
+
+      45.5% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 212, 71, 0.9), 0 0 18px rgba(255, 212, 71, 0.7), 0 0 30px rgba(255, 212, 71, 0.4);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 212, 71, 0.3);
+      }
+
+      80% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 212, 71, 0.9), 0 0 18px rgba(255, 212, 71, 0.7);
+      }
+
+      81% {
+        opacity: 0.5;
+        text-shadow: 0 0 3px rgba(255, 212, 71, 0.3);
+      }
+
+      81.5% {
+        opacity: 1;
+        text-shadow: 0 0 8px rgba(255, 212, 71, 0.9), 0 0 18px rgba(255, 212, 71, 0.7), 0 0 30px rgba(255, 212, 71, 0.4);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 212, 71, 0.3);
+      }
+    }
+
+    .speaker-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.7rem;
+      color: var(--yellow);
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    .drivein-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .drivein-controls .tv-btn {
+      width: 100%;
+      background: #141619;
+      border: 1px solid #33373e;
+      color: var(--muted);
+      padding: 0.6rem 0.4rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .drivein-screen-structure::after {
+      content: "";
+      position: absolute;
+      bottom: -80px;
+      /* Moved lower down (adjust further if needed) */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 125%;
+      /* Increased width to scale up the graphic */
+      height: 120px;
+      /* Increased height to accommodate the larger image */
+      background: url('images/drivein-cars-01.png') center bottom / contain no-repeat;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .drivein-controls .tv-btn.active,
+    .drivein-controls .tv-btn:hover {
+      background: var(--yellow);
+      color: var(--dark);
+      border-color: var(--yellow);
+      box-shadow: 0 0 12px rgba(255, 212, 71, 0.4);
     }
 
     @media(max-width:900px) {
-      .tv-layout-wrapper {
+      .drivein-layout-wrapper {
         flex-direction: column;
-        margin-left: 0;
+        align-items: center;
       }
 
-      .tv-controls {
-        flex-direction: row;
+      .drivein-speaker-box {
         width: 100%;
-      }
-
-      .tv-physical-wrapper {
-        min-width: 100%;
+        max-width: 680px;
       }
 
       .nav-inner {
@@ -562,24 +669,9 @@
         font-size: 0.85rem;
       }
 
-      .page-header h1 {
-        font-size: 2.5rem;
-      }
-
       .contact-container {
         grid-template-columns: 1fr;
         gap: 3rem;
-      }
-
-      .broadcast-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .broadcast-item-left {
-        flex-direction: column;
-        align-items: flex-start;
       }
     }
 
@@ -1002,18 +1094,20 @@
       }
     }
   </style>
-  </style>
 </head>
 
 <body>
+  <link rel="stylesheet" href="chatbot.css">
   <nav>
     <div class="nav-inner">
+      <button id="nav-dave-btn" class="nav-search-btn online" onclick="toggleChatbot()" title="Little Dave AI Expert"
+        style="margin-right: 0.5rem;">Lil' Dave AI</button>
       <div class="nav-search-container">
-        <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
         <label class="nav-search-exact-label"
           style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
-          <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact text
+          <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact
         </label>
+        <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
         <button id="nav-search-online-btn" class="nav-search-btn online">Online</button>
         <button id="nav-search-instore-btn" class="nav-search-btn instore">IN-STORE</button>
       </div>
@@ -1042,22 +1136,25 @@
 
   <main class="contact-container">
 
-    <!-- Contact Left (TV Interface) -->
+    <!-- Contact Left (Drive-In Movie Theater Interface) -->
     <div class="contact-left">
-      <!-- Live Community TV Interface -->
-      <div class="tv-layout-wrapper">
-        <div class="tv-physical-wrapper">
-          <div class="crt-container">
-            <div class="crt-overlay"></div>
-            <div class="crt-static"></div>
+      <!-- Drive-In Movie Theater Interface -->
+      <div class="drivein-layout-wrapper">
+        <!-- The Drive-In Screen Billboard -->
+        <div class="drivein-screen-structure">
+          <h2 class="drivein-title">Social Media Drive-In!</h2>
+          <!-- Top Projector Light Beam -->
+          <div class="projector-light-beam"></div>
 
-            <div class="crt-screen">
+          <!-- The Screen Canvas -->
+          <div class="drivein-screen-frame">
+            <div class="drivein-screen">
               <!-- Channel 1: TikTok -->
               <div id="feed-tk" class="feed-panel dark-feed active">
                 <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@foreveryoungrecordstx"
                   data-unique-id="foreveryoungrecordstx" data-embed-type="creator"
                   style="max-width: 100%; min-width: 100%; height: 100%; margin: 0;">
-                  <section> <a target="_blank"
+                  <section><a target="_blank"
                       href="https://www.tiktok.com/@foreveryoungrecordstx?refer=creator_embed">@foreveryoungrecordstx</a>
                   </section>
                 </blockquote>
@@ -1067,18 +1164,42 @@
               <!-- Channel 2: Facebook -->
               <div id="feed-fb" class="feed-panel">
                 <iframe
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FForeverYoungRecords&tabs=timeline&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FForeverYoungRecords&tabs=timeline&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&width=500&appId"
                   style="border:none;overflow:hidden;width:100%;height:100%;" scrolling="yes" frameborder="0"
                   allowfullscreen="true"
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
               </div>
+
+              <!-- Channel 3: Instagram -->
+              <div id="feed-ig" class="feed-panel dark-feed">
+                <iframe src="https://www.instagram.com/foreveryoungvinyl/embed"
+                  style="border:none;overflow:hidden;width:100%;height:100%;" scrolling="yes" frameborder="0"
+                  allowfullscreen="true"></iframe>
+              </div>
             </div>
+
+            <!-- Film projector dust overlay (replaces TV scanlines) -->
+            <div class="film-dust-overlay"></div>
+          </div>
+
+          <!-- Wooden/Steel Support Posts under screen -->
+          <div class="drivein-support-posts">
+            <div class="post"></div>
+            <div class="post"></div>
           </div>
         </div>
 
-        <div class="tv-controls">
-          <button class="tv-btn active" onclick="switchChannel('tk')">CH 1<br>TK</button>
-          <button class="tv-btn" onclick="switchChannel('fb')">CH 2<br>FB</button>
+        <!-- Drive-In Speaker Box Controls -->
+        <div class="drivein-speaker-box">
+          <div class="speaker-grille">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="speaker-label">TUNE RADIO</div>
+          <div class="drivein-controls">
+            <button class="tv-btn active" onclick="switchChannel('tk')">FM 88.1 • TIKTOK</button>
+            <button class="tv-btn" onclick="switchChannel('fb')">FM 91.5 • FACEBOOK</button>
+            <button class="tv-btn" onclick="switchChannel('ig')">FM 97.3 • INSTAGRAM</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1237,13 +1358,15 @@
   </div>
   <script>
     function switchChannel(channel) {
-      // Update Buttons
-      document.querySelectorAll('.tv-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      // Update Active Button State
+      document.querySelectorAll('.tv-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${channel}'`));
+      });
 
-      // Update Feeds
+      // Update Active Feed State
       document.querySelectorAll('.feed-panel').forEach(panel => panel.classList.remove('active'));
-      document.getElementById('feed-' + channel).classList.add('active');
+      const targetFeed = document.getElementById('feed-' + channel);
+      if (targetFeed) targetFeed.classList.add('active');
     }
 
     // Navigation Search Bar & Modal logic
@@ -1258,10 +1381,6 @@
     const searchResultsModalBody = document.getElementById('search-results-modal-body');
     const searchResultsModalGrid = document.getElementById('search-results-modal-grid');
     const searchResultsModalLoading = document.getElementById('search-results-modal-loading');
-
-    const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
-    const hotTipsModal = document.getElementById('hot-tips-modal');
-    const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
 
     let lastSearchTarget = null;
 
@@ -1292,18 +1411,6 @@
       }
     });
 
-    // Hot Tips Modal Logic
-    hotTipsNavLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      hotTipsModal.style.display = 'flex';
-    });
-    hotTipsModalClose.addEventListener('click', () => {
-      hotTipsModal.style.display = 'none';
-    });
-    hotTipsModal.addEventListener('click', (e) => {
-      if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
-    });
-
     // Maximize toggle
     searchResultsModalMaximize.addEventListener('click', () => {
       searchResultsModal.classList.toggle('maximized');
@@ -1312,17 +1419,17 @@
       if (searchResultsModal.classList.contains('maximized')) {
         searchResultsModalMaximize.title = 'Restore';
         searchResultsModalMaximize.innerHTML = `
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"></path>
-          </svg>
-        `;
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"></path>
+        </svg>
+      `;
       } else {
         searchResultsModalMaximize.title = 'Maximize';
         searchResultsModalMaximize.innerHTML = `
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          </svg>
-        `;
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        </svg>
+      `;
       }
     });
 
@@ -1365,37 +1472,37 @@
                 const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
                 const randomColor = colors[item.id % colors.length];
                 artHtml = `
-                  <div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
-                  </div>
-                `;
+                <div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; opacity: 0.3; font-weight: 700; color: #fff;">${item.Format || 'LP'}</span>
+                </div>
+              `;
               }
 
               const buyFind = item.Seller_Reference_Number || `${item.Artist} ${item.Title}`;
               const buyUrl = `https://www.musicstack.com/my/index.cgi?seller=725319&currency=USD&find=${encodeURIComponent(buyFind)}`;
 
               card.innerHTML = `
-                <div class="search-modal-card-art">
-                  ${artHtml}
+              <div class="search-modal-card-art">
+                ${artHtml}
+              </div>
+              <div class="search-modal-card-info">
+                <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
+                <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
+                <div class="search-modal-card-details">
+                  <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
+                  <span><strong>Label:</strong> ${item.Label || 'N/A'} (${item.Release_Catalog_Number || 'N/A'})</span>
+                  <span><strong>Country:</strong> ${item.Release_Country || 'N/A'}</span>
+                  <span><strong>Genre:</strong> ${item.Genre || 'N/A'}</span>
                 </div>
-                <div class="search-modal-card-info">
-                  <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
-                  <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
-                  <div class="search-modal-card-details">
-                    <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
-                    <span><strong>Label:</strong> ${item.Label || 'N/A'} (${item.Release_Catalog_Number || 'N/A'})</span>
-                    <span><strong>Country:</strong> ${item.Release_Country || 'N/A'}</span>
-                    <span><strong>Genre:</strong> ${item.Genre || 'N/A'}</span>
-                  </div>
-                  <div class="search-modal-card-price">
-                    <span>$${(item.Price || 0.00).toFixed(2)}</span>
-                    <div style="display: flex; gap: 0.4rem;">
-                      <button class="search-modal-card-btn buy-btn">Buy Online</button>
-                      <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
-                    </div>
+                <div class="search-modal-card-price">
+                  <span>$${(item.Price || 0.00).toFixed(2)}</span>
+                  <div style="display: flex; gap: 0.4rem;">
+                    <button class="search-modal-card-btn buy-btn">Buy Online</button>
+                    <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
                   </div>
                 </div>
-              `;
+              </div>
+            `;
 
               card.querySelector('.buy-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1435,26 +1542,26 @@
               const randomColor = colors[item.id % colors.length];
 
               card.innerHTML = `
-                <div class="search-modal-card-art" style="background: ${randomColor}; height: 120px;">
-                  <span style="font-family: 'Oswald', sans-serif; font-size: 3rem; opacity: 0.15; font-weight: 700; color: #fff;">FYR</span>
+              <div class="search-modal-card-art" style="background: ${randomColor}; height: 120px;">
+                <span style="font-family: 'Oswald', sans-serif; font-size: 3rem; opacity: 0.15; font-weight: 700; color: #fff;">FYR</span>
+              </div>
+              <div class="search-modal-card-info">
+                <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
+                <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
+                <div class="search-modal-card-details">
+                  <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
+                  <span><strong>UPC:</strong> ${item.UPC || 'N/A'}</span>
+                  <span><strong>Year:</strong> ${item.Year || 'N/A'}</span>
                 </div>
-                <div class="search-modal-card-info">
-                  <div class="search-modal-card-title" title="${item.Title || 'Unknown Title'}">${item.Title || 'Unknown Title'}</div>
-                  <div class="search-modal-card-artist" title="${item.Artist || 'Unknown Artist'}">${item.Artist || 'Unknown Artist'}</div>
-                  <div class="search-modal-card-details">
-                    <span><strong>Format:</strong> ${item.Format || 'N/A'}</span>
-                    <span><strong>UPC:</strong> ${item.UPC || 'N/A'}</span>
-                    <span><strong>Year:</strong> ${item.Year || 'N/A'}</span>
-                  </div>
-                  <div class="search-modal-card-price">
-                    <span>$${(item.SRP || 0).toFixed(2)}</span>
-                    <div style="display: flex; align-items: center; gap: 0.4rem;">
-                      <span class="search-modal-card-badge">In Stock: ${item.Quantity || 0}</span>
-                      <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
-                    </div>
+                <div class="search-modal-card-price">
+                  <span>$${(item.SRP || 0).toFixed(2)}</span>
+                  <div style="display: flex; align-items: center; gap: 0.4rem;">
+                    <span class="search-modal-card-badge">In Stock: ${item.Quantity || 0}</span>
+                    <button class="search-modal-card-btn details-btn" style="background: rgba(255,255,255,0.08); color: var(--cream); border: 1px solid rgba(255,255,255,0.15);">Details</button>
                   </div>
                 </div>
-              `;
+              </div>
+            `;
 
               card.querySelector('.details-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1567,12 +1674,20 @@
 
     navSearchOnlineBtn.addEventListener('click', () => triggerSearch('online'));
     navSearchInstoreBtn.addEventListener('click', () => triggerSearch('instore'));
+
     navSearchInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         triggerSearch('online'); // default to online search
       }
     });
+
+    const tkFeed = document.getElementById('feed-tk');
+    if (tkFeed) {
+      tkFeed.addEventListener('wheel', (e) => {
+        tkFeed.scrollTop += e.deltaY;
+      }, { passive: true });
+    }
   </script>
   <div
     style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
@@ -1581,6 +1696,137 @@
       <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
     </a>
   </div>
+  <!-- Lil' Dave AI Chatbot -->
+  <div id="ha-dave" style="display: none; position: fixed; top: 100px; right: 30px; z-index: 10000;">
+    <div class="fyr-chat-window open" id="fyr-chat-window"
+      style="margin: 0; width: 460px; max-width: calc(100vw - 30px); max-height: 70vh;">
+      <div class="fyr-chat-header" style="cursor: move; user-select: none;">
+        <div class="fyr-chat-title-wrap">
+          <h4 class="fyr-chat-title">Little Dave AI</h4>
+          <span class="fyr-chat-subtitle">FYR Music Expert</span>
+        </div>
+        <button class="fyr-chat-close" onclick="toggleChatbot()" title="Close chat">&times;</button>
+      </div>
+      <div class="fyr-chat-messages" id="fyr-chat-messages">
+        <div class="fyr-msg bot">
+          <img src="images/little_dave.jpg" alt="Little Dave AI" class="fyr-msg-avatar">
+          <div class="fyr-msg-content-wrap">
+            <div class="fyr-msg-bubble">
+              <p>Hey! I'm Little Dave. Got a question for Dave and Pat or our store staff?</p>
+            </div>
+            <div class="fyr-msg-meta">Little Dave AI • Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="fyr-chat-footer">
+        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)" style="margin: 0;">
+          <div class="fyr-chat-input-bar">
+            <input type="text" id="fyr-chat-input" class="fyr-chat-input" placeholder="Ask Little Dave..."
+              autocomplete="off">
+            <button type="submit" class="fyr-chat-send" title="Send message">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let fyrChatHistory = [];
+    function toggleChatbot() {
+      const dave = document.getElementById('ha-dave');
+      if (dave) {
+        dave.style.display = (dave.style.display === 'none' || !dave.style.display) ? 'block' : 'none';
+      }
+    }
+    function formatMarkdown(text) {
+      if (!text) return '';
+      let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+      html = html.replace(/\n/g, '<br>');
+      return html;
+    }
+    function appendMessage(role, text) {
+      const container = document.getElementById('fyr-chat-messages');
+      const msgEl = document.createElement('div');
+      msgEl.className = `fyr-msg ${role}`;
+      const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const senderName = role === 'bot' ? 'Little Dave AI' : 'You';
+      const avatarHtml = role === 'bot' ? '<img src="images/little_dave.jpg" alt="Little Dave AI" class="fyr-msg-avatar">' : '';
+      msgEl.innerHTML = `${avatarHtml}<div class="fyr-msg-content-wrap"><div class="fyr-msg-bubble"><p>${role === 'bot' ? formatMarkdown(text) : text}</p></div><div class="fyr-msg-meta">${senderName} • ${timeString}</div></div>`;
+      container.appendChild(msgEl);
+      container.scrollTop = container.scrollHeight;
+    }
+    async function handleChatSubmit(e) {
+      if (e) e.preventDefault();
+      const inputEl = document.getElementById('fyr-chat-input');
+      const messageText = inputEl.value.trim();
+      if (!messageText) return;
+      inputEl.value = '';
+      appendMessage('user', messageText);
+      fyrChatHistory.push({ role: 'user', content: messageText });
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: fyrChatHistory,
+            pageContext: { activeScreen: 'Contact Us' }
+          })
+        });
+        const data = await res.json();
+        const botReply = data.response || data.reply || "I'm sorry, I couldn't get a response. Try asking again!";
+        appendMessage('bot', botReply);
+        fyrChatHistory.push({ role: 'assistant', content: botReply });
+      } catch (err) {
+        appendMessage('bot', 'Sorry, I had trouble connecting. Feel free to ask again!');
+      }
+    }
+    (function initDaveDrag() {
+      const daveContainer = document.getElementById('ha-dave');
+      const header = document.querySelector('#ha-dave .fyr-chat-header');
+      if (!daveContainer || !header) return;
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+      function onPointerDown(e) {
+        if (e.target.closest('.fyr-chat-close')) return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = daveContainer.getBoundingClientRect();
+        initialLeft = rect.left;
+        initialTop = rect.top;
+        daveContainer.style.position = 'fixed';
+        daveContainer.style.right = 'auto';
+        daveContainer.style.left = initialLeft + 'px';
+        daveContainer.style.top = initialTop + 'px';
+        window.addEventListener('mousemove', onPointerMove);
+        window.addEventListener('mouseup', onPointerUp);
+      }
+      function onPointerMove(e) {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        let newLeft = Math.max(10, Math.min(window.innerWidth - daveContainer.offsetWidth - 10, initialLeft + dx));
+        let newTop = Math.max(10, Math.min(window.innerHeight - daveContainer.offsetHeight - 10, initialTop + dy));
+        daveContainer.style.left = newLeft + 'px';
+        daveContainer.style.top = newTop + 'px';
+      }
+      function onPointerUp() {
+        isDragging = false;
+        window.removeEventListener('mousemove', onPointerMove);
+        window.removeEventListener('mouseup', onPointerUp);
+      }
+      header.addEventListener('mousedown', onPointerDown);
+    })();
+  </script>
 </body>
 
 </html>

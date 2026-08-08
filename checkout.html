@@ -1027,14 +1027,16 @@
 
 <body>
   <div class="vinyl-sidebar"></div>
+  <link rel="stylesheet" href="chatbot.css">
   <nav>
     <div class="nav-inner">
+      <button id="nav-dave-btn" class="nav-search-btn online" onclick="toggleChatbot()" title="Little Dave AI Expert" style="margin-right: 0.5rem;">Lil' Dave AI</button>
       <div class="nav-search-container">
-        <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
         <label class="nav-search-exact-label"
           style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
-          <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact text
+          <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact
         </label>
+        <input type="text" id="nav-search-input" placeholder="Search artist, title, genre..." class="nav-search-input">
         <button id="nav-search-online-btn" class="nav-search-btn online">Search Online</button>
         <button id="nav-search-instore-btn" class="nav-search-btn instore">IN-STORE</button>
       </div>
@@ -1685,6 +1687,134 @@
     hotTipsModal.addEventListener('click', (e) => {
       if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
     });
+  </script>
+  <!-- Lil' Dave AI Chatbot -->
+  <div id="ha-dave" style="display: none; position: fixed; top: 100px; right: 30px; z-index: 10000;">
+    <div class="fyr-chat-window open" id="fyr-chat-window" style="margin: 0; width: 460px; max-width: calc(100vw - 30px); max-height: 70vh;">
+      <div class="fyr-chat-header" style="cursor: move; user-select: none;">
+        <div class="fyr-chat-title-wrap">
+          <h4 class="fyr-chat-title">Little Dave AI</h4>
+          <span class="fyr-chat-subtitle">FYR Music Expert</span>
+        </div>
+        <button class="fyr-chat-close" onclick="toggleChatbot()" title="Close chat">&times;</button>
+      </div>
+      <div class="fyr-chat-messages" id="fyr-chat-messages">
+        <div class="fyr-msg bot">
+          <img src="images/little_dave.jpg" alt="Little Dave AI" class="fyr-msg-avatar">
+          <div class="fyr-msg-content-wrap">
+            <div class="fyr-msg-bubble">
+              <p>Hey! I'm Little Dave. Need help completing your Checkout or have questions about your order?</p>
+            </div>
+            <div class="fyr-msg-meta">Little Dave AI • Just now</div>
+          </div>
+        </div>
+      </div>
+      <div class="fyr-chat-footer">
+        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)" style="margin: 0;">
+          <div class="fyr-chat-input-bar">
+            <input type="text" id="fyr-chat-input" class="fyr-chat-input" placeholder="Ask Little Dave..." autocomplete="off">
+            <button type="submit" class="fyr-chat-send" title="Send message">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let fyrChatHistory = [];
+    function toggleChatbot() {
+      const dave = document.getElementById('ha-dave');
+      if (dave) {
+        dave.style.display = (dave.style.display === 'none' || !dave.style.display) ? 'block' : 'none';
+      }
+    }
+    function formatMarkdown(text) {
+      if (!text) return '';
+      let html = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+      html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+      html = html.replace(/\n/g, '<br>');
+      return html;
+    }
+    function appendMessage(role, text) {
+      const container = document.getElementById('fyr-chat-messages');
+      const msgEl = document.createElement('div');
+      msgEl.className = `fyr-msg ${role}`;
+      const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const senderName = role === 'bot' ? 'Little Dave AI' : 'You';
+      const avatarHtml = role === 'bot' ? '<img src="images/little_dave.jpg" alt="Little Dave AI" class="fyr-msg-avatar">' : '';
+      msgEl.innerHTML = `${avatarHtml}<div class="fyr-msg-content-wrap"><div class="fyr-msg-bubble"><p>${role === 'bot' ? formatMarkdown(text) : text}</p></div><div class="fyr-msg-meta">${senderName} • ${timeString}</div></div>`;
+      container.appendChild(msgEl);
+      container.scrollTop = container.scrollHeight;
+    }
+    async function handleChatSubmit(e) {
+      if (e) e.preventDefault();
+      const inputEl = document.getElementById('fyr-chat-input');
+      const messageText = inputEl.value.trim();
+      if (!messageText) return;
+      inputEl.value = '';
+      appendMessage('user', messageText);
+      fyrChatHistory.push({ role: 'user', content: messageText });
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: fyrChatHistory,
+            pageContext: { activeScreen: 'Checkout' }
+          })
+        });
+        const data = await res.json();
+        const botReply = data.response || data.reply || "I'm sorry, I couldn't get a response. Try asking again!";
+        appendMessage('bot', botReply);
+        fyrChatHistory.push({ role: 'assistant', content: botReply });
+      } catch (err) {
+        appendMessage('bot', 'Sorry, I had trouble connecting. Feel free to ask again!');
+      }
+    }
+    (function initDaveDrag() {
+      const daveContainer = document.getElementById('ha-dave');
+      const header = document.querySelector('#ha-dave .fyr-chat-header');
+      if (!daveContainer || !header) return;
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+      function onPointerDown(e) {
+        if (e.target.closest('.fyr-chat-close')) return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = daveContainer.getBoundingClientRect();
+        initialLeft = rect.left;
+        initialTop = rect.top;
+        daveContainer.style.position = 'fixed';
+        daveContainer.style.right = 'auto';
+        daveContainer.style.left = initialLeft + 'px';
+        daveContainer.style.top = initialTop + 'px';
+        window.addEventListener('mousemove', onPointerMove);
+        window.addEventListener('mouseup', onPointerUp);
+      }
+      function onPointerMove(e) {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        let newLeft = Math.max(10, Math.min(window.innerWidth - daveContainer.offsetWidth - 10, initialLeft + dx));
+        let newTop = Math.max(10, Math.min(window.innerHeight - daveContainer.offsetHeight - 10, initialTop + dy));
+        daveContainer.style.left = newLeft + 'px';
+        daveContainer.style.top = newTop + 'px';
+      }
+      function onPointerUp() {
+        isDragging = false;
+        window.removeEventListener('mousemove', onPointerMove);
+        window.removeEventListener('mouseup', onPointerUp);
+      }
+      header.addEventListener('mousedown', onPointerDown);
+    })();
   </script>
 </body>
 

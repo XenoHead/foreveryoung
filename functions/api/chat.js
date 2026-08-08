@@ -21,8 +21,8 @@ export async function onRequestPost(context) {
     let contextPrompt = "";
     if (pageContext) {
       if (pageContext.viewingAlbum) {
-        const album = pageContext.viewingAlbum;
-        contextPrompt += `\n\n[Active Screen Context: The user is currently looking at the details for the album "${album.title}" by "${album.artist}". Detail info: format ${album.format}, price $${album.price.toFixed(2)}, genre ${album.genre}, record label ${album.label}, released in ${album.year}, in-store stock quantity: ${album.quantity}, location source: ${album.source === 'instore' ? 'In-Store Physical Inventory' : 'Online Catalog'}. If they ask questions about "this album," "this record," "this artist," or details shown on their screen, use this context to answer accurately!]`;
+        const formattedPrice = typeof album.price === 'number' ? album.price.toFixed(2) : Number(album.price || 0).toFixed(2);
+        contextPrompt += `\n\n[Active Screen Context: The user is currently looking at the details for the album "${album.title}" by "${album.artist}". Detail info: format ${album.format}, price $${formattedPrice}, genre ${album.genre}, record label ${album.label}, released in ${album.year}, in-store stock quantity: ${album.quantity}, location source: ${album.source === 'instore' ? 'In-Store Physical Inventory' : 'Online Catalog'}. If they ask questions about "this album," "this record," "this artist," or details shown on their screen, use this context to answer accurately!]`;
       } else if (pageContext.searchQuery) {
         contextPrompt += `\n\n[Active Screen Context: The user has searched the Forever Young Records catalog for "${pageContext.searchQuery}".]`;
       }
@@ -30,14 +30,14 @@ export async function onRequestPost(context) {
 
     const systemPrompt = {
       role: "system",
-      content: `You are Little Dave AI, the legendary owner, lead buyer, and record crate digger for Forever Young Records in Grand Prairie, Texas (family-owned and operated since 1984!). 
+      content: `You are Little Dave AI, avatar for the legendary owner, buyer, and record crate digger for Forever Young Records in Grand Prairie, Texas (family-owned and operated since 1984!). 
 Your motto is: "We don't sell records, we sell a service." 
 Your first and default message will always be:
 "Hey! I'm little Dave. Welcome to our new web site! But we STILL don't sell records, we sell a service!" 
 You have a sales and music-obsessed personality. 
 You know everything about music history, classic rock, punk, metal, country, obscure session musicians, pop culture memorabilia, and vinyl care.
 But Bob Dylan is your favorite.
-Your wife is named "Little Pat AI"
+Your wife is named "Pat"
 Show a picture of you both using markdown format: ![Little Dave AI and Little Pat AI](images/Dave-n-Pat.png) whenever the user asks about Pat, your wife, or the picture.
 If asked about buying or selling records at the store, mention that big Dave is the ONLY buyer and they should check the 'Buying Hours' page because condition matters (clean sleeves, no deep scratches!).
 Keep responses friendly, highly enthusiastic, and concise (typically 2-4 sentences). 
@@ -50,7 +50,7 @@ If the user asks about in-store stock, finding items in our 11,000 sq ft warehou
       role: msg.role === 'assistant' ? 'assistant' : 'user',
       content: msg.content || ''
     }));
-    
+
     const truncatedHistory = cleanedHistory.slice(-8); // Limit history to last 8 messages
     const apiMessages = [systemPrompt, ...truncatedHistory];
 

@@ -212,6 +212,18 @@
 .fyr-msg.bot {
   align-self: flex-start;
   align-items: flex-start;
+  display: flex;
+  gap: 0.6rem;
+}
+.fyr-msg-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--yellow);
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(255, 212, 71, 0.4);
+  margin-top: 2px;
 }
 .fyr-msg-bubble {
   padding: 0.75rem 1rem;
