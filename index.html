@@ -164,29 +164,57 @@
       opacity: 0.6;
     }
 
-    /* Horizontal New Releases & Right Accordion drawer styles */
+    /* Horizontal New Releases & Accordions 3x2 grid drawer styles */
     #ha-new_releases-drawer,
-    .hero-accordion.right .ha-drawer {
-      width: 605px;
+    #ha-lower_left-drawer,
+    #ha-lower_right-drawer,
+    .hero-accordion .ha-drawer {
+      width: 600px;
+      box-sizing: border-box;
     }
 
-    #ha-new_releases-list,
-    #ha-instore-list,
-    #ha-online-list,
-    .hero-accordion.right .ha-card-list {
+    .ha-card-list {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: .5rem;
-      padding: .5rem;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      box-sizing: border-box;
+      width: 100%;
+      max-height: 430px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .ha-card-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .ha-card-list::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+
+    .ha-card-list::-webkit-scrollbar-thumb {
+      background: var(--yellow);
+      border-radius: 4px;
+      box-shadow: 0 0 6px rgba(255, 212, 71, 0.5);
+    }
+
+    .ha-card-list::-webkit-scrollbar-thumb:hover {
+      background: #ffe066;
     }
 
     #ha-new_releases-drawer .ha-card-thumb,
-    .hero-accordion.right .ha-card-thumb {
-      width: 150px;
-      height: 150px;
+    #ha-lower_left-drawer .ha-card-thumb,
+    #ha-lower_right-drawer .ha-card-thumb,
+    .hero-accordion .ha-card-thumb {
+      width: 110px;
+      height: 110px;
       margin: 0 auto;
       position: relative;
       overflow: hidden;
+      border-radius: 4px;
+      flex-shrink: 0;
     }
 
     .corner-ribbon-wrap {
@@ -219,42 +247,71 @@
     }
 
     #ha-new_releases-drawer .ha-card,
-    .hero-accordion.right .ha-card {
+    #ha-lower_left-drawer .ha-card,
+    #ha-lower_right-drawer .ha-card,
+    .hero-accordion .ha-card {
+      display: flex;
       flex-direction: column;
-      align-items: stretch;
-      width: auto;
-      padding: 0.4rem;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      padding: 0.5rem;
       text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
     }
 
     #ha-new_releases-drawer .ha-card-info,
-    .hero-accordion.right .ha-card-info {
+    #ha-lower_left-drawer .ha-card-info,
+    #ha-lower_right-drawer .ha-card-info,
+    .hero-accordion .ha-card-info {
       text-align: center;
-      margin-top: 0.6rem;
-      padding: 0;
+      margin-top: 0.4rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
     }
 
     #ha-new_releases-drawer .ha-card-title,
-    .hero-accordion.right .ha-card-title {
-      font-size: 0.85rem;
-      white-space: normal;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
+    #ha-lower_left-drawer .ha-card-title,
+    #ha-lower_right-drawer .ha-card-title,
+    .hero-accordion .ha-card-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cream);
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      max-width: 100%;
+      text-align: center;
     }
 
     #ha-new_releases-drawer .ha-card-artist,
-    .hero-accordion.right .ha-card-artist {
-      font-size: 0.75rem;
+    #ha-lower_left-drawer .ha-card-artist,
+    #ha-lower_right-drawer .ha-card-artist,
+    .hero-accordion .ha-card-artist {
+      font-size: 0.72rem;
+      color: var(--muted);
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      text-align: center;
     }
 
     #ha-new_releases-drawer .ha-card-price,
-    .hero-accordion.right .ha-card-price {
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
+    #ha-lower_left-drawer .ha-card-price,
+    #ha-lower_right-drawer .ha-card-price,
+    .hero-accordion .ha-card-price {
+      font-size: 0.8rem;
+      color: var(--yellow);
+      font-weight: 700;
+      margin-top: 2px;
+      text-align: center;
     }
 
     .nav-search-container {
@@ -1312,8 +1369,8 @@
 
     .detail-specs-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: .90rem;
     }
 
     .detail-spec-item {
@@ -1484,6 +1541,45 @@
       z-index: 25;
     }
 
+    .left-hero-accordions-wrapper {
+      position: absolute;
+      left: 0;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      z-index: 20;
+    }
+
+    .left-hero-accordions-wrapper .hero-accordion.left,
+    .left-hero-accordions-wrapper .hero-accordion.left:has(.ha-drawer.open),
+    .left-hero-accordions-wrapper .hero-accordion.left.top-tab-accordion:has(.ha-drawer.open) {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+    }
+
+    .right-hero-accordions-wrapper {
+      position: absolute;
+      right: 0;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2rem;
+      z-index: 20;
+    }
+
+    .right-hero-accordions-wrapper .hero-accordion.right,
+    .right-hero-accordions-wrapper .hero-accordion.right:has(.ha-drawer.open),
+    .right-hero-accordions-wrapper .hero-accordion.right.top-tab-accordion:has(.ha-drawer.open) {
+      position: relative !important;
+      top: auto !important;
+      right: auto !important;
+      transform: none !important;
+    }
+
     .hero-accordion.left {
       left: 0;
       flex-direction: row;
@@ -1501,19 +1597,19 @@
       align-items: flex-end;
     }
 
-    /* Hide In-Store and Online tabs when accordion drawer is collapsed */
+    /* Hide sub-tabs when left accordion drawers are collapsed */
     .hero-accordion.left:not(:has(.ha-drawer.open)) #ha-instore-tab,
-    .hero-accordion.left:not(:has(.ha-drawer.open)) #ha-online-tab {
+    .hero-accordion.left:not(:has(.ha-drawer.open)) #ha-online-tab,
+    .hero-accordion.left:not(:has(.ha-drawer.open)) #ha-temp1-tab,
+    .hero-accordion.left:not(:has(.ha-drawer.open)) #ha-temp2-tab {
       display: none !important;
     }
 
-    /* Hide right sub-tabs when right accordion drawer is collapsed */
+    /* Hide right sub-tabs when right accordion drawers are collapsed */
     .hero-accordion.right:not(:has(.ha-drawer.open)) #ha-hot-tab,
     .hero-accordion.right:not(:has(.ha-drawer.open)) #ha-rare-tab,
-    .hero-accordion.right:not(:has(.ha-drawer.open)) #ha-genres-tab,
-    .hero-accordion.right:not(.open) #ha-hot-tab,
-    .hero-accordion.right:not(.open) #ha-rare-tab,
-    .hero-accordion.right:not(.open) #ha-genres-tab {
+    .hero-accordion.right:not(:has(.ha-drawer.open)) #ha-temp4-tab,
+    .hero-accordion.right:not(:has(.ha-drawer.open)) #ha-temp5-tab {
       display: none !important;
     }
 
@@ -1544,10 +1640,11 @@
       border-color: var(--yellow);
     }
 
-    
+
     .hero-accordion.right .ha-tab:active {
       transform: translateY(1px);
     }
+
     /* =========================
     LEFT ACCORDION TOP TABS (Independent)
     ========================= */
@@ -1556,10 +1653,12 @@
       text-orientation: mixed !important;
       font-family: 'SplitCardFont', sans-serif !important;
       position: relative;
-      background: linear-gradient(180deg, #fbfbfc 0%, #eaebec 100%) !important;
-      clip-path: polygon(0 0, 82% 0, 100% 100%, 0% 100%);
-      width: 190px; /* Adjust left tab width here */
-      height: 27px; /* Adjust left tab height here */
+      background: linear-gradient(180deg, #6e82ac 0%, #eaebec 100%) !important;
+      clip-path: polygon(0 8px, 2px 4px, 4px 2px, 8px 0, 82% 0, 100% 100%, 0% 100%) !important;
+      width: 198px;
+      /* Adjust left tab width here */
+      height: 27px;
+      /* Adjust left tab height here */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1569,7 +1668,8 @@
       padding: 0 1rem 0 0.3rem;
       border: none !important;
       color: #222222 !important;
-      font-size: 1.2.5rem; /* Adjust left tab font size here */
+      font-size: 1.2.5rem;
+      /* Adjust left tab font size here */
       letter-spacing: 0px;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
       cursor: pointer;
@@ -1594,74 +1694,97 @@
       z-index: 1;
     }
 
-  /* =========================
+    /* =========================
    RIGHT ACCORDION TOP TABS (Independent)
    ========================= */
-.hero-accordion.right .ha-tab-top,
-.ha-tab-top {
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-  font-family: 'SplitCardFont', sans-serif !important;
-  position: relative;
-  background: linear-gradient(180deg, #b8bdc8 0%, #9aa0ae 100%) !important;
-  width: 140px; /* Adjust right tab width here */
-  height: 27px; /* Adjust right tab height here */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.1;
-  white-space: normal !important;
-  padding: 0 0.3rem 0 1rem;
-  border: none !important;
-  color: #222222 !important;
-  font-size: 0.65rem; /* Adjust right tab font size here */
-  letter-spacing: 0px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease, clip-path 0.15s ease;
-  animation: none !important;
-  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.8), inset 0 -3px 5px rgba(0, 0, 0, 0.2) !important;
-  z-index: 12;
-  margin-bottom: -3px;
-  opacity: 0.85;
-  /* Standard rectangle for all tabs when collapsed */
-  clip-path: none;
-}
+    .hero-accordion.right .ha-tab-top,
+    .ha-tab-top {
+      writing-mode: horizontal-tb !important;
+      text-orientation: mixed !important;
+      font-family: 'SplitCardFont', sans-serif !important;
+      position: relative;
+      background: linear-gradient(180deg, #6e82ac 0%, #fafafc 100%) !important;
+      width: 140px;
+      /* Adjust right tab width here */
+      height: 27px;
+      /* Adjust right tab height here */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.0;
+      white-space: normal !important;
+      padding: 0 0.3rem 0 1rem;
+      border: none !important;
+      color: #222222 !important;
+      font-size: .95rem;
+      /* Adjust right tab font size here */
+      letter-spacing: 0px;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease, clip-path 0.15s ease;
+      animation: none !important;
+      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.8), inset 0 -3px 5px rgba(0, 0, 0, 0.2) !important;
+      z-index: 12;
+      margin-bottom: -3px;
+      opacity: 0.85;
+      clip-path: polygon(18% 0, calc(100% - 8px) 0, calc(100% - 4px) 2px, calc(100% - 2px) 4px, 100% 8px, 100% 100%, 0% 90%) !important;
+    }
 
-.hero-accordion.right .ha-tab-top::before,
-.ha-tab-top::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 18%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.4));
-  pointer-events: none;
-  z-index: 1;
-}
+    .hero-accordion.right .ha-tab-top::before,
+    .ha-tab-top::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18%;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.4));
+      pointer-events: none;
+      z-index: 1;
+    }
 
-.ha-tab-top.active,
-.ha-tab-top:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #f6f7f9 40%, #e3e5ea 85%, #c8cbd4 100%) !important;
-  color: #111111 !important;
-  opacity: 1;
-  transform: translateY(-2px);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-}
+    .ha-tab-top.active,
+    .ha-tab-top:hover {
+      background: linear-gradient(180deg, #ffffff 0%, #f6f7f9 40%, #e3e5ea 85%, #c8cbd4 100%) !important;
+      color: #111111 !important;
+      opacity: 1;
+      transform: translateY(-2px);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
 
-/* Flipped taper shape applied to ALL active/open top tabs (slope/point on the left side) */
-.ha-tab-top.active,
-.ha-tab-top[aria-expanded="true"],
-.hero-accordion .ha-tab-top.active {
-  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
-}
+    .hero-accordion.left:has(.ha-drawer.open) .ha-tab-top.active,
+    .hero-accordion.left:has(.ha-drawer.open) .ha-tab-top {
+      clip-path: polygon(0 8px, 2px 4px, 4px 2px, 8px 0, 82% 0, 100% 100%, 0% 100%) !important;
+    }
 
-.ha-tab-top:active {
-  transform: translateY(1px);
-}
+    .hero-accordion.left:not(:has(.ha-drawer.open)) .ha-tab-top {
+      clip-path: none !important;
+      border-radius: 6px !important;
+    }
+
+    .hero-accordion.left:not(:has(.ha-drawer.open)) .ha-tab-top::before {
+      right: 0 !important;
+    }
+
+    .hero-accordion.right:has(.ha-drawer.open) .ha-tab-top.active,
+    .hero-accordion.right:has(.ha-drawer.open) .ha-tab-top {
+      clip-path: polygon(18% 0, calc(100% - 8px) 0, calc(100% - 4px) 2px, calc(100% - 2px) 4px, 100% 8px, 100% 100%, 0% 100%) !important;
+    }
+
+    .hero-accordion.right:not(:has(.ha-drawer.open)) .ha-tab-top {
+      clip-path: none !important;
+      border-radius: 6px !important;
+    }
+
+    .hero-accordion.right:not(:has(.ha-drawer.open)) .ha-tab-top::before {
+      left: 0 !important;
+    }
+
+    .ha-tab-top:active {
+      transform: translateY(1px);
+    }
 
     /* The blinking vertical tab */
     .ha-tab {
@@ -1713,7 +1836,7 @@
       width: 300px;
       max-height: 85vh;
       overflow-y: auto;
-      background: rgba(6, 13, 24, 0.85);
+      background: rgba(6, 13, 24, 0.65);
       border: 1px solid rgba(255, 212, 71, 0.2);
       backdrop-filter: blur(14px);
       padding: 0;
@@ -1769,7 +1892,7 @@
       text-transform: uppercase;
       cursor: pointer;
       color: var(--muted);
-      border-bottom: 2px solid transparent;
+      border-bottom: 0px solid transparent;
       transition: all 0.2s;
     }
 
@@ -1785,23 +1908,16 @@
       background: rgba(44, 108, 255, 0.07);
     }
 
-    /* Mini crate cards inside drawer */
-    .ha-card-list {
-      padding: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      flex: 1;
-    }
+
 
     .ha-card {
       display: flex;
       gap: 0.65rem;
       align-items: center;
-      padding: 0.5rem 0.6rem;
-      border-radius: 6px;
+      padding: 0.1rem 0.1rem;
+      border-radius: 0px;
       background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 0px solid rgba(255, 255, 255, 0.06);
       cursor: pointer;
       transition: background 0.2s, border-color 0.2s;
     }
@@ -1812,16 +1928,17 @@
     }
 
     .ha-card-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 4px;
+      width: 75px;
+      height: 75px;
+      border-radius: 0px;
       object-fit: cover;
       flex-shrink: 0;
-      background: #1a2b45;
+      background: rgba(26, 43, 69, 0.65);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
     }
 
     .ha-card-thumb img {
@@ -1971,7 +2088,7 @@
       width: 100%;
       padding-top: 100%;
       overflow: hidden;
-      background: #08111f;
+      background: rgba(8, 17, 31, 0.65);
     }
 
     .crate-card-art {
@@ -2104,45 +2221,71 @@
   <section class="hero">
     <div class="hero-image"></div>
 
-    <!-- LEFT ACCORDION 1: New Releases / In Store / Online -->
-    <div class="hero-accordion left top-tab-accordion" id="ha-new_releases" style="top: 25%;">
-      <div class="ha-top-tabs-row">
-        <div class="ha-tab ha-tab-top active" id="ha-new_releases-tab" onclick="switchLeftTab('new_releases')">
-          New<br>Releases</div>
-        <div class="ha-tab ha-tab-top" id="ha-instore-tab" onclick="switchLeftTab('instore')">In<br>Store</div>
-        <div class="ha-tab ha-tab-top" id="ha-online-tab" onclick="switchLeftTab('online')">Online</div>
+    <!-- LEFT ACCORDIONS WRAPPER -->
+    <div class="left-hero-accordions-wrapper">
+      <!-- LEFT ACCORDION 1: New Releases / In Store / Online -->
+      <div class="hero-accordion left top-tab-accordion open" id="ha-new_releases">
+        <div class="ha-top-tabs-row">
+          <div class="ha-tab ha-tab-top active" id="ha-new_releases-tab" onclick="switchLeftTab('new_releases')">
+            New<br>Releases</div>
+          <div class="ha-tab ha-tab-top" id="ha-instore-tab" onclick="switchLeftTab('instore')">In<br>Store</div>
+          <div class="ha-tab ha-tab-top" id="ha-online-tab" onclick="switchLeftTab('online')">Online</div>
+        </div>
+        <div class="ha-drawer open" id="ha-new_releases-drawer">
+          <div class="ha-card-list" id="ha-new_releases-list"></div>
+          <div class="ha-card-list" id="ha-instore-list" style="display: none;"></div>
+          <div class="ha-card-list" id="ha-online-list" style="display: none;"></div>
+        </div>
       </div>
-      <div class="ha-drawer open" id="ha-new_releases-drawer">
-        <div class="ha-card-list" id="ha-new_releases-list"></div>
-        <div class="ha-card-list" id="ha-instore-list" style="display: none;"></div>
-        <div class="ha-card-list" id="ha-online-list" style="display: none;"></div>
+
+      <!-- LEFT ACCORDION 2: Lower Left (Genres, Extra 1, Extra 2) -->
+      <div class="hero-accordion left top-tab-accordion open" id="ha-lower_left">
+        <div class="ha-top-tabs-row" id="ha-lower_left-tabs-row">
+          <div class="ha-tab ha-tab-top active" id="ha-genres-tab" onclick="switchLowerLeftTab('genres')">GENRES</div>
+          <div class="ha-tab ha-tab-top" id="ha-temp1-tab" onclick="switchLowerLeftTab('temp1')" style="display: none;">
+            EXTRA 1</div>
+          <div class="ha-tab ha-tab-top" id="ha-temp2-tab" onclick="switchLowerLeftTab('temp2')" style="display: none;">
+            EXTRA 2</div>
+        </div>
+        <div class="ha-drawer open" id="ha-lower_left-drawer">
+          <div class="ha-card-list" id="ha-genres-list"></div>
+          <div class="ha-card-list" id="ha-temp1-list" style="display: none;"></div>
+          <div class="ha-card-list" id="ha-temp2-list" style="display: none;"></div>
+        </div>
       </div>
     </div>
 
-    <!-- RIGHT ACCORDION: Cool Stuff, HOT, RARE, GENRES, EXTRA 1, EXTRA 2 -->
-    <div class="hero-accordion right top-tab-accordion open" id="ha-right-container" style="top: 25%;">
-      <div class="ha-top-tabs-row" id="ha-right-tabs-row">
-        <div class="ha-tab ha-tab-top active" id="ha-cool_stuff-tab" onclick="switchRightTab('cool_stuff')">Cool Stuff
+    <!-- RIGHT ACCORDIONS WRAPPER -->
+    <div class="right-hero-accordions-wrapper">
+      <!-- RIGHT ACCORDION 1: Cool Stuff, HOT, RARE -->
+      <div class="hero-accordion right top-tab-accordion open" id="ha-right-container">
+        <div class="ha-top-tabs-row" id="ha-right-tabs-row">
+          <div class="ha-tab ha-tab-top active" id="ha-cool_stuff-tab" onclick="switchRightTab('cool_stuff')">Cool Stuff
+          </div>
+          <div class="ha-tab ha-tab-top" id="ha-hot-tab" onclick="switchRightTab('hot')">HOT</div>
+          <div class="ha-tab ha-tab-top" id="ha-rare-tab" onclick="switchRightTab('rare')">RARE</div>
         </div>
-        <div class="ha-tab ha-tab-top" id="ha-hot-tab" onclick="switchRightTab('hot')">HOT</div>
-        <div class="ha-tab ha-tab-top" id="ha-rare-tab" onclick="switchRightTab('rare')">RARE</div>
-        <div class="ha-tab ha-tab-top" id="ha-genres-tab" onclick="switchRightTab('genres')">GENRES</div>
-        <div class="ha-tab ha-tab-top" id="ha-temp1-tab" onclick="switchRightTab('temp1')" style="display: none;">EXTRA
-          1</div>
-        <div class="ha-tab ha-tab-top" id="ha-temp2-tab" onclick="switchRightTab('temp2')" style="display: none;">EXTRA
-          2</div>
+        <div class="ha-drawer open" id="ha-right-drawer">
+          <div class="ha-card-list" id="ha-cool_stuff-list"></div>
+          <div class="ha-card-list" id="ha-hot-list" style="display: none;"></div>
+          <div class="ha-card-list" id="ha-rare-list" style="display: none;"></div>
+        </div>
       </div>
-      <div class="ha-drawer open" id="ha-right-drawer">
-        <div class="ha-card-list" id="ha-cool_stuff-list"></div>
-        <div class="ha-card-list" id="ha-hot-list" style="display: none;"></div>
-        <div class="ha-card-list" id="ha-rare-list" style="display: none;"></div>
-        <div class="ha-card-list" id="ha-genres-list" style="display: none;"></div>
-        <div class="ha-card-list" id="ha-temp1-list" style="display: none;"></div>
-        <div class="ha-card-list" id="ha-temp2-list" style="display: none;"></div>
-      </div>
-      <div class="ha-collapsed-preview" id="ha-right-collapsed-preview" onclick="switchRightTab('cool_stuff')"
-        title="Click to expand">
 
+      <!-- RIGHT ACCORDION 2: Lower Right (Extra 3, Extra 4, Extra 5) -->
+      <div class="hero-accordion right top-tab-accordion open" id="ha-lower_right">
+        <div class="ha-top-tabs-row" id="ha-lower_right-tabs-row">
+          <div class="ha-tab ha-tab-top active" id="ha-temp3-tab" onclick="switchLowerRightTab('temp3')">EXTRA 3</div>
+          <div class="ha-tab ha-tab-top" id="ha-temp4-tab" onclick="switchLowerRightTab('temp4')"
+            style="display: none;">EXTRA 4</div>
+          <div class="ha-tab ha-tab-top" id="ha-temp5-tab" onclick="switchLowerRightTab('temp5')"
+            style="display: none;">EXTRA 5</div>
+        </div>
+        <div class="ha-drawer open" id="ha-lower_right-drawer">
+          <div class="ha-card-list" id="ha-temp3-list"></div>
+          <div class="ha-card-list" id="ha-temp4-list" style="display: none;"></div>
+          <div class="ha-card-list" id="ha-temp5-list" style="display: none;"></div>
+        </div>
       </div>
     </div>
 
@@ -2760,8 +2903,8 @@
       const badgeBg = isInstore ? '#2ecc71' : '#2C6CFF';
       const bannerHtml = `<div class="corner-ribbon-wrap"><div class="corner-ribbon" style="background: ${badgeBg};">${badgeText}</div></div>`;
 
-      const imgUrl = item.Front_Image_URL || item.Image_URL;
-      if (imgUrl && imgUrl !== 'NULL' && imgUrl.startsWith('http')) {
+      const imgUrl = item.Front_Image_URL || item.Image_URL || item.image || item.Image || item.cover_image;
+      if (imgUrl && imgUrl !== 'NULL' && imgUrl !== 'undefined' && imgUrl.trim() !== '') {
         thumbEl.innerHTML = `<img src="${imgUrl}" alt="" loading="lazy">${bannerHtml}`;
       } else {
         const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
@@ -2773,18 +2916,13 @@
       const infoEl = document.createElement('div');
       infoEl.className = 'ha-card-info';
       infoEl.innerHTML = `
-        <div class="ha-card-title">${item.Title || 'Unknown'}</div>
-        <div class="ha-card-artist">${item.Artist || ''}</div>
+        <div class="ha-card-title" title="${item.Title || ''}">${item.Title || 'Unknown'}</div>
+        <div class="ha-card-artist" title="${item.Artist || ''}">${item.Artist || ''}</div>
+        <div class="ha-card-price">$${(item.Price || 0).toFixed(2)}</div>
       `;
-
-      // price
-      const priceEl = document.createElement('div');
-      priceEl.className = 'ha-card-price';
-      priceEl.textContent = '$' + (item.Price || 0).toFixed(2);
 
       el.appendChild(thumbEl);
       el.appendChild(infoEl);
-      el.appendChild(priceEl);
 
       el.addEventListener('click', () => {
         searchResultsModal.style.display = 'flex';
@@ -2855,9 +2993,59 @@
 
       currentRightTab = tabName;
 
-      ['cool_stuff', 'hot', 'rare', 'genres', 'temp1', 'temp2'].forEach(t => {
+      ['cool_stuff', 'hot', 'rare'].forEach(t => {
         const tabEl = document.getElementById(t === 'cool_stuff' ? 'ha-cool_stuff-tab' : `ha-${t}-tab`);
         const listEl = document.getElementById(t === 'cool_stuff' ? 'ha-cool_stuff-list' : `ha-${t}-list`);
+        if (tabEl) tabEl.classList.toggle('active', t === tabName);
+        if (listEl) listEl.style.display = (t === tabName) ? 'grid' : 'none';
+      });
+    }
+
+    let currentLowerLeftTab = 'genres';
+
+    function switchLowerLeftTab(tabName) {
+      const drawer = document.getElementById('ha-lower_left-drawer');
+      const isOpen = drawer && drawer.classList.contains('open');
+
+      if (isOpen && currentLowerLeftTab === tabName) {
+        drawer.classList.remove('open');
+        return;
+      }
+
+      if (drawer && !isOpen) {
+        drawer.classList.add('open');
+      }
+
+      currentLowerLeftTab = tabName;
+
+      ['genres', 'temp1', 'temp2'].forEach(t => {
+        const tabEl = document.getElementById(`ha-${t}-tab`);
+        const listEl = document.getElementById(`ha-${t}-list`);
+        if (tabEl) tabEl.classList.toggle('active', t === tabName);
+        if (listEl) listEl.style.display = (t === tabName) ? 'grid' : 'none';
+      });
+    }
+
+    let currentLowerRightTab = 'temp3';
+
+    function switchLowerRightTab(tabName) {
+      const drawer = document.getElementById('ha-lower_right-drawer');
+      const isOpen = drawer && drawer.classList.contains('open');
+
+      if (isOpen && currentLowerRightTab === tabName) {
+        drawer.classList.remove('open');
+        return;
+      }
+
+      if (drawer && !isOpen) {
+        drawer.classList.add('open');
+      }
+
+      currentLowerRightTab = tabName;
+
+      ['temp3', 'temp4', 'temp5'].forEach(t => {
+        const tabEl = document.getElementById(`ha-${t}-tab`);
+        const listEl = document.getElementById(`ha-${t}-list`);
         if (tabEl) tabEl.classList.toggle('active', t === tabName);
         if (listEl) listEl.style.display = (t === tabName) ? 'grid' : 'none';
       });
@@ -2934,16 +3122,19 @@
         const response = await fetch('/api/featured');
         const data = await response.json();
         if (data.success && data.results) {
-          populateHaList('ha-new_releases-list', (data.results.new_releases || []).slice(0, 6));
-          populateHaList('ha-instore-list', (data.results.instore || []).slice(0, 6));
-          populateHaList('ha-online-list', (data.results.online || []).slice(0, 6));
+          populateHaList('ha-new_releases-list', (data.results.new_releases || []).slice(0, 36));
+          populateHaList('ha-instore-list', (data.results.instore || []).slice(0, 36));
+          populateHaList('ha-online-list', (data.results.online || []).slice(0, 36));
 
-          populateHaList('ha-cool_stuff-list', (data.results.new || []).slice(0, 6));
-          populateHaList('ha-hot-list', (data.results.hot || []).slice(0, 6));
-          populateHaList('ha-rare-list', (data.results.rare || []).slice(0, 6));
-          populateHaList('ha-genres-list', (data.results.genres || []).slice(0, 6));
-          populateHaList('ha-temp1-list', (data.results.temp1 || []).slice(0, 6));
-          populateHaList('ha-temp2-list', (data.results.temp2 || []).slice(0, 6));
+          populateHaList('ha-cool_stuff-list', (data.results.new || []).slice(0, 36));
+          populateHaList('ha-hot-list', (data.results.hot || []).slice(0, 36));
+          populateHaList('ha-rare-list', (data.results.rare || []).slice(0, 36));
+          populateHaList('ha-genres-list', (data.results.genres || []).slice(0, 36));
+          populateHaList('ha-temp1-list', (data.results.temp1 || []).slice(0, 36));
+          populateHaList('ha-temp2-list', (data.results.temp2 || []).slice(0, 36));
+          populateHaList('ha-temp3-list', (data.results.temp3 || []).slice(0, 36));
+          populateHaList('ha-temp4-list', (data.results.temp4 || []).slice(0, 36));
+          populateHaList('ha-temp5-list', (data.results.temp5 || []).slice(0, 36));
         }
       } catch (err) {
         console.error('Error loading featured crates', err);
@@ -2962,32 +3153,77 @@
             'ha-new_releases-tab': names.new_releases || 'New<br>Releases',
             'ha-instore-tab': names.instore || 'In<br>Store',
             'ha-online-tab': names.online || 'Online',
-            'ha-new-tab': names.new || 'OUR FAVS',
+            'ha-cool_stuff-tab': names.new || 'Cool Stuff',
             'ha-hot-tab': names.hot || 'HOT',
             'ha-rare-tab': names.rare || 'RARE',
             'ha-genres-tab': names.genres || 'GENRES',
             'ha-temp1-tab': names.temp1 || 'EXTRA 1',
             'ha-temp2-tab': names.temp2 || 'EXTRA 2',
+            'ha-temp3-tab': names.temp3 || 'EXTRA 3',
+            'ha-temp4-tab': names.temp4 || 'EXTRA 4',
+            'ha-temp5-tab': names.temp5 || 'EXTRA 5',
           };
           Object.entries(tabLabels).forEach(([id, label]) => {
             const el = document.getElementById(id);
             if (el) el.innerHTML = label;
           });
 
-          // Show/hide right-side tabs
-          const temp1Tab = document.getElementById('ha-temp1-tab');
-          const temp2Tab = document.getElementById('ha-temp2-tab');
-          const newTab = document.getElementById('ha-new-tab');
+          // Show/hide tabs
+          const coolStuffTab = document.getElementById('ha-cool_stuff-tab');
           const hotTab = document.getElementById('ha-hot-tab');
           const rareTab = document.getElementById('ha-rare-tab');
           const genresTab = document.getElementById('ha-genres-tab');
+          const temp1Tab = document.getElementById('ha-temp1-tab');
+          const temp2Tab = document.getElementById('ha-temp2-tab');
+          const temp3Tab = document.getElementById('ha-temp3-tab');
+          const temp4Tab = document.getElementById('ha-temp4-tab');
+          const temp5Tab = document.getElementById('ha-temp5-tab');
 
+          if (coolStuffTab) coolStuffTab.style.display = cfg.new_enabled ? '' : 'none';
+          if (hotTab) hotTab.style.display = cfg.hot_enabled ? '' : 'none';
+          if (rareTab) rareTab.style.display = cfg.rare_enabled ? '' : 'none';
+          if (genresTab) genresTab.style.display = cfg.genres_enabled ? '' : 'none';
           if (temp1Tab) temp1Tab.style.display = cfg.temp1_enabled ? '' : 'none';
           if (temp2Tab) temp2Tab.style.display = cfg.temp2_enabled ? '' : 'none';
-          if (newTab) newTab.style.display = cfg.new_enabled !== false ? '' : 'none';
-          if (hotTab) hotTab.style.display = cfg.hot_enabled !== false ? '' : 'none';
-          if (rareTab) rareTab.style.display = cfg.rare_enabled !== false ? '' : 'none';
-          if (genresTab) genresTab.style.display = cfg.genres_enabled !== false ? '' : 'none';
+          if (temp3Tab) temp3Tab.style.display = cfg.temp3_enabled ? '' : 'none';
+          if (temp4Tab) temp4Tab.style.display = cfg.temp4_enabled ? '' : 'none';
+          if (temp5Tab) temp5Tab.style.display = cfg.temp5_enabled ? '' : 'none';
+
+          // Hide entire lower left accordion if all 3 lower left options are unchecked
+          const lowerLeftHasAny = Boolean(cfg.genres_enabled || cfg.temp1_enabled || cfg.temp2_enabled);
+          const haLowerLeft = document.getElementById('ha-lower_left');
+          if (haLowerLeft) {
+            haLowerLeft.style.display = lowerLeftHasAny ? '' : 'none';
+            if (lowerLeftHasAny) {
+              if (cfg.genres_enabled) switchLowerLeftTab('genres');
+              else if (cfg.temp1_enabled) switchLowerLeftTab('temp1');
+              else if (cfg.temp2_enabled) switchLowerLeftTab('temp2');
+            }
+          }
+
+          // Hide entire lower right accordion if all 3 lower right options are unchecked
+          const lowerRightHasAny = Boolean(cfg.temp3_enabled || cfg.temp4_enabled || cfg.temp5_enabled);
+          const haLowerRight = document.getElementById('ha-lower_right');
+          if (haLowerRight) {
+            haLowerRight.style.display = lowerRightHasAny ? '' : 'none';
+            if (lowerRightHasAny) {
+              if (cfg.temp3_enabled) switchLowerRightTab('temp3');
+              else if (cfg.temp4_enabled) switchLowerRightTab('temp4');
+              else if (cfg.temp5_enabled) switchLowerRightTab('temp5');
+            }
+          }
+
+          // Hide top right accordion if all 3 cool stuff options are unchecked
+          const coolStuffHasAny = Boolean(cfg.new_enabled || cfg.hot_enabled || cfg.rare_enabled);
+          const haRight = document.getElementById('ha-right-container');
+          if (haRight) {
+            haRight.style.display = coolStuffHasAny ? '' : 'none';
+            if (coolStuffHasAny) {
+              if (cfg.new_enabled) switchRightTab('cool_stuff');
+              else if (cfg.hot_enabled) switchRightTab('hot');
+              else if (cfg.rare_enabled) switchRightTab('rare');
+            }
+          }
         }
       } catch (err) {
         console.error('Error loading crate config', err);
