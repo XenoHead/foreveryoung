@@ -1,0 +1,73 @@
+UNUSED IMAGES (candidates for removal to extraneous/)
+============================================================
+
+
+about.html:
+  images/XenoHead_logo.png
+  images/dancing-fools.jpg
+  images/little_dave.jpg
+
+activate.html:
+  images/XenoHead_logo.png
+  images/fyr-logo.png
+
+aisle-gps.html:
+  images/XenoHead_logo.png
+  images/awning.jpg
+  images/little_dave.jpg
+
+back.contact.html:
+  images/XenoHead_logo.png
+  images/fyr-sign-front.png
+  images/tv-0.png
+
+buying-hours.html:
+  images/XenoHead_logo.png
+  images/little_dave.jpg
+  images/stack-2-vinyl.jpg
+  images/vinyl-pancake.jpg
+
+check-in.html:
+  images/XenoHead_logo.png
+  images/fyr-logo.png
+
+checkout.html:
+  images/XenoHead_logo.png
+  images/little_dave.jpg
+
+contact.html:
+  images/XenoHead_logo.png
+  images/drivein-cars-01.png
+  images/fyr-sign-front.png
+  images/little_dave.jpg
+
+index.html:
+  images/brick-bg.png
+  images/fyr-logo-removebg-preview.png
+  images/jukebox-arch-01.png
+  images/jukebox-noarch-01.png
+  images/little_dave.jpg
+
+instore-product.html:
+  images/XenoHead_logo.png
+  images/fyr-logo.png
+
+location.html:
+  images/XenoHead_logo.png
+  images/little_dave.jpg
+  images/record-row.jpg
+
+online-product-editor.html:
+  images/fyr-logo.png
+
+shop.html:
+  images/XenoHead_logo.png
+  images/fyr-logo-removebg-preview.png
+  images/fyr-logo.png
+
+staff-dashboard.html:
+  images/XenoHead_logo.png
+  images/fyr-logo.png
+
+
+UNUSED FILES:

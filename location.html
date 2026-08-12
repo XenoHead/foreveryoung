@@ -156,39 +156,56 @@
       box-shadow: 0 0 12px rgba(44, 108, 255, 0.35);
     }
 
+    @font-face {
+      font-family: 'SplitCardFont';
+      src: url('fonts/split-card.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     .nav-links {
       display: flex;
-      gap: 2rem;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .nav-links a {
-      color: var(--cream);
+      font-family: 'SplitCardFont', 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
       text-decoration: none;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
       position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -4px;
-      left: 50%;
-      background-color: var(--yellow);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
+      background: linear-gradient(180deg, #9aa8bf 0%, #68778f 100%);
+      color: #1c2738;
+      opacity: 0.85;
+      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4), inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
     .nav-links a:hover {
-      color: var(--yellow);
-      text-shadow: 0 0 10px rgba(255, 212, 71, 0.4);
+      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+      color: #111111;
+      opacity: 1;
+      transform: translateY(-1px);
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
+    .nav-links a.active {
+      background: linear-gradient(180deg, #ffffff 0%, #f6f7f9 40%, #e3e5ea 85%, #c8cbd4 100%);
+      color: #111111;
+      opacity: 1;
+      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.8), inset 0 -3px 5px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-links a::after {
+      display: none;
     }
 
     /* Vinyl Sidebar */
@@ -739,7 +756,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="buying-hours.html">Buying Hours</a>
-        <a href="location.html" style="color: var(--yellow);">Location</a>
+        <a href="location.html" class="active">Location</a>
         <a href="aisle-gps.html">Aisle GPS</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -1251,7 +1268,7 @@
   <!-- Lil' Dave AI Chatbot -->
   <div id="ha-dave" style="display: none; position: fixed; top: 100px; right: 30px; z-index: 10000;">
     <div class="fyr-chat-window open" id="fyr-chat-window" style="margin: 0; width: 460px; max-width: calc(100vw - 30px); max-height: 70vh;">
-      <div class="fyr-chat-header" style="cursor: move; user-select: none;">
+      <div class="fyr-chat-header">
         <div class="fyr-chat-title-wrap">
           <h4 class="fyr-chat-title">Little Dave AI</h4>
           <span class="fyr-chat-subtitle">FYR Music Expert</span>
@@ -1270,7 +1287,7 @@
         </div>
       </div>
       <div class="fyr-chat-footer">
-        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)" style="margin: 0;">
+        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)">
           <div class="fyr-chat-input-bar">
             <input type="text" id="fyr-chat-input" class="fyr-chat-input" placeholder="Ask Little Dave..." autocomplete="off">
             <button type="submit" class="fyr-chat-send" title="Send message">

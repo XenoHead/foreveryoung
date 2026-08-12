@@ -9,23 +9,28 @@ export async function onRequestPost(context) {
     }
 
     const body = await request.json().catch(() => ({}));
-    const { messages, pageContext } = body;
-    if (!messages || !Array.isArray(messages)) {
+
+    // Normalize messages and pageContext defensively
+    const rawMessages = body.messages;
+    const pageContext = (body.pageContext && typeof body.pageContext === 'object') ? body.pageContext : {};
+
+    if (!rawMessages || !Array.isArray(rawMessages)) {
       return new Response(JSON.stringify({ error: "Invalid request payload. Expected an array of 'messages'." }), {
         status: 400,
         headers: { "Content-Type": "application/json" }
       });
     }
 
+    // Pull album context from pageContext when present (defensive: ignore if missing fields)
+    const album = (pageContext.viewingAlbum && typeof pageContext.viewingAlbum === 'object') ? pageContext.viewingAlbum : null;
+
     // Build page context instructions if provided
     let contextPrompt = "";
-    if (pageContext) {
-      if (pageContext.viewingAlbum) {
-        const formattedPrice = typeof album.price === 'number' ? album.price.toFixed(2) : Number(album.price || 0).toFixed(2);
-        contextPrompt += `\n\n[Active Screen Context: The user is currently looking at the details for the album "${album.title}" by "${album.artist}". Detail info: format ${album.format}, price $${formattedPrice}, genre ${album.genre}, record label ${album.label}, released in ${album.year}, in-store stock quantity: ${album.quantity}, location source: ${album.source === 'instore' ? 'In-Store Physical Inventory' : 'Online Catalog'}. If they ask questions about "this album," "this record," "this artist," or details shown on their screen, use this context to answer accurately!]`;
-      } else if (pageContext.searchQuery) {
-        contextPrompt += `\n\n[Active Screen Context: The user has searched the Forever Young Records catalog for "${pageContext.searchQuery}".]`;
-      }
+    if (album) {
+      const formattedPrice = typeof album.price === 'number' ? album.price.toFixed(2) : Number(album.price || 0).toFixed(2);
+      contextPrompt += `\n\n[Active Screen Context: The user is currently looking at the details for the album "${album.title}" by "${album.artist}". Detail info: format ${album.format}, price $${formattedPrice}, genre ${album.genre}, record label ${album.label}, released in ${album.year}, in-store stock quantity: ${album.quantity}, location source: ${album.source === 'instore' ? 'In-Store Physical Inventory' : 'Online Catalog'}. If they ask questions about "this album," "this record," "this artist," or details shown on their screen, use this context to answer accurately!]`;
+    } else if (pageContext.searchQuery) {
+      contextPrompt += `\n\n[Active Screen Context: The user has searched the Forever Young Records catalog for "${pageContext.searchQuery}".]`;
     }
 
     const systemPrompt = {
@@ -46,7 +51,7 @@ If the user asks about in-store stock, finding items in our 11,000 sq ft warehou
     };
 
     // Keep history clean and limit length
-    const cleanedHistory = messages.map(msg => ({
+    const cleanedHistory = rawMessages.map(msg => ({
       role: msg.role === 'assistant' ? 'assistant' : 'user',
       content: msg.content || ''
     }));
@@ -75,8 +80,7 @@ If the user asks about in-store stock, finding items in our 11,000 sq ft warehou
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
+    return new Response(JSON.stringify({ error: err.message }), { status: 500,
       headers: { "Content-Type": "application/json" }
     });
   }

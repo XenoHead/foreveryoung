@@ -159,39 +159,56 @@
       box-shadow: 0 0 12px rgba(44, 108, 255, 0.35);
     }
 
+    @font-face {
+      font-family: 'SplitCardFont';
+      src: url('fonts/split-card.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
     .nav-links {
       display: flex;
-      gap: 2rem;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .nav-links a {
-      color: var(--cream);
+      font-family: 'SplitCardFont', 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
       text-decoration: none;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
       position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -4px;
-      left: 50%;
-      background-color: var(--yellow);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
+      background: linear-gradient(180deg, #9aa8bf 0%, #68778f 100%);
+      color: #1c2738;
+      opacity: 0.85;
+      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4), inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
     .nav-links a:hover {
-      color: var(--yellow);
-      text-shadow: 0 0 10px rgba(255, 212, 71, 0.4);
+      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+      color: #111111;
+      opacity: 1;
+      transform: translateY(-1px);
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
+    .nav-links a.active {
+      background: linear-gradient(180deg, #ffffff 0%, #f6f7f9 40%, #e3e5ea 85%, #c8cbd4 100%);
+      color: #111111;
+      opacity: 1;
+      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.8), inset 0 -3px 5px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-links a::after {
+      display: none;
     }
 
     /* GPS Specific Styles */
@@ -868,7 +885,8 @@
   <link rel="stylesheet" href="chatbot.css">
   <nav>
     <div class="nav-inner">
-      <button id="nav-dave-btn" class="nav-search-btn online" onclick="toggleChatbot()" title="Little Dave AI Expert" style="margin-right: 0.5rem;">Lil' Dave AI</button>
+      <button id="nav-dave-btn" class="nav-search-btn online" onclick="toggleChatbot()" title="Little Dave AI Expert"
+        style="margin-right: 0.5rem;">Lil' Dave AI</button>
       <div class="nav-search-container">
         <label class="nav-search-exact-label"
           style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
@@ -882,7 +900,7 @@
         <a href="index.html">Home</a>
         <a href="buying-hours.html">Buying Hours</a>
         <a href="location.html">Location</a>
-        <a href="aisle-gps.html" style="color: var(--yellow);">Aisle GPS</a>
+        <a href="aisle-gps.html" class="active">Aisle GPS</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </div>
@@ -902,7 +920,7 @@
       </div>
 
       <!-- Awning Image -->
-      <img src="images/awning.jpg" alt="Forever Young"
+      <img src="images/fyr-sign-front.png" alt="Forever Young"
         style="width: 100%; display: block; border-top-left-radius: 12px; border-top-right-radius: 12px; margin-bottom: -5px; position: relative; z-index: 5;">
 
       <div class="store-map" id="store-map">
@@ -1562,8 +1580,9 @@
   </script>
   <!-- Lil' Dave AI Chatbot -->
   <div id="ha-dave" style="display: none; position: fixed; top: 100px; right: 30px; z-index: 10000;">
-    <div class="fyr-chat-window open" id="fyr-chat-window" style="margin: 0; width: 460px; max-width: calc(100vw - 30px); max-height: 70vh;">
-      <div class="fyr-chat-header" style="cursor: move; user-select: none;">
+    <div class="fyr-chat-window open" id="fyr-chat-window"
+      style="margin: 0; width: 460px; max-width: calc(100vw - 30px); max-height: 70vh;">
+      <div class="fyr-chat-header">
         <div class="fyr-chat-title-wrap">
           <h4 class="fyr-chat-title">Little Dave AI</h4>
           <span class="fyr-chat-subtitle">FYR Music Expert</span>
@@ -1582,11 +1601,13 @@
         </div>
       </div>
       <div class="fyr-chat-footer">
-        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)" style="margin: 0;">
+        <form id="fyr-chat-form" onsubmit="handleChatSubmit(event)">
           <div class="fyr-chat-input-bar">
-            <input type="text" id="fyr-chat-input" class="fyr-chat-input" placeholder="Ask Little Dave..." autocomplete="off">
+            <input type="text" id="fyr-chat-input" class="fyr-chat-input" placeholder="Ask Little Dave..."
+              autocomplete="off">
             <button type="submit" class="fyr-chat-send" title="Send message">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>
