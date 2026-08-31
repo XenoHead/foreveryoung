@@ -2576,12 +2576,12 @@
 
     let currentRightTab = 'cool_stuff';
 
-    function switchRightTab(tabName) {
+    function switchRightTab(tabName, forceOpen = false) {
       const drawer = document.getElementById('ha-right-drawer');
       const container = document.getElementById('ha-right-container');
       const isOpen = drawer && drawer.classList.contains('open');
 
-      if (isOpen && currentRightTab === tabName) {
+      if (isOpen && currentRightTab === tabName && !forceOpen) {
         drawer.classList.remove('open');
         if (container) container.classList.remove('open');
         return;
@@ -2604,11 +2604,11 @@
 
     let currentLowerLeftTab = 'genres';
 
-    function switchLowerLeftTab(tabName) {
+    function switchLowerLeftTab(tabName, forceOpen = false) {
       const drawer = document.getElementById('ha-lower_left-drawer');
       const isOpen = drawer && drawer.classList.contains('open');
 
-      if (isOpen && currentLowerLeftTab === tabName) {
+      if (isOpen && currentLowerLeftTab === tabName && !forceOpen) {
         drawer.classList.remove('open');
         return;
       }
@@ -2629,11 +2629,11 @@
 
     let currentLowerRightTab = 'temp3';
 
-    function switchLowerRightTab(tabName) {
+    function switchLowerRightTab(tabName, forceOpen = false) {
       const drawer = document.getElementById('ha-lower_right-drawer');
       const isOpen = drawer && drawer.classList.contains('open');
 
-      if (isOpen && currentLowerRightTab === tabName) {
+      if (isOpen && currentLowerRightTab === tabName && !forceOpen) {
         drawer.classList.remove('open');
         return;
       }
@@ -2717,59 +2717,84 @@
       header.addEventListener('touchstart', onPointerDown, { passive: false });
     })();
 
-    // ── Featured Crate Fetch & Render ─────────────────────────────────
     async function loadFeaturedCrate() {
-      try {
-        const response = await fetch('/api/featured');
-        const data = await response.json();
-        if (data.success && data.results) {
-          populateHaList('ha-new_releases-list', (data.results.new_releases || []).slice(0, 36));
-          populateHaList('ha-instore-list', (data.results.instore || []).slice(0, 36));
-          populateHaList('ha-online-list', (data.results.online || []).slice(0, 36));
+      const apiUrl = '/api/featured?t=' + Date.now();
+      const cfgUrl = '/api/featured?type=config&t=' + Date.now();
 
-          populateHaList('ha-cool_stuff-list', (data.results.new || []).slice(0, 36));
-          populateHaList('ha-hot-list', (data.results.hot || []).slice(0, 36));
-          populateHaList('ha-rare-list', (data.results.rare || []).slice(0, 36));
-          populateHaList('ha-genres-list', (data.results.genres || []).slice(0, 36));
-          populateHaList('ha-temp1-list', (data.results.temp1 || []).slice(0, 36));
-          populateHaList('ha-temp2-list', (data.results.temp2 || []).slice(0, 36));
-          populateHaList('ha-temp3-list', (data.results.temp3 || []).slice(0, 36));
-          populateHaList('ha-temp4-list', (data.results.temp4 || []).slice(0, 36));
-          populateHaList('ha-temp5-list', (data.results.temp5 || []).slice(0, 36));
+      try {
+        const [featuredRes, cfgRes] = await Promise.all([
+          fetch(apiUrl),
+          fetch(cfgUrl)
+        ]);
+
+        const [featuredData, cfgData] = await Promise.all([
+          featuredRes.json(),
+          cfgRes.json()
+        ]);
+
+        if (featuredData.success && featuredData.results) {
+          featuredResults = featuredData.results;
+          populateHaList('ha-new_releases-list', (featuredData.results.new_releases || []).slice(0, 36));
+          populateHaList('ha-instore-list', (featuredData.results.instore || []).slice(0, 36));
+          populateHaList('ha-online-list', (featuredData.results.online || []).slice(0, 36));
+
+          populateHaList('ha-cool_stuff-list', (featuredData.results.new || []).slice(0, 36));
+          populateHaList('ha-hot-list', (featuredData.results.hot || []).slice(0, 36));
+          populateHaList('ha-rare-list', (featuredData.results.rare || []).slice(0, 36));
+          populateHaList('ha-genres-list', (featuredData.results.genres || []).slice(0, 36));
+          populateHaList('ha-temp1-list', (featuredData.results.temp1 || []).slice(0, 36));
+          populateHaList('ha-temp2-list', (featuredData.results.temp2 || []).slice(0, 36));
+          populateHaList('ha-temp3-list', (featuredData.results.temp3 || []).slice(0, 36));
+          populateHaList('ha-temp4-list', (featuredData.results.temp4 || []).slice(0, 36));
+          populateHaList('ha-temp5-list', (featuredData.results.temp5 || []).slice(0, 36));
+
+          console.log('Featured results keys:', Object.keys(featuredData.results));
+          for (const [key, items] of Object.entries(featuredData.results)) {
+            if (Array.isArray(items) && items.length > 0) {
+              console.log(`Crate ${key} first item keys:`, Object.keys(items[0]));
+              console.log(`Crate ${key} image fields:`, {
+                Front_Image_URL: items[0].Front_Image_URL,
+                Image_URL: items[0].Image_URL,
+                image: items[0].image
+              });
+            }
+          }
         }
-      } catch (err) {
-        console.error('Error loading featured crates', err);
-      }
 
-      // Apply crate config (names + enabled)
-      try {
-        const cfgRes = await fetch('/api/featured?type=config');
-        const cfgData = await cfgRes.json();
         if (cfgData.success && cfgData.config) {
           const cfg = cfgData.config;
           const names = cfg.names || {};
 
-          // Rename existing tabs
-          const tabLabels = {
-            'ha-new_releases-tab': names.new_releases || 'New<br>Releases',
-            'ha-instore-tab': names.instore || 'In<br>Store',
-            'ha-online-tab': names.online || 'Online',
-            'ha-cool_stuff-tab': names.new || 'Cool Stuff',
-            'ha-hot-tab': names.hot || 'HOT',
-            'ha-rare-tab': names.rare || 'RARE',
-            'ha-genres-tab': names.genres || 'GENRES',
-            'ha-temp1-tab': names.temp1 || 'EXTRA 1',
-            'ha-temp2-tab': names.temp2 || 'EXTRA 2',
-            'ha-temp3-tab': names.temp3 || 'EXTRA 3',
-            'ha-temp4-tab': names.temp4 || 'EXTRA 4',
-            'ha-temp5-tab': names.temp5 || 'EXTRA 5',
+          const autoEnabled = {
+            new: (featuredResults.new || []).length > 0,
+            new_releases: (featuredResults.new_releases || []).length > 0,
+            instore: (featuredResults.instore || []).length > 0,
+            online: (featuredResults.online || []).length > 0,
+            hot: (featuredResults.hot || []).length > 0,
+            rare: (featuredResults.rare || []).length > 0,
+            genres: (featuredResults.genres || []).length > 0,
+            temp1: (featuredResults.temp1 || []).length > 0,
+            temp2: (featuredResults.temp2 || []).length > 0,
+            temp3: (featuredResults.temp3 || []).length > 0,
+            temp4: (featuredResults.temp4 || []).length > 0,
+            temp5: (featuredResults.temp5 || []).length > 0,
           };
-          Object.entries(tabLabels).forEach(([id, label]) => {
-            const el = document.getElementById(id);
-            if (el) el.innerHTML = label;
-          });
 
-          // Show/hide tabs
+          const enabled = {
+            new: autoEnabled.new || !!cfg.new_enabled,
+            new_releases: autoEnabled.new_releases || !!cfg.new_releases_enabled,
+            instore: autoEnabled.instore || !!cfg.instore_enabled,
+            online: autoEnabled.online || !!cfg.online_enabled,
+            hot: autoEnabled.hot || !!cfg.hot_enabled,
+            rare: autoEnabled.rare || !!cfg.rare_enabled,
+            genres: autoEnabled.genres || !!cfg.genres_enabled,
+            temp1: autoEnabled.temp1 || !!cfg.temp1_enabled,
+            temp2: autoEnabled.temp2 || !!cfg.temp2_enabled,
+            temp3: autoEnabled.temp3 || !!cfg.temp3_enabled,
+            temp4: autoEnabled.temp4 || !!cfg.temp4_enabled,
+            temp5: autoEnabled.temp5 || !!cfg.temp5_enabled,
+          };
+
           const coolStuffTab = document.getElementById('ha-cool_stuff-tab');
           const hotTab = document.getElementById('ha-hot-tab');
           const rareTab = document.getElementById('ha-rare-tab');
@@ -2780,54 +2805,77 @@
           const temp4Tab = document.getElementById('ha-temp4-tab');
           const temp5Tab = document.getElementById('ha-temp5-tab');
 
-          if (coolStuffTab) coolStuffTab.style.display = cfg.new_enabled ? '' : 'none';
-          if (hotTab) hotTab.style.display = cfg.hot_enabled ? '' : 'none';
-          if (rareTab) rareTab.style.display = cfg.rare_enabled ? '' : 'none';
-          if (genresTab) genresTab.style.display = cfg.genres_enabled ? '' : 'none';
-          if (temp1Tab) temp1Tab.style.display = cfg.temp1_enabled ? '' : 'none';
-          if (temp2Tab) temp2Tab.style.display = cfg.temp2_enabled ? '' : 'none';
-          if (temp3Tab) temp3Tab.style.display = cfg.temp3_enabled ? '' : 'none';
-          if (temp4Tab) temp4Tab.style.display = cfg.temp4_enabled ? '' : 'none';
-          if (temp5Tab) temp5Tab.style.display = cfg.temp5_enabled ? '' : 'none';
+          const setTabLabel = (el, text) => { if (el) el.innerHTML = text; };
 
-          // Hide entire lower left accordion if all 3 lower left options are unchecked
-          const lowerLeftHasAny = Boolean(cfg.genres_enabled || cfg.temp1_enabled || cfg.temp2_enabled);
+          if (coolStuffTab) setTabLabel(coolStuffTab, enabled.new ? (names.new || '') : '');
+          if (hotTab) setTabLabel(hotTab, enabled.hot ? (names.hot || '') : '');
+          if (rareTab) setTabLabel(rareTab, enabled.rare ? (names.rare || '') : '');
+          if (genresTab) setTabLabel(genresTab, enabled.genres ? (names.genres || '') : '');
+          if (temp1Tab) setTabLabel(temp1Tab, enabled.temp1 ? (names.temp1 || '') : '');
+          if (temp2Tab) setTabLabel(temp2Tab, enabled.temp2 ? (names.temp2 || '') : '');
+          if (temp3Tab) setTabLabel(temp3Tab, enabled.temp3 ? (names.temp3 || '') : '');
+          if (temp4Tab) setTabLabel(temp4Tab, enabled.temp4 ? (names.temp4 || '') : '');
+          if (temp5Tab) setTabLabel(temp5Tab, enabled.temp5 ? (names.temp5 || '') : '');
+
+          console.log('Crate config names:', names);
+          console.log('Enabled flags:', enabled);
+          console.log('Tab HTML before:', {
+            cool_stuff: coolStuffTab?.innerHTML,
+            hot: hotTab?.innerHTML,
+            rare: rareTab?.innerHTML,
+            genres: genresTab?.innerHTML,
+            temp1: temp1Tab?.innerHTML,
+            temp2: temp2Tab?.innerHTML,
+            temp3: temp3Tab?.innerHTML,
+            temp4: temp4Tab?.innerHTML,
+            temp5: temp5Tab?.innerHTML,
+          });
+
+          if (coolStuffTab) coolStuffTab.style.display = enabled.new ? '' : 'none';
+          if (hotTab) hotTab.style.display = enabled.hot ? '' : 'none';
+          if (rareTab) rareTab.style.display = enabled.rare ? '' : 'none';
+          if (genresTab) genresTab.style.display = enabled.genres ? '' : 'none';
+          if (temp1Tab) temp1Tab.style.display = enabled.temp1 ? '' : 'none';
+          if (temp2Tab) temp2Tab.style.display = enabled.temp2 ? '' : 'none';
+          if (temp3Tab) temp3Tab.style.display = enabled.temp3 ? '' : 'none';
+          if (temp4Tab) temp4Tab.style.display = enabled.temp4 ? '' : 'none';
+          if (temp5Tab) temp5Tab.style.display = enabled.temp5 ? '' : 'none';
+
+          const lowerLeftHasAny = Boolean(enabled.genres || enabled.temp1 || enabled.temp2);
           const haLowerLeft = document.getElementById('ha-lower_left');
           if (haLowerLeft) {
             haLowerLeft.style.display = lowerLeftHasAny ? '' : 'none';
             if (lowerLeftHasAny) {
-              if (cfg.genres_enabled) switchLowerLeftTab('genres');
-              else if (cfg.temp1_enabled) switchLowerLeftTab('temp1');
-              else if (cfg.temp2_enabled) switchLowerLeftTab('temp2');
+              if (enabled.genres) switchLowerLeftTab('genres', true);
+              else if (enabled.temp1) switchLowerLeftTab('temp1', true);
+              else if (enabled.temp2) switchLowerLeftTab('temp2', true);
             }
           }
 
-          // Hide entire lower right accordion if all 3 lower right options are unchecked
-          const lowerRightHasAny = Boolean(cfg.temp3_enabled || cfg.temp4_enabled || cfg.temp5_enabled);
+          const lowerRightHasAny = Boolean(enabled.temp3 || enabled.temp4 || enabled.temp5);
           const haLowerRight = document.getElementById('ha-lower_right');
           if (haLowerRight) {
             haLowerRight.style.display = lowerRightHasAny ? '' : 'none';
             if (lowerRightHasAny) {
-              if (cfg.temp3_enabled) switchLowerRightTab('temp3');
-              else if (cfg.temp4_enabled) switchLowerRightTab('temp4');
-              else if (cfg.temp5_enabled) switchLowerRightTab('temp5');
+              if (enabled.temp3) switchLowerRightTab('temp3', true);
+              else if (enabled.temp4) switchLowerRightTab('temp4', true);
+              else if (enabled.temp5) switchLowerRightTab('temp5', true);
             }
           }
 
-          // Hide top right accordion if all 3 cool stuff options are unchecked
-          const coolStuffHasAny = Boolean(cfg.new_enabled || cfg.hot_enabled || cfg.rare_enabled);
+          const coolStuffHasAny = Boolean(enabled.new || enabled.hot || enabled.rare);
           const haRight = document.getElementById('ha-right-container');
           if (haRight) {
             haRight.style.display = coolStuffHasAny ? '' : 'none';
             if (coolStuffHasAny) {
-              if (cfg.new_enabled) switchRightTab('cool_stuff');
-              else if (cfg.hot_enabled) switchRightTab('hot');
-              else if (cfg.rare_enabled) switchRightTab('rare');
+              if (enabled.new) switchRightTab('cool_stuff', true);
+              else if (enabled.hot) switchRightTab('hot', true);
+              else if (enabled.rare) switchRightTab('rare', true);
             }
           }
         }
       } catch (err) {
-        console.error('Error loading crate config', err);
+        console.error('Error loading featured crate or config', err);
       }
     }
     loadFeaturedCrate();

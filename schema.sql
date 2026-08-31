@@ -71,4 +71,16 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_online_inventory_seller_ref
 ON Online_Inventory(Seller_Reference_Number) 
 WHERE Seller_Reference_Number IS NOT NULL;
 
+-- Schema for users / rewards cards (used by activate, checkin, punch, queue APIs)
+CREATE TABLE IF NOT EXISTS users (
+  phone TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  punches_cd INTEGER DEFAULT 0,
+  punches_vinyl INTEGER DEFAULT 0,
+  punches_cassette INTEGER DEFAULT 0,
+  punches_45 INTEGER DEFAULT 0,
+  last_checkin DATETIME,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 

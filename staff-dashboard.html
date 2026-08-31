@@ -180,6 +180,107 @@
       font-style: italic;
     }
 
+    .qr-section {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .qr-btn {
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: transform 0.2s;
+    }
+
+    .qr-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .qr-btn img {
+      width: 130px;
+      height: 130px;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      object-fit: cover;
+      display: block;
+    }
+
+    .qr-btn-label {
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #B6C0D7;
+      margin-top: 0.3rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .qr-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .qr-modal-overlay.active {
+      display: flex;
+    }
+
+    .qr-modal-content {
+      background: #08111F;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 560px;
+      width: 92%;
+      text-align: center;
+      position: relative;
+    }
+
+    .qr-modal-content img {
+      width: 100%;
+      max-width: 480px;
+      max-height: 80vh;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .qr-modal-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .qr-modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #B6C0D7;
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.2rem 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .qr-modal-close:hover {
+      color: #FFF;
+    }
   </style>
 </head>
 <body>
@@ -194,8 +295,19 @@
     <div class="panel scanner-box">
       <h2>Scanner Ready</h2>
       <label for="scanner-input">Scan Customer Barcode</label>
-      <input type="text" id="scanner-input" placeholder="Waiting for scan..." autofocus autocomplete="off">
+    <input type="text" id="scanner-input" placeholder="Waiting for scan..." autofocus autocomplete="off">
+
+    <div class="qr-section">
+      <button class="qr-btn" id="btn-checkin-qr" title="Check-in QR Code">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0AQMAAADxGE3JAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACbElEQVR4nO3cQZLCIBCFYSwXWXqEHCVHi0fLUXIEl1mkhhlouhsSrXJ0yf8WUxPlw10XNGgIX2aOTe75xVvcwkUfx/j4+1sep3b4isfju/aLFxMZsWZfksCjfdcy4/H47v2Ya8kuIzR/BcdHXtMAmW4Ng9QePB6PP/gpP5T1S0oqR3uyWn/weDz+Vf0ZdcEisf3Pu/ULj8d35C1afx4yJo3Q/Ly/f8Lj8fg3fRPvv1zEL7l+Xd03wePxPfsnGfNbP1JhDv6d4PH4TrzXn7x/kjx0jxTz6uYm/+p0Wz0dHo/v2Uv/ZauLiq1f9LH4UNYvu9aeFY/Hd+w1Q31+XN1fk+2Qnf/I6mYPp+Dx+P687nAGrTBNfP9zyGH9gsfj8f/3wRq2QfZPS+m/NDkUPLsOh8fje/Zz6bCkpkqsy5FVGLu/cppO9194PB6fswSLHhiX8x/Pq/qDx+O78ilSYUr9ib6ckcfo+597fnGo2zF4PL5frwuW4C9ZO6Xu39px0KilSj8Bj8f37E9JB8bN/ufq06Xsejt2xePx+C9907+VXHw5FEK58Cbd3S0EL2d4PL53b5uilDHadbg5lxtbHUk2fbzj8Xi81x/ZMIUaVPffNLseB53WL3g8viN/ylTGPN//pAw+ER6P79nPsYl2SOz7O1O0/q1Wp+Ll4/B4fM9+8dqjFSal9E/0dKh4qT+H82M8Ho//1I+5Hu2+f7p5QUuzv9o/4fF4/FPf/GBSs3+y+7Nz6d/g8Xh8078tHdqUav0yxSppOjwe37e36Ijy/b9DBKXZD7+/hsfje/VN3FePduE1ZWwf8Xg8/lP/ZX4BiR4ibVthFM8AAAAASUVORK5CYII=" alt="Check-in QR">
+        <span class="qr-btn-label">Check-in</span>
+      </button>
+      <button class="qr-btn" id="btn-activate-qr" title="Activate QR Code">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0AQMAAADxGE3JAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACZUlEQVR4nO3cPW7DMAyGYQUZPOYIPoqP5h4tR/ERMnoIqlakKFFOWgTJyPcbijrS42wE9YOk9GHWPORLPrzkPZ1y1hlzvv3+PenoMk7f8Hh8aH9NLTpjE98es3g32rLi8fjwfpZactcZFqk/q9SYlM5lQvm0+ElrDx6Pxx/8Ig+7NixZ/KWM9fqDx+Pxf9Wf2RqWVEdvVo5eq194PD6Qb+kLnslmWL5fXz/h8Xj8i35I33+p6yetX+fuh+Dx+Mj+SWYZ+u6Pzr8SPB4fxPf6I+snzc3WSFm6m4v+a+Vo96/D4/FxvWaY0e6f2Iw2mmr/crfas+Hx+MB+zVkWPMP5sbu/toznP9rdVK/vwOPxUb2VlNKUtPrj3m77J4e4/gWPx+Pf89bw/J+hYLnrcHg8PrIvmWXDZZgz6f6t1Z/Ur8O519n6C4/Hx/TWsEzH9VPy27nnfhxU8lC/8Hh8RF+iFaaufzS7jS3VS776V/nzHzweH9MXsEnBqXOutZ1p0f1b93ME+1i/8Hh8XG8rnPZYMh3vr0ns/uvdbsdueDwe/5H2647TZa0n4/KfuxJ+fHeDw+nJ/9jMOjrZ+cr/2LjuHx+Lj+IdqwHM6PD/u3LXg8PrJf85DD+mfNVn9OfbR6/To8Hh/ZX1NLP1J2OyTazlRfcjg/xuPx+Pf9LPWo3n+z/qemvP2v9RMej8c/9Y8XZnt1qvdX1rZ/g8fj8dW7328scf3Lkl3K6/B4fGzf0n3u+7dutGRL7ToKHo+P7od03x61NrntlOERj8fj3/Uf5geLSSUtL/eCBwAAAABJRU5ErkJggg==" alt="Activate QR">
+        <span class="qr-btn-label">Activate</span>
+      </button>
     </div>
+  </div>
 
     <!-- Customer Profile Panel -->
     <div class="panel">
@@ -237,6 +349,14 @@
 
         <div class="status-msg" id="status-msg" style="text-align: center;">Punch added successfully!</div>
       </div>
+    </div>
+  </div>
+
+  <div class="qr-modal-overlay" id="qr-modal">
+    <div class="qr-modal-content">
+      <button class="qr-modal-close" id="qr-modal-close">&times;</button>
+      <div class="qr-modal-title" id="qr-modal-title"></div>
+      <img id="qr-modal-img" src="" alt="QR Code">
     </div>
   </div>
 
@@ -352,9 +472,46 @@
         .finally(() => {
           scannerInput.focus();
         });
-      });
     });
-  </script>
+  });
+
+  const qrModal = document.getElementById('qr-modal');
+  const qrModalImg = document.getElementById('qr-modal-img');
+  const qrModalTitle = document.getElementById('qr-modal-title');
+  const qrModalClose = document.getElementById('qr-modal-close');
+
+  document.getElementById('btn-checkin-qr').addEventListener('click', function(e) {
+    e.stopPropagation();
+    qrModalImg.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0AQMAAADxGE3JAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACbElEQVR4nO3cQZLCIBCFYSwXWXqEHCVHi0fLUXIEl1mkhhlouhsSrXJ0yf8WUxPlw10XNGgIX2aOTe75xVvcwkUfx/j4+1sep3b4isfju/aLFxMZsWZfksCjfdcy4/H47v2Ya8kuIzR/BcdHXtMAmW4Ng9QePB6PP/gpP5T1S0oqR3uyWn/weDz+Vf0ZdcEisf3Pu/ULj8d35C1afx4yJo3Q/Ly/f8Lj8fg3fRPvv1zEL7l+Xd03wePxPfsnGfNbP1JhDv6d4PH4TrzXn7x/kjx0jxTz6uYm/+p0Wz0dHo/v2Uv/ZauLiq1f9LH4UNYvu9aeFY/Hd+w1Q31+XN1fk+2Qnf/I6mYPp+Dx+P687nAGrTBNfP9zyGH9gsfj8f/3wRq2QfZPS+m/NDkUPLsOh8fje/Zz6bCkpkqsy5FVGLu/cppO9194PB6fswSLHhiX8x/Pq/qDx+O78ilSYUr9ib6ckcfo+597fnGo2zF4PL5frwuW4C9ZO6Xu39px0KilSj8Bj8f37E9JB8bN/ufq06Xsejt2xePx+C9907+VXHw5FEK58Cbd3S0EL2d4PL53b5uilDHadbg5lxtbHUk2fbzj8Xi81x/ZMIUaVPffNLseB53WL3g8viN/ylTGPN//pAw+ER6P79nPsYl2SOz7O1O0/q1Wp+Ll4/B4fM9+8dqjFSal9E/0dKh4qT+H82M8Ho//1I+5Hu2+f7p5QUuzv9o/4fF4/FPf/GBSs3+y+7Nz6d/g8Xh8078tHdqUav0yxSppOjwe37e36Ijy/b9DBKXZD7+/hsfje/VN3FePduE1ZWwf8Xg8/lP/ZX4BiR4ibVthFM8AAAAASUVORK5CYII=';
+    qrModalImg.alt = 'Check-in QR Code';
+    qrModalTitle.textContent = 'Check-in QR Code';
+    qrModal.classList.add('active');
+  });
+
+  document.getElementById('btn-activate-qr').addEventListener('click', function(e) {
+    e.stopPropagation();
+    qrModalImg.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0AQMAAADxGE3JAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACZUlEQVR4nO3cPW7DMAyGYQUZPOYIPoqP5h4tR/ERMnoIqlakKFFOWgTJyPcbijrS42wE9YOk9GHWPORLPrzkPZ1y1hlzvv3+PenoMk7f8Hh8aH9NLTpjE98es3g32rLi8fjwfpZactcZFqk/q9SYlM5lQvm0+ElrDx6Pxx/8Ig+7NixZ/KWM9fqDx+Pxf9Wf2RqWVEdvVo5eq194PD6Qb+kLnslmWL5fXz/h8Xj8i35I33+p6yetX+fuh+Dx+Mj+SWYZ+u6Pzr8SPB4fxPf6I+snzc3WSFm6m4v+a+Vo96/D4/FxvWaY0e6f2Iw2mmr/crfas+Hx+MB+zVkWPMP5sbu/toznP9rdVK/vwOPxUb2VlNKUtPrj3m77J4e4/gWPx+Pf89bw/J+hYLnrcHg8PrIvmWXDZZgz6f6t1Z/Ur8O519n6C4/Hx/TWsEzH9VPy27nnfhxU8lC/8Hh8RF+iFaaufzS7jS3VS776V/nzHzweH9MXsEnBqXOutZ1p0f1b93ME+1i/8Hh8XG8rnPZYMh3vr0ns/uvdbsdueDwe/5H2647TZa0n4/KfuxJ+fHeDw+nJ/9jMOjrZ+cr/2LjuHx+Lj+IdqwHM6PD/u3LXg8PrJf85DD+mfNVn9OfbR6/To8Hh/ZX1NLP1J2OyTazlRfcjg/xuPx+Pf9LPWo3n+z/qemvP2v9RMej8c/9Y8XZnt1qvdX1rZ/g8fj8dW7328scf3Lkl3K6/B4fGzf0n3u+7dutGRL7ToKHo+P7od03x61NrntlOERj8fj3/Uf5geLSSUtL/eCBwAAAABJRU5ErkJggg==' ;
+    qrModalImg.alt = 'Activate QR Code';
+    qrModalTitle.textContent = 'Activate QR Code';
+    qrModal.classList.add('active');
+  });
+
+  qrModalClose.addEventListener('click', function() {
+    qrModal.classList.remove('active');
+  });
+
+  qrModal.addEventListener('click', function(e) {
+    if (e.target === qrModal) {
+      qrModal.classList.remove('active');
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && qrModal.classList.contains('active')) {
+      qrModal.classList.remove('active');
+    }
+  });
+</script>
   <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); background: rgba(0, 0, 0, 0.18); margin-top: auto;">
     <a href="https://www.xenohead.com" target="_blank" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: #BFC7DA; font-size: 0.82rem; letter-spacing: 1px; transition: 0.3s ease;">
       <img src="images/XenoHead_logo.png" alt="XenoHead" style="height: 50px; border-radius: 4px;">
