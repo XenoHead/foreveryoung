@@ -115,13 +115,18 @@ export async function onRequestGet(context) {
     // Fallback logic if any crate is empty
     for (const k of keys) {
       if (results[k].length === 0) {
-        // Fallback: load latest 6 items
         const fallbackResult = await db.prepare(`
-          SELECT * FROM Online_Inventory 
-          WHERE Seller_Reference_Number IS NOT NULL AND Seller_Reference_Number != ''
-          ORDER BY id DESC LIMIT 6
+          SELECT * FROM Inventory ORDER BY id DESC LIMIT 6
         `).all();
-        results[k] = (fallbackResult.results || []).map(item => ({ ...item, _source: 'online' }));
+        results[k] = (fallbackResult.results || []).map(item => ({
+          id: item.id, Artist: item.Artist, Title: item.Title, Format: item.Format,
+          Price: parseFloat(item.SRP) || 0.00, SRP: item.SRP || '', Bar_Code: item.UPC,
+          UPC: item.UPC || '', Quantity: item.Quantity, Vendor: item.Vendor || '',
+          Vendor_Number: item.Vendor_Number || '', Year: item.Year || '', OOP: item.OOP || '',
+          Genre: item.Genre || '', Country: item.Country || '',
+          Front_Image_URL: item.Image_URL || item.Front_Image_URL || '',
+          Image_URL: item.Image_URL || item.Front_Image_URL || '', _source: 'instore'
+        }));
       }
     }
     

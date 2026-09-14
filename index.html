@@ -1603,6 +1603,8 @@
       top: auto !important;
       left: auto !important;
       transform: none !important;
+      width: 100%;
+      max-width: 600px;
     }
 
     .right-hero-accordions-wrapper {
@@ -1638,8 +1640,15 @@
 
     .ha-top-tabs-row {
       display: flex;
+      justify-content: flex-start;
       gap: 4px;
       align-items: flex-end;
+    }
+
+    .hero-accordion.left .ha-top-tabs-row,
+    .hero-accordion.right .ha-top-tabs-row {
+      justify-content: flex-end;
+      gap: 6px;
     }
 
     /* Hide sub-tabs when left accordion drawers are collapsed */
@@ -1669,9 +1678,9 @@
     }
 
     .ha-collapsed-img {
-      width: 320px;
+      width: 160px;
       height: auto;
-      max-height: 220px;
+      max-height: 110px;
       object-fit: contain;
       border-radius: 6px;
       border: 1px solid rgba(255, 212, 71, 0.4);
@@ -1683,6 +1692,18 @@
     .ha-collapsed-img:hover {
       transform: scale(1.05);
       border-color: var(--yellow);
+    }
+
+    #ha-lower_left-drawer .ha-card-list,
+    #ha-lower_right-drawer .ha-card-list {
+      max-height: 132px;
+      overflow-y: auto;
+    }
+
+    #ha-lower_left-drawer .ha-card-thumb,
+    #ha-lower_right-drawer .ha-card-thumb {
+      width: 110px;
+      height: 110px;
     }
 
 
@@ -1700,7 +1721,8 @@
       position: relative;
       background: linear-gradient(180deg, #ffffff 0%, #f6f7f9 40%, #e3e5ea 85%, #c8cbd4 100%) !important;
       clip-path: polygon(0 8px, 2px 4px, 4px 2px, 8px 0, 82% 0, 100% 100%, 0% 100%) !important;
-      width: 198px;
+      width: 140px;
+      flex: 0 0 140px;
       /* Adjust left tab width here */
       height: 27px;
       /* Adjust left tab height here */
@@ -1709,11 +1731,11 @@
       justify-content: center;
       text-align: center;
       line-height: 1.0;
-      white-space: normal !important;
+      white-space: nowrap !important;
       padding: 0 1rem 0 0.3rem;
       border: none !important;
       color: #222222 !important;
-      font-size: 1.2.5rem;
+      font-size: .95rem;
       /* Adjust left tab font size here */
       letter-spacing: 0px;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -2237,12 +2259,18 @@
 <body>
 
   <nav
-    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+    style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; backdrop-filter: blur(12px); background: rgba(8, 17, 31, 0.72); border-bottom: 1px solid rgba(255, 255, 255, 0.06);"
+    id="topNav">
     <div class="nav-inner">
-      <button id="nav-dave-btn" class="nav-search-btn online" onclick="toggleChatbot()" title="Little Dave AI Expert"
-        style="margin-right: 0.5rem;">Lil' Dave AI</button>
-      <div class="nav-content-wrap" id="nav-content-wrap">
-        <div class="nav-search-container">
+      <a href="index.html" class="nav-home-btn" id="navHomeBtn" title="Home" aria-label="Home">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </a>
+      <div class="nav-content-wrap" id="nav-content-wrap" style="flex: 1; display: flex; justify-content: center; align-items: center;">
+      <div class="nav-search-container" style="max-width: 600px; margin-right: 0; flex: 0 0 auto;">
           <label class="nav-search-exact-label" title="Only search for exactly what you type when checked"
             style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; white-space: nowrap; user-select: none; margin-right: 0.2rem;">
             <input type="checkbox" id="nav-search-exact-check" style="accent-color: var(--yellow);"> Exact
@@ -2259,24 +2287,49 @@
           <button id="nav-search-online-btn" class="nav-search-btn online">Online</button>
           <button id="nav-search-instore-btn" class="nav-search-btn instore">In-Store</button>
         </div>
-        <div id="nav-right-wrap" style="display: flex; align-items: center; gap: 1.5rem; margin-left: auto;">
-          <div class="nav-links" id="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="buying-hours.html">Buying Hours</a>
-            <a href="location.html">Location</a>
-            <a href="aisle-gps.html">Aisle GPS</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-          </div>
+        <div id="nav-right-wrap" style="display: flex; align-items: center; gap: 1rem; margin-left: auto;">
           <div class="nav-logo-toggle" id="nav-logo-toggle-right" onclick="toggleMenuLinks()"
             title="Hide/Show Menu Links">
             <img src="images/fyr-logo-removebg-preview.png" alt="Toggle Menu Links"
               style="height: 32px; filter: drop-shadow(0 0 6px rgba(255, 212, 71, 0.25)); transition: transform 0.3s;">
           </div>
         </div>
+        </div>
       </div>
     </div>
   </nav>
+
+  <div class="right-cta-group" style="position: fixed; bottom: 1rem; right: 1.5rem; z-index: 98; display: flex; gap: 0.6rem;">
+    <a href="#" class="find-us-cta-btn" id="daveAIBtn" title="Lil' Dave AI" aria-label="Lil' Dave AI" onclick="toggleChatbot(); return false;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 14c1.5 0 3-1 3-2.5S13.5 9 12 9s-3 1-3 2.5S10.5 14 12 14z"></path>
+        <path d="M19 17c0 2-1.5 3.5-3.5 3.5S12 19 12 17c0-1.5 1-2.5 2-3"></path>
+        <path d="M5 17c0 2-1.5 3.5-3.5 3.5S1 19 1 17c0-1.5 1-2.5 2-3"></path>
+        <path d="M12 6v4"></path>
+        <circle cx="12" cy="4" r="1.5"></circle>
+      </svg>
+      Lil' Dave AI
+    </a>
+    <a href="buying-hours.html" class="find-us-cta-btn" id="sellBtn" title="Sell Your Stuff" aria-label="Sell Your Stuff">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+        <path d="M2 17l10 5 10-5"></path>
+        <path d="M2 12l10 5 10-5"></path>
+      </svg>
+      Sell Your Stuff
+    </a>
+    <a href="aisle-gps.html" class="find-us-cta-btn" id="gpsBtn" title="Aisle GPS" aria-label="Aisle GPS">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="1 6 1 22 8 18 16 22 23 18 23 6 16 6 8 6 1 6"></polygon>
+        <line x1="8" y1="2" x2="8" y2="18"></line>
+        <line x1="16" y1="6" x2="16" y2="22"></line>
+      </svg>
+      Aisle GPS
+    </a>
+  </div>
 
   <section class="hero">
     <div class="hero-image"></div>
@@ -2287,8 +2340,8 @@
       <div class="hero-accordion left top-tab-accordion open" id="ha-new_releases">
         <div class="ha-top-tabs-row">
           <div class="ha-tab ha-tab-top active" id="ha-new_releases-tab" onclick="switchLeftTab('new_releases')">
-            New<br>Releases</div>
-          <div class="ha-tab ha-tab-top" id="ha-instore-tab" onclick="switchLeftTab('instore')">In<br>Store</div>
+            New Releases</div>
+          <div class="ha-tab ha-tab-top" id="ha-instore-tab" onclick="switchLeftTab('instore')">In Store</div>
           <div class="ha-tab ha-tab-top" id="ha-online-tab" onclick="switchLeftTab('online')">Online</div>
         </div>
         <div class="ha-drawer open" id="ha-new_releases-drawer">
@@ -2312,6 +2365,32 @@
           <div class="ha-card-list" id="ha-temp1-list" style="display: none;"></div>
           <div class="ha-card-list" id="ha-temp2-list" style="display: none;"></div>
         </div>
+      </div>
+      <div class="left-cta-group">
+        <a href="location.html" class="find-us-cta-btn" id="findUsBtn" title="Find Us" aria-label="Find Us">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Find Store
+        </a>
+        <a href="contact.html" class="find-us-cta-btn" id="contactBtn" title="Contact" aria-label="Contact">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Contact
+        </a>
+        <a href="about.html" class="find-us-cta-btn" id="aboutBtn" title="About Us" aria-label="About Us">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          About Us
+        </a>
       </div>
     </div>
 
@@ -2396,8 +2475,39 @@
           </form>
         </div>
       </div>
-    </div>
   </section>
+
+  <div class="right-cta-group">
+    <a href="#" class="find-us-cta-btn" id="daveAIBtn" title="Lil' Dave AI" aria-label="Lil' Dave AI" onclick="toggleChatbot(); return false;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 14c1.5 0 3-1 3-2.5S13.5 9 12 9s-3 1-3 2.5S10.5 14 12 14z"></path>
+        <path d="M19 17c0 2-1.5 3.5-3.5 3.5S12 19 12 17c0-1.5 1-2.5 2-3"></path>
+        <path d="M5 17c0 2-1.5 3.5-3.5 3.5S1 19 1 17c0-1.5 1-2.5 2-3"></path>
+        <path d="M12 6v4"></path>
+        <circle cx="12" cy="4" r="1.5"></circle>
+      </svg>
+      Lil' Dave AI
+    </a>
+    <a href="buying-hours.html" class="find-us-cta-btn" id="sellBtn" title="Sell Your Stuff" aria-label="Sell Your Stuff">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+        <path d="M2 17l10 5 10-5"></path>
+        <path d="M2 12l10 5 10-5"></path>
+      </svg>
+      Sell Your Stuff
+    </a>
+    <a href="aisle-gps.html" class="find-us-cta-btn" id="gpsBtn" title="Aisle GPS" aria-label="Aisle GPS">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="1 6 1 22 8 18 16 22 23 18 23 6 16 6 8 6 1 6"></polygon>
+        <line x1="8" y1="2" x2="8" y2="18"></line>
+        <line x1="16" y1="6" x2="16" y2="22"></line>
+      </svg>
+      Aisle GPS
+    </a>
+  </div>
 
 
   <script>
@@ -2883,9 +2993,6 @@
 
   <!-- Place inside .xeno-credit div at the bottom of the page -->
   <div class="xeno-credit">
-    <a href="https://www.xenohead.com" target="_blank" rel="noopener noreferrer" class="xeno-logo-link" title="XenoHead">
-      <img src="images/XenoHead_logo.png" alt="XenoHead" class="xeno-logo-img">
-    </a>
     <a href="https://www.google.com/maps/search/?api=1&query=Forever+Young+Records+2955+S+Hwy+360+Grand+Prairie+TX+75052"
       target="_blank" rel="noopener noreferrer" class="map-btn" title="Open in Google Maps"
       aria-label="Open in Google Maps">
@@ -2967,21 +3074,119 @@
     .phone-btn:hover .phone-icon {
       transform: scale(1.15);
     }
+
+    /* Find Us CTA button — under lower-left crate accordion; 60% of 110px thumbnail height */
+    .find-us-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      width: auto;
+      min-width: 66px;
+      height: 66px;
+      padding: 0 1rem;
+      margin: 0.6rem 0 0;
+      background: rgba(44, 108, 255, 0.10);
+      border: 1.5px solid rgba(255, 212, 71, 0.5);
+      border-radius: 10px;
+      color: var(--yellow);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .find-us-cta-btn svg {
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .find-us-cta-btn:hover {
+      background: rgba(255, 212, 71, 0.18);
+      border-color: var(--yellow);
+      box-shadow: 0 0 16px rgba(255, 212, 71, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .find-us-cta-btn:hover svg {
+      transform: scale(1.12);
+    }
+
+    .right-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      position: fixed;
+      bottom: 1rem;
+      right: 1.5rem;
+      z-index: 98;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .nav-home-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 212, 71, 0.10);
+      border: 1.5px solid rgba(255, 212, 71, 0.5);
+      border-radius: 10px;
+      color: var(--yellow);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      flex-shrink: 0;
+    }
+
+    .nav-home-btn svg {
+      transition: transform 0.3s ease;
+    }
+
+    .nav-home-btn:hover {
+      background: rgba(255, 212, 71, 0.18);
+      border-color: var(--yellow);
+      box-shadow: 0 0 14px rgba(255, 212, 71, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .nav-home-btn:hover svg {
+      transform: scale(1.08);
+    }
+
+    #topNav {
+      padding: 0.55rem 1rem;
+    }
+
+    .nav-inner {
+      gap: 0.5rem;
+    }
   </style>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const phoneBtn = document.getElementById('phoneBtn');
+      const findUsBtn = document.getElementById('findUsBtn');
       const phoneNumber = 'tel:9723526299';
       const desktopPage = 'contact.html';
+      const mapsPage = 'location.html';
+      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Forever+Young+Records+2955+S+Hwy+360+Grand+Prairie+TX+75052';
 
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
       if (isMobile) {
         phoneBtn.href = phoneNumber;
         phoneBtn.removeAttribute('target');
+        findUsBtn.href = mapsUrl;
+        findUsBtn.removeAttribute('target');
       } else {
         phoneBtn.href = desktopPage;
+        findUsBtn.href = mapsPage;
       }
     });
   </script>

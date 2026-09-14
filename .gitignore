@@ -14,5 +14,9 @@ db_batches/reconcile.sql
 *.sqlite
 *.sqlite3
 
-
 local-db-export.sql
+
+# scratch/generated — customer site never uses these
+extraneous/images/*
+# copy of staff dashboard sitting in customer root (not linked from here)
+staff-dashboard.html
