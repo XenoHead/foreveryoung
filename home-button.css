@@ -1,0 +1,41 @@
+.site-home-button {
+  position: fixed;
+  top: clamp(0.55rem, 1.39vw, 1.25rem);
+  left: clamp(2.875rem, 3.75vw, 3.375rem);
+  z-index: 110;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 212, 71, 0.10);
+  border: 1.5px solid rgba(255, 212, 71, 0.5);
+  border-radius: 10px;
+  color: #FFD447;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  flex-shrink: 0;
+}
+
+.site-home-button svg {
+  transition: transform 0.3s ease;
+}
+
+.site-home-button:hover {
+  background: rgba(255, 212, 71, 0.18);
+  border-color: #FFD447;
+  box-shadow: 0 0 14px rgba(255, 212, 71, 0.4);
+  transform: translateY(-1px);
+}
+
+.site-home-button:hover svg {
+  transform: scale(1.08);
+}
+
+@media (max-width: 600px) {
+  .site-home-button {
+    top: 0.55rem;
+    left: 2.875rem;
+  }
+}

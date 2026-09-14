@@ -112,24 +112,6 @@ export async function onRequestGet(context) {
       results[k] = items;
     }
     
-    // Fallback logic if any crate is empty
-    for (const k of keys) {
-      if (results[k].length === 0) {
-        const fallbackResult = await db.prepare(`
-          SELECT * FROM Inventory ORDER BY id DESC LIMIT 6
-        `).all();
-        results[k] = (fallbackResult.results || []).map(item => ({
-          id: item.id, Artist: item.Artist, Title: item.Title, Format: item.Format,
-          Price: parseFloat(item.SRP) || 0.00, SRP: item.SRP || '', Bar_Code: item.UPC,
-          UPC: item.UPC || '', Quantity: item.Quantity, Vendor: item.Vendor || '',
-          Vendor_Number: item.Vendor_Number || '', Year: item.Year || '', OOP: item.OOP || '',
-          Genre: item.Genre || '', Country: item.Country || '',
-          Front_Image_URL: item.Image_URL || item.Front_Image_URL || '',
-          Image_URL: item.Image_URL || item.Front_Image_URL || '', _source: 'instore'
-        }));
-      }
-    }
-    
     return new Response(JSON.stringify({ success: true, results }), {
       status: 200,
       headers: { 
