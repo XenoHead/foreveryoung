@@ -20,3 +20,4 @@ local-db-export.sql
 extraneous/images/*
 # copy of staff dashboard sitting in customer root (not linked from here)
 staff-dashboard.html
+CFrequests.py
