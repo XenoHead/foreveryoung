@@ -1,0 +1,201 @@
+I have reviewed the **Format** dropdown list currently visible on the page. Here is the full list of formats available in that dropdown, in the exact order they appear:
+
+* All Formats
+* CD (All Types)
+* Vinyl (All Types)
+* Vinyl - LP
+* Vinyl - 45s & 7"
+* Vinyl - 10"
+* Vinyl - 12"
+* Vinyl - 78
+* Vinyl - Picture Disc
+* Vinyl - EP
+* Cassette
+* Video
+* Book
+* Clothing
+* Memorabilia-
+* CD
+* 2CD
+* 3CD
+* 4CD
+* 5CD
+* 6CD
+* CD Box Set
+* CD DVD
+* CD Single
+* CD EP
+* CD Maxi Single
+* CD Video
+* CD3
+* CDR
+* Acetate CD
+* SACD
+* HDCD
+* Digi Pak
+* Cassette
+* Cassette Box Set
+* Cassette+CDR
+* Cassette Single
+* 2X Cassette
+* 3X Cassette
+* 4X Cassette
+* 5X Cassette
+* DCC
+* DAT
+* 4"
+* 5"
+* 6"
+* 45
+* 7"
+* 7" 180 Gram
+* 7" Acetate
+* 7" 180 Gram Box Set
+* 7" Box Set
+* 7"+CD
+* 7"+CDR
+* 7" Colored Vinyl
+* 7" Colored Vinyl 180 Gram
+* 7" Picture Disc
+* 7" Picture Sleeve
+* 7" Poster Sleeve
+* 7" Test Pressing
+* 7" White Label
+* Split 7"
+* 2X 7"
+* 8"
+* 10"
+* 10" 180 Gram
+* 10" Acetate
+* 10" Box Set
+* 10"+CD
+* 10"+CDR
+* 10" Colored Vinyl
+* 10" Colored Vinyl 180 Gram
+* 10" Mini LP
+* 10" Picture Disc
+* 10" Picture Sleeve
+* 10" Poster Sleeve
+* 10" White Label
+* 10" Test Pressing
+* 12"
+* 12"+7"
+* 12" 180 Gram
+* 12" Acetate
+* 12"+CD
+* 12"+CDR
+* 12" Box Set
+* 12" Colored Vinyl
+* 12" Colored Vinyl 180 Gram
+* 12" Mini LP
+* 12" Picture Disc
+* 12" Picture Sleeve
+* 12" Poster Sleeve
+* 12" Test Pressing
+* 12" White Label
+* 2X 12"
+* 2X 12" 180 Gram
+* 2X 12" Colored Vinyl
+* 2X 12" Colored Vinyl 180 Gram
+* 2X 12" Test Pressing
+* 3X 12"
+* 4X 12"
+* 16"
+* EP
+* EP 180 Gram
+* EP Colored Vinyl 180 Gram
+* EP Test Pressing
+* EP White Label
+* LP
+* LP+7"
+* LP+10"
+* LP+12"
+* LP 180 Gram
+* LP 180 Gram Box Set
+* LP 180 Gram+CD
+* LP 180 Gram+DVD
+* LP Acetate
+* LP Box Set
+* LP Box Set+CDR
+* LP+CD
+* LP+CDR
+* LP+DVD
+* LP Colored Vinyl
+* LP Colored Vinyl 180 Gram
+* LP Gatefold
+* LP Picture Disc
+* LP Quadraphonic
+* LP Test Pressing
+* LP White Label
+* 2LP
+* 2LP+CD
+* 2LP+CDR
+* 2LP 180 Gram
+* 2LP 180 Gram+CD
+* 2LP 180 Gram+DVD
+* 2LP Colored Vinyl
+* 2LP Colored Vinyl 180 Gram
+* 2LP Test Pressing
+* 3LP
+* 3LP+CDR
+* 3LP 180 Gram
+* 3LP Colored Vinyl 180 Gram
+* 4LP
+* 4LP+CDR
+* 5LP
+* 5LP+CDR
+* 6LP
+* 6LP+CDR
+* 7LP
+* 7LP+CDR
+* 8LP
+* 8LP+CDR
+* Gatefold+CDR
+* 78
+* 78+CDR
+* Edison Disc
+* Flexi
+* Picture Disc
+* Shaped Picture Disc
+* 8-Track
+* Mini Disc
+* Blu-ray
+* Blu-ray Audio
+* DVD
+* DVD Audio
+* DVD Box Set
+* DVD Single
+* Laser Disc
+* Betacam SP
+* VideoNTSC
+* VideoPAL
+* NTSC+PAL
+* NTSC Video Box Set
+* PAL Video Box Set
+* Flat
+* Book
+* Booklet
+* Handbill
+* Program
+* Backstage Pass
+* Memorabilia
+* Jukebox Strip
+* Calendar
+* Photograph
+* Poster
+* Postcard
+* Press Kit
+* Patch
+* Pin
+* Needle
+* Cartridge
+* Reel to Reel
+* Sheet Music
+* Slipmat
+* Sticker
+* T-Shirt
+* Ticket
+* Video Game
+* Magazine
+* Any/All
+* Other

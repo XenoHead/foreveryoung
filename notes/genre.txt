@@ -1,0 +1,352 @@
+Here is every genre/category listed in the **Filter by Genre / Category** dropdown menu, in the exact order they appear:
+
+* Pop
+* Folk, World, & Country
+* Rock, Folk, World, & Country
+* Aboriginal
+* Acid House
+* Acid Rock
+* Acoustic
+* African
+* Afro-cuban
+* Afrobeat
+* Alt Country
+* Alternative Rock / Industrial / Art Rock
+* Alternative Rock / Post-punk / Punk
+* Alternative Rock / Synth-pop / Experimen
+* Ambient
+* Aor
+* Appalachian Music
+* Atmospheric Black Metal
+* Avantgarde
+* Bachata
+* Ballad / Vocal
+* Baroque
+* Bass Music
+* Beat
+* Beatbox
+* Berlin-school
+* Bhangra
+* Big Band
+* Big Beat
+* Black Metal
+* Black Metal / Folk Metal
+* Black Metal / Folk Rock / Oi
+* Black Metal / Heavy Metal
+* Black Metal / Oi
+* Black Metal, Nsbm
+* Bluegrass
+* Blues
+* Blues Rock / Electric Blues
+* Blues Rock / Fusion
+* Blues Rock / Hard Rock
+* Blues, Rock
+* Boogaloo
+* Boogie
+* Boogie Woogie
+* Boom Bap
+* Bossanova
+* Bounce
+* Brass Band
+* Breakbeat / Breaks / Electro
+* Breaks
+* Brit Pop
+* Britcore
+* Britpop / Indie Rock
+* Broadway
+* Calypso
+* Canzone Napoletana
+* Cape Jazz
+* Caribbean
+* Cartoon
+* Catalan Music
+* Cha-cha
+* Chamamé
+* Chanson
+* Children
+* Children's, Stage & Screen
+* Childrens
+* Chinese Classical
+* Chiptune
+* Choral
+* Choro
+* Christian
+* Classical
+* Contemporary R&b
+* Contemporary R&b / Soul
+* Cool Jazz
+* Corrido
+* Country / Country Rock / Bluegrass
+* Country Rock
+* Country Rock / Classic Rock
+* Country Rock / Folk Rock
+* Country Rock / Folk Rock / Psychedelic R
+* Cubano
+* Cumbia
+* Dance
+* Dance-pop
+* Dancehall
+* Dangdut
+* Danzon
+* Dark Ambient / Modern Classical / Indust
+* Darkwave
+* Death Metal
+* Delta Blues
+* Depressive Black Metal
+* Dialogue
+* Dialogue / Rock & Roll
+* Disco
+* Dj Battle Tool
+* Documentary, Soul, Rhythm & Blues, P
+* Donk
+* Doo Wop
+* Drama
+* Drone
+* Dub Techno
+* Dungeon Synth
+* Easy Listening
+* Ebm
+* Eclectic
+* Education
+* Educational
+* Electric Blues
+* Electroacoustic
+* Electroclash
+* Electronic
+* Electronic, Rock
+* Emo
+* Ethereal
+* Ethno-pop
+* Euro House
+* Eurobeat
+* Europop
+* Film
+* Folk Metal
+* Folk Pagan Rock
+* Folk Rock
+* Folk Rock / Alternative Rock / Punk
+* Folk World & Country
+* Folk, World, & Country
+* Forró
+* Free Funk
+* Freestyle
+* Funeral Doom Metal
+* Funk
+* Funk / Soul
+* Funk/soul
+* Future Jazz
+* Future Jazz / Conscious / Fusion
+* Gangsta
+* Gangsta / Screw
+* Glam / Pop Rock
+* Glam Metal
+* Glitch
+* Goregrind
+* Gospel
+* Gospel/religious
+* Gothic Metal
+* Grunge
+* Gypsy Jazz
+* Halloween
+* Hands Up
+* Happy Hardcore
+* Hard Bop
+* Hard House
+* Hard Rock
+* Hard Rock / Classic Rock
+* Hard Rock / Heavy Metal
+* Hard Rock / Rock & Roll
+* Hard Rock / Southern Rock
+* Hard Techno
+* Hard Trance
+* Hardcore Hip-hop
+* Hardstyle
+* Hawaiian
+* Heavy Metal
+* Hip Hop
+* Hip Hop, R&b/soul
+* Hip-hop / Funk/soul
+* Hip-hop, Rap
+* Hip-house
+* Hiplife
+* Hokkien Pop
+* Holiday, New Age
+* Honkey Tonk
+* House
+* Hyphy
+* Idm
+* Indie Pop
+* Indie Rock
+* Indo-pop
+* Industrial
+* Industrial Metal
+* International
+* Interview / New Wave
+* Interviews
+* Italodance
+* J-pop
+* J-rock
+* Jams
+* Jazz-rock / Fusion
+* Jazz, Funk/soul
+* Jazz, Pop, Stage & Screen
+* Jazz, Rock, Blues, Pop
+* Jazz/funk/soul
+* Jug Band
+* Jump Blues
+* Jungle
+* K-pop
+* Kayōkyoku
+* Keroncong
+* Klasik
+* Krautrock
+* Krautrock / Electro / Experimental
+* Kwaito
+* Laïkó
+* Lambada
+* Latin
+* Latino
+* Leftfield
+* Light Music
+* Lo-fi
+* Louisiana Blues
+* Mambo
+* Mandopop
+* Marches
+* Mariachi
+* Marimba
+* Math Rock
+* Medieval
+* Meditation
+* Melodic Death Metal
+* Melodic Hardcore
+* Memphis Blues
+* Mento
+* Metal
+* Metal/fusion/instructional
+* Metalcore
+* Miami Bass
+* Military
+* Minneapolis Sound
+* Modern
+* Modern Classical
+* Modern Classical / Black Metal
+* Mpb
+* Music Artist
+* Music Documentary
+* Music Hall
+* Musical
+* Neo-classical
+* New Wave
+* New Wave / Goth Rock
+* Noise
+* Noise / Power Electronics / Industrial
+* Noisecore
+* Norteno
+* Novelty
+* Nsbm, Black Metal
+* Oi
+* Oi / Heavy Metal
+* Oldies
+* Opera
+* Pachanga
+* Pacific
+* Parody
+* Piano
+* Piedmont Blues
+* Pop Rap
+* Pop Rock / Synth-pop
+* Pop Rock / Synth-pop / Funk
+* Pop Vocals
+* Pop\rock
+* Pornogrind
+* Post-metal
+* Post-modern
+* Post-punk
+* Power Metal
+* Power Pop
+* Progressive House
+* Progressive Metal
+* Progressive Trance
+* Promotional
+* Psy-trance
+* Psychedelic
+* Psychedelic Rock
+* Psychedelic Rock / Prog Rock
+* Psychobilly
+* Pub Rock
+* Public Service Announcement
+* Punk
+* R&b Soul
+* Rap
+* Rebetiko
+* Reggae-pop
+* Reggaeton
+* Religion, Gospel
+* Religous
+* Rhythmic Noise
+* Rock - Alternative
+* Rock & Roll / Arena Rock
+* Rock & Roll / Blues Rock / Hard Rock
+* Rock N' Roll
+* Rock Opera
+* Rock, Funk / Soul
+* Rock, Funk & Soul
+* Rock, Pop, Folk, World, & Country
+* Rock/new Wave
+* Rockabilly
+* Romantic
+* Roots Reggae
+* Rumba
+* Séga
+* Salsa
+* Salsa / Latin Jazz / Bolero / Bossanova
+* Samba
+* Samba-canção
+* Schlager
+* Sermon
+* Shoegaze
+* Ska
+* Skiffle
+* Soca
+* Soft Rock
+* Son
+* Soukous
+* Soul
+* Soul / Funk / Disco
+* Soul, Blues
+* Soul, Pop
+* Soul/ballad
+* Soul/gospel
+* Soundtracks
+* Southern Rock
+* Space-age
+* Speed Metal
+* Sports Theme
+* Steel Band
+* Story
+* Surf
+* Swamp Pop
+* Swing
+* Swingbeat
+* Symphonic Rock
+* Synth Pop
+* Synthwave
+* Tango
+* Texas Blues
+* Theme
+* Thrash / Black Metal
+* Thug Rap
+* Tribal
+* Trip Hop
+* Tv Show
+* Twelve-tone
+* Twist
+* Very Good
+* Viking Metal
+* Vocal
+* Waltz
+* Witch House
+* Yé-yé
+* Zouk
+* Zydeco

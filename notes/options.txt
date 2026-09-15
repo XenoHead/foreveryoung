@@ -1,0 +1,12 @@
+Here is every option in the dropdown next to the main search bar (currently set to **Artist**), in the exact order they appear:
+
+* Artist
+* Title
+* Label
+* Genre
+* Condition
+* Release ID
+* Country
+* Date
+* Price
+* Reference Number
