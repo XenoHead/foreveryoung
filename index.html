@@ -168,7 +168,7 @@
       transform: rotate(90deg) scale(0.9);
       opacity: 0.6;
     }
-
+    
     /* Horizontal New Releases & Accordions 3x2 grid drawer styles */
     #ha-new_releases-drawer,
     #ha-lower_left-drawer,
@@ -281,13 +281,14 @@
       gap: 2px;
     }
 
-    #ha-new_releases-drawer .ha-card-title,
-    #ha-lower_left-drawer .ha-card-title,
-    #ha-lower_right-drawer .ha-card-title,
-    .hero-accordion .ha-card-title {
-      font-size: 0.8rem;
+    #ha-new_releases-drawer .ha-card-artist,
+    #ha-lower_left-drawer .ha-card-artist,
+    #ha-lower_right-drawer .ha-card-artist,
+    .hero-accordion .ha-card-artist {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
       font-weight: 700;
-      color: var(--cream);
+      color: var(--yellow);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -295,12 +296,13 @@
       text-align: center;
     }
 
-    #ha-new_releases-drawer .ha-card-artist,
-    #ha-lower_left-drawer .ha-card-artist,
-    #ha-lower_right-drawer .ha-card-artist,
-    .hero-accordion .ha-card-artist {
+    #ha-new_releases-drawer .ha-card-title,
+    #ha-lower_left-drawer .ha-card-title,
+    #ha-lower_right-drawer .ha-card-title,
+    .hero-accordion .ha-card-title {
       font-size: 0.72rem;
-      color: var(--muted);
+      font-weight: 500;
+      color: var(--cream);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -448,6 +450,69 @@
       justify-content: center;
       overflow: hidden;
       box-sizing: border-box;
+    }
+    .nav-cart-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      background: linear-gradient(180deg, var(--yellow) 0%, #e6bf00 100%);
+      color: var(--dark);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1.1;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      margin-left: auto;
+    }
+    .nav-cart-btn:hover {
+      background: #fff;
+      transform: translateY(-1px);
+    }
+    .nav-cart-btn .cart-count {
+      background: var(--red);
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 0 4px;
+    }
+
+    .ha-card { position: relative; }
+
+    .ha-card .add-to-cart-btn {
+      margin-top: 0.35rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+      border: 1px solid var(--yellow);
+      background: rgba(255, 212, 71, 0.15);
+      color: var(--yellow);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .ha-card .add-to-cart-btn:hover {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+    .ha-card .add-to-cart-btn.added {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
     }
 
     /* =========================
@@ -2049,19 +2114,19 @@
       min-width: 0;
     }
 
-    .ha-card-title {
+    .ha-card-artist {
       font-family: 'Oswald', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: var(--cream);
+      color: var(--yellow);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .ha-card-artist {
-      font-size: 0.7rem;
-      color: var(--muted);
+    .ha-card-title {
+      font-size: 0.72rem;
+      color: var(--cream);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -2194,9 +2259,6 @@
       transform: scale(1.08) rotate(1deg);
     }
 
-
-
-
     .crate-card-info {
       padding: 1.5rem;
       display: flex;
@@ -2277,6 +2339,7 @@
           <polyline points="9 22 9 12 15 12 15 22"></polyline>
         </svg>
       </a>
+      
       <div class="nav-content-wrap" id="nav-content-wrap" style="flex: 1; display: flex; justify-content: center; align-items: center;">
       <div class="nav-search-container" style="max-width: 600px; margin-right: 0; flex: 0 0 auto;">
           <label class="nav-search-exact-label" title="Only search for exactly what you type when checked"
@@ -2296,11 +2359,14 @@
           <button id="nav-search-instore-btn" class="nav-search-btn instore">In-Store</button>
         </div>
         <div id="nav-right-wrap" style="display: flex; align-items: center; gap: 1rem; margin-left: auto;">
+          <a href="shopping_cart.html" class="nav-cart-btn" id="navCartBtn" title="My Shopping Cart">
+            <span>🛒</span>
+            <span>My Cart</span>
+            <span id="cartCount" class="cart-count" style="display:none">0</span>
+          </a>
           <div class="nav-logo-toggle" id="nav-logo-toggle-right" onclick="toggleMenuLinks()"
             title="Hide/Show Menu Links">
-            <img src="images/fyr-logo-removebg-preview.png" alt="Toggle Menu Links"
-              style="height: 32px; filter: drop-shadow(0 0 6px rgba(255, 212, 71, 0.25)); transition: transform 0.3s;">
-          </div>
+                      </div>
         </div>
         </div>
       </div>
@@ -2635,13 +2701,39 @@
       const infoEl = document.createElement('div');
       infoEl.className = 'ha-card-info';
       infoEl.innerHTML = `
-        <div class="ha-card-title" title="${item.Title || ''}">${item.Title || 'Unknown'}</div>
         <div class="ha-card-artist" title="${item.Artist || ''}">${item.Artist || ''}</div>
+        <div class="ha-card-title" title="${item.Title || ''}">${item.Title || 'Unknown'}</div>
         <div class="ha-card-price">$${(item.Price || 0).toFixed(2)}</div>
       `;
 
+      const addToCartBtn = document.createElement('button');
+      addToCartBtn.className = 'add-to-cart-btn';
+      addToCartBtn.type = 'button';
+      addToCartBtn.textContent = '+ Cart';
+      addToCartBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToCart({
+          id: item.Seller_Reference_Number || item.Bar_Code || item.UPC || String(Math.random()),
+          title: item.Title || 'Unknown',
+          artist: item.Artist || '',
+          price: Number(item.Price) || 0,
+          image: item.Front_Image_URL || item.Image_URL || item.image || item.Image || item.cover_image || '',
+          format: item.Format || 'LP',
+          source: isInstore ? 'instore' : 'online',
+          ref: item.Seller_Reference_Number || '',
+          upc: item.Bar_Code || item.UPC || ''
+        });
+        addToCartBtn.textContent = '✓ Added';
+        addToCartBtn.classList.add('added');
+        setTimeout(() => {
+          addToCartBtn.textContent = '+ Cart';
+          addToCartBtn.classList.remove('added');
+        }, 1200);
+      });
+
       el.appendChild(thumbEl);
       el.appendChild(infoEl);
+      el.appendChild(addToCartBtn);
 
       el.addEventListener('click', () => {
         searchResultsModal.style.display = 'flex';
@@ -3190,7 +3282,35 @@
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+   
+   const CART_KEY = 'foreverYoungCart';
+
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+    }
+    function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCount();
+  }
+    function addToCart(item) {
+    const cart = getCart();
+    if (!cart.some(c => c.id === item.id)) {
+    cart.push(item);
+    saveCart(cart);
+  }
+  }
+  function updateCartCount() {
+  const countEl = document.getElementById('cartCount');
+  if (!countEl) return;
+  const cart = getCart();
+  countEl.textContent = cart.length;
+  countEl.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+  }
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+});
+   document.addEventListener('DOMContentLoaded', function () {
       const phoneBtn = document.getElementById('phoneBtn');
       const findUsBtn = document.getElementById('findUsBtn');
       const phoneNumber = 'tel:9723526299';

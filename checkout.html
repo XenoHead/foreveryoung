@@ -1109,31 +1109,137 @@
 
   <script>
     // Parse URL parameters
-    const params = new URLSearchParams(window.location.search);
-    const title = params.get('title') || '';
-    const artist = params.get('artist') || '';
-    const price = parseFloat(params.get('price')) || 0;
-    const format = params.get('format') || '';
-    const label = params.get('label') || '';
-    const catalog = params.get('catalog') || '';
-    const country = params.get('country') || '';
-    const genre = params.get('genre') || '';
-    const condMedia = params.get('condMedia') || '';
-    const condSleeve = params.get('condSleeve') || '';
-    const imageUrl = params.get('image') || '';
-    const sellerRef = params.get('ref') || '';
-    const buyFind = sellerRef || `${artist} ${title}`;
-    const musicStackUrl = `https://www.musicstack.com/my/index.cgi?seller=725319&currency=USD&find=${encodeURIComponent(buyFind)}`;
+    const CART_KEY = 'foreverYoungCart';
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+    }
+    function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCount();
+  }
+    function addToCart(item) {
+    const cart = getCart();
+    if (!cart.some(c => c.id === item.id)) {
+    cart.push(item);
+    saveCart(cart);
+  }
+  }
+    function updateCartCount() {
+  const countEl = document.getElementById('cartCount');
+  if (!countEl) return;
+  const cart = getCart();
+  countEl.textContent = cart.length;
+  countEl.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+  }
 
-    const container = document.getElementById('checkout-content');
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+});
+   document.addEventListener('DOMContentLoaded', function () {
+      const phoneBtn = document.getElementById('phoneBtn');
+      const findUsBtn = document.getElementById('findUsBtn');
+      const phoneNumber = 'tel:9723526299';
+      const desktopPage = 'contact.html';
+      const mapsPage = 'location.html';
+      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Forever+Young+Records+2955+S+Hwy+360+Grand+Prairie+TX+75052';
 
-    if (!title && !artist) {
-      // Empty state — no item
-      container.innerHTML = `
-        <div class="checkout-empty">
-          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9 9h.01M15 9h.01M8 14s1.5 2 4 2 4-2 4-2"/>
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+      if (isMobile) {
+        phoneBtn.href = phoneNumber;
+        phoneBtn.removeAttribute('target');
+        findUsBtn.href = mapsUrl;
+        findUsBtn.removeAttribute('target');
+      } else {
+        phoneBtn.href = desktopPage;
+        findUsBtn.href = mapsPage;
+      }
+    });
+  </script>
+
+  <!-- Hot Tips Modal -->
+  <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
+    <div class="search-results-modal-content">
+      <div class="search-results-modal-header">
+        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          </button>
+          <span id="hot-tips-modal-close" class="search-results-modal-close">&times;</span>
+        </div>
+      </div>
+      <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever
+          Young
+        </h3>
+        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
+          feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
+          faster.</p>
+        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to
+          your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
+        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">
+          Selling Your Collection</h3>
+        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours.
+          Check the 'Buying Hours' page before you haul your collection to the store.</p>
+        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records
+          and make sure the sleeves are in good condition for the best offer.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Parse URL parameters
+    const CART_KEY = 'foreverYoungCart';
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+    }
+    function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCount();
+  }
+    function addToCart(item) {
+    const cart = getCart();
+    if (!cart.some(c => c.id === item.id)) {
+    cart.push(item);
+    saveCart(cart);
+  }
+  }
+    function updateCartCount() {
+  const countEl = document.getElementById('cartCount');
+  if (!countEl) return;
+  const cart = getCart();
+  countEl.textContent = cart.length;
+  countEl.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+  }
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+});
+   document.addEventListener('DOMContentLoaded', function () {
+      const phoneBtn = document.getElementById('phoneBtn');
+      const findUsBtn = document.getElementById('findUsBtn');
+      const phoneNumber = 'tel:9723526299';
+      const desktopPage = 'contact.html';
+      const mapsPage = 'location.html';
+      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Forever+Young+Records+2955+S+Hwy+360+Grand+Prairie+TX+75052';
+
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+      if (isMobile) {
+        phoneBtn.href = phoneNumber;
+        phoneBtn.removeAttribute('target');
+        findUsBtn.href = mapsUrl;
+        findUsBtn.removeAttribute('target');
+      } else {
+        phoneBtn.href = desktopPage;
+        findUsBtn.href = mapsPage;
+      }
+    });
+
           </svg>
           <h2>No Item Selected</h2>
           <p>Head back to the catalog and find something you love.</p>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Shopping Cart | Forever Young Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #08111F;
+      color: #FFF8DF;
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 999;
+    }
+    :root { --blue: #0A2C74; --blueBright: #2C6CFF; --yellow: #FFD447; --cream: #FFF8DF; --dark: #08111F; --muted: #B6C0D7; --green: #2ecc71; --red: #c12a30; }
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      backdrop-filter: blur(12px); background: rgba(8,17,31,0.92);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto; padding: 0.8rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .nav-logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: var(--yellow); text-decoration: none; letter-spacing: 1px; }
+    .nav-home-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 6px;
+      background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
+      color: #1c2738; text-decoration: none;
+    }
+    .nav-home-btn:hover { background: var(--yellow); }
+    .cart-container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; position: relative; z-index: 2; }
+    h1 { font-family: 'Oswald', sans-serif; font-size: 2rem; color: var(--yellow); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .cart-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; }
+    .cart-table th, .cart-table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .cart-table th { font-family: 'Oswald', sans-serif; color: var(--yellow); background: rgba(0,0,0,0.25); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px; }
+    .cart-table td { vertical-align: middle; }
+    .cart-item-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; background: var(--blue); }
+    .cart-item-title { font-weight: 600; margin-bottom: 0.2rem; }
+    .cart-item-artist { color: var(--yellow); font-size: 0.85rem; }
+    .cart-item-source { display: inline-block; font-size: 0.65rem; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; margin-top: 0.35rem; }
+    .cart-item-source.instore { background: rgba(46,204,113,0.2); color: var(--green); }
+    .cart-item-source.online { background: rgba(44,108,255,0.2); color: var(--blueBright); }
+    .cart-empty { text-align: center; padding: 3rem; color: var(--muted); font-style: italic; }
+    .remove-btn {
+      background: transparent; border: 1px solid var(--red); color: var(--red);
+      padding: 0.35rem 0.7rem; border-radius: 4px; cursor: pointer; font-family: 'Oswald', sans-serif;
+      text-transform: uppercase; font-size: 0.75rem;
+    }
+    .remove-btn:hover { background: var(--red); color: #fff; }
+    .cart-summary { margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .cart-total { font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: var(--yellow); }
+    .cart-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      padding: 0.8rem 1.4rem; border-radius: 4px; font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer;
+      text-decoration: none; border: none; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--yellow); color: var(--dark); }
+    .btn-primary:hover { background: #fff; }
+    .btn-secondary { background: transparent; color: var(--cream); border: 1px solid rgba(255,255,255,0.25); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Forever Young Records</a>
+      <a href="index.html" class="nav-home-btn" title="Home">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <main class="cart-container">
+    <h1>🛒 My Shopping Cart</h1>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cartBody">
+        <tr><td colspan="4" class="cart-empty">Your cart is empty.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cart-summary">
+      <div class="cart-total">Total: <span id="cartTotal">$0.00</span></div>
+      <div class="cart-actions">
+        <a href="index.html" class="btn btn-secondary">← Continue Shopping</a>
+        <a href="checkout.html" class="btn btn-primary" id="checkoutBtn">Proceed to Checkout</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const CART_KEY = 'foreverYoungCart';
+
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+    }
+    function saveCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function formatMoney(n) {
+      return '$' + (Number(n) || 0).toFixed(2);
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const body = document.getElementById('cartBody');
+      const totalEl = document.getElementById('cartTotal');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      if (cart.length === 0) {
+        body.innerHTML = '<tr><td colspan="4" class="cart-empty">Your cart is empty.</td></tr>';
+        totalEl.textContent = '$0.00';
+        checkoutBtn.style.pointerEvents = 'none';
+        checkoutBtn.style.opacity = '0.5';
+        return;
+      }
+
+      let total = 0;
+      body.innerHTML = cart.map((item, idx) => {
+        total += Number(item.price) || 0;
+        const isInstore = item.source === 'instore';
+        const sourceLabel = isInstore ? 'In Store' : 'Online';
+        const sourceClass = isInstore ? 'instore' : 'online';
+        const thumb = item.image || '';
+        const imgHtml = thumb
+          ? `<img src="${thumb}" alt="" class="cart-item-thumb" onerror="this.style.display='none'">`
+          : `<div class="cart-item-thumb" style="display:flex;align-items:center;justify-content:center;font-size:0.7rem;">${item.format || 'LP'}</div>`;
+
+        return `
+          <tr data-idx="${idx}">
+            <td>
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                ${imgHtml}
+                <div>
+                  <div class="cart-item-title">${item.title || 'Unknown'}</div>
+                  <div class="cart-item-artist">${item.artist || ''}</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="cart-item-source ${sourceClass}">${sourceLabel}</span></td>
+            <td>${formatMoney(item.price)}</td>
+            <td><button class="remove-btn" data-idx="${idx}">Remove</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      totalEl.textContent = formatMoney(total);
+      checkoutBtn.style.pointerEvents = '';
+      checkoutBtn.style.opacity = '';
+
+      body.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.getAttribute('data-idx'));
+          cart.splice(idx, 1);
+          saveCart(cart);
+          renderCart();
+        });
+      });
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
