@@ -1,0 +1,128 @@
+Cloudflare AI:
+- DeepSeek V4 Flash (Cloudflare)
+- DeepSeek V4 Pro (Cloudflare)
+- GLM 5.3 (Cloudflare)
+- GLM 5.3 Flash (Cloudflare)
+- Kimi K2.6 (Cloudflare)
+- Kimi K2.7 Code (Cloudflare)
+- moonshotai/kimi-k3
+- Qwen3 30B (Cloudflare)
+
+Copilot:
+- Auto
+
+Modelflare:
+- aura-1
+- aura-2-en
+- aura-2-es
+- bge-base-en-v1.5
+- bge-large-en-v1.5
+- bge-m3
+- bge-reranker-base
+- bge-small-en-v1.5
+- deepseek-r1-distill-qwen-32b
+- deepseek-v4-flash-0731
+- deepseek-v4-pro-0813
+- distilbert-sst-2-int8
+- dreamshaper-8-lcm
+- embeddinggemma-300m
+- flux
+- flux-1-schnell
+- flux-2-dev
+- flux-2-klein-4b
+- flux-2-klein-9b
+- gemma-2b-it-lora
+- gemma-4-26b-a4b-it
+- gemma-7b-it-lora
+- gemma-sea-lion-v4-27b-it
+- glm-4.7-flash
+- glm-5.2
+- glm-5.3
+- glm-5.3-flash
+- gpt-oss-120b
+- gpt-oss-20b
+- granite-4.0-h-micro
+- indictrans2-en-indic-1b
+- kimi-k2.6
+- kimi-k2.7-code
+- llama-2-7b-chat-hf-lora
+- llama-3.1-8b-instruct-fp8
+- llama-3.2-11b-vision-instruct
+- llama-3.2-1b-instruct
+- llama-3.2-3b-instruct
+- llama-3.3-70b-instruct-fp8-fast
+- llama-4-scout-17b-16e-instruct
+- llama-guard-3-8b
+- llava-1.5-7b-hf
+- lucid-origin
+- m2m100-1.2b
+- melotts
+- mistral-7b-instruct-v0.2-lora
+- mistral-small-3.1-24b-instruct
+- moondream3.1-9B-A2B
+- nemotron-3-120b-a12b
+- nova-3
+- phoenix-1.0
+- plamo-embedding-1b
+- qwen2.5-coder-32b-instruct
+- qwen3-30b-a3b-fp8
+- qwen3-embedding-0.6b
+- qwen3.8-27b
+- qwq-32b
+- resnet-50
+- smart-turn-v2
+- stable-diffusion-v1-5-inpainting
+- stable-diffusion-xl-base-1.0
+- stable-diffusion-xl-lightning
+- whisper
+- whisper-large-v3-turbo
+- whisper-tiny-en
+
+BEST CODERS:
+
+deepseek-v4-pro (or DeepSeek V4 Pro (Cloudflare))
+
+Why: DeepSeek's flagship Mixture-of-Experts architecture. Excellent for complex logic, large codebase comprehension, structural planning, and long-horizon software engineering.
+
+kimi-k2.7-code (or Kimi K2.7 Code (Cloudflare))
+
+Why: Specifically optimized by Moonshot AI for agentic programming tasks, long context handling, and multi-file code editing.
+
+qwen2.5-coder-32b-instruct
+
+Why: Alibaba's dedicated coding model. Exceptional accuracy for everyday Python, script writing, refactoring, and inline completions without generating unnecessary fluff.
+
+OTHER:
+
+**Image Generation & Vision**
+
+* **`flux`, `flux-1-schnell`, `flux-2-dev`, `flux-2-klein-4b`, `flux-2-klein-9b**`: High-quality text-to-image generation models from Black Forest Labs. `schnell` is tuned for fast 4-step generation.
+* **`stable-diffusion-xl-base-1.0` / `stable-diffusion-xl-lightning**`: Standard text-to-image latent diffusion models.
+* **`stable-diffusion-v1-5-inpainting`**: Specialized for image editing, erasing background elements, and filling masked regions.
+* **`dreamshaper-8-lcm`**: Latent Consistency Model tuned for photorealistic or stylized image generation with low step counts.
+* **`resnet-50`**: Computer vision model for image classification and feature extraction.
+
+**Audio Processing & Speech**
+
+* **`whisper`, `whisper-large-v3-turbo`, `whisper-tiny-en**`: OpenAI Speech-to-Text models for transcribing spoken audio into written text.
+* **`aura-1`, `aura-2-en`, `aura-2-es**`: Text-to-Speech (TTS) models powered by Deepgram for converting written text into natural-sounding voice output.
+* **`melotts`**: Fast, lightweight Text-to-Speech synthesis engine.
+* **`smart-turn-v2`**: Audio utility for detecting conversational turns and voice activity in real-time speech streams.
+
+**Text Embeddings & Vector Search (RAG)**
+
+* **`bge-base-en-v1.5`, `bge-large-en-v1.5`, `bge-small-en-v1.5`, `bge-m3**`: Vector embedding models used to turn text chunks into numbers for semantic search, document retrieval, and RAG databases.
+* **`bge-reranker-base`**: Re-ranking model used after vector searches to score and sort retrieved context chunks by relevance.
+* **`embeddinggemma-300m`**, `qwen3-embedding-0.6b`, `plamo-embedding-1b`: Text embedding models optimized for different parameter sizes and languages.
+
+**Safety, Translation & Sentiment**
+
+* **`llama-guard-3-8b`**: Safety classification model meant to screen prompts and outputs for harmful content, policy violations, or unsafe text.
+* **`distilbert-sst-2-int8`**: Fast sentiment analysis model (labels text positive/negative).
+* **`indictrans2-en-indic-1b`** / **`m2m100-1.2b`**: Multilingual translation models designed specifically to convert text between spoken languages without text generation.
+
+**Niche & Specialized Utilities**
+
+* **`moondream3.1-9B-A2B`**: Extremely small vision-language model used for image captioning and basic visual Q&A.
+* **`llava-1.5-7b-hf`**: Multimodal model that accepts an image + text prompt to describe visual input.
+* **`lucid-origin`, `nova-3`, `phoenix-1.0**`: Experimental, domain-specific background micro-models (often used for task routing, telemetry, or specific Cloudflare pipeline experiments).
