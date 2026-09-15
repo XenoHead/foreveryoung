@@ -937,9 +937,9 @@
     TICKER TAPE
     ========================= */
     .ticker-wrap {
-      width: 100%;
+      width: calc(100% - 2rem);
       max-width: 900px;
-      margin: 1rem auto 0 auto;
+      margin: 0 auto 1rem auto;
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255, 212, 71, 0.3);
       border-radius: 6px;
@@ -953,8 +953,7 @@
     .ticker-content {
       display: inline-block;
       white-space: nowrap;
-      padding-left: 100%;
-      animation: ticker 25s linear infinite;
+      animation: ticker 18s linear infinite;
       color: var(--yellow);
       font-weight: 500;
       font-size: 1.1rem;
@@ -963,13 +962,17 @@
       letter-spacing: 1px;
     }
 
+    .ticker-content span {
+      display: inline-block;
+      padding-right: 4rem;
+    }
+
     @keyframes ticker {
       0% {
         transform: translateX(0);
       }
-
       100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
       }
     }
 
@@ -2606,16 +2609,20 @@
     });
 
     function updateTicker() {
+      const tickerEl = document.getElementById('ticker-text');
+      if (!tickerEl) return;
       fetch('https://staff-foreveryoung.pages.dev/api/ticker?t=' + Date.now())
         .then(res => {
           if (!res.ok) throw new Error("Ticker endpoint error");
           return res.text();
         })
         .then(text => {
-          document.getElementById('ticker-text').textContent = text.trim();
+          const msg = text.trim() || "Welcome to Forever Young Records!";
+          tickerEl.innerHTML = '<span>' + msg + '</span><span>' + msg + '</span><span>' + msg + '</span>';
         })
         .catch(err => {
-          document.getElementById('ticker-text').textContent = "Welcome to Forever Young Records!";
+          const msg = "Welcome to Forever Young Records!";
+          tickerEl.innerHTML = '<span>' + msg + '</span><span>' + msg + '</span><span>' + msg + '</span>';
         });
     }
     updateTicker();
@@ -2725,10 +2732,7 @@
         });
         addToCartBtn.textContent = '✓ Added';
         addToCartBtn.classList.add('added');
-        setTimeout(() => {
-          addToCartBtn.textContent = '+ Cart';
-          addToCartBtn.classList.remove('added');
-        }, 1200);
+        addToCartBtn.disabled = true;
       });
 
       el.appendChild(thumbEl);
@@ -3090,6 +3094,10 @@
     }
     loadFeaturedCrate();
   </script>
+
+  <div class="ticker-wrap" title="Store announcements">
+    <div class="ticker-content" id="ticker-text"><span>Welcome to Forever Young Records!</span><span>Welcome to Forever Young Records!</span><span>Welcome to Forever Young Records!</span></div>
+  </div>
 
   <!-- Place inside .xeno-credit div at the bottom of the page -->
   <div class="xeno-credit">

@@ -531,10 +531,11 @@
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.3px;
-    }
-
-    .secure-badge svg {
-      opacity: 0.6;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--cream);
     }
 
     /* Empty state */
@@ -1073,730 +1074,452 @@
     </a>
   </div>
 
-  <!-- Hot Tips Modal -->
-  <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
-    <div class="search-results-modal-content">
-      <div class="search-results-modal-header">
-        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
-        <div style="display: flex; align-items: center; gap: 1.5rem;">
-          <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            </svg>
-          </button>
-          <span id="hot-tips-modal-close" class="search-results-modal-close">&times;</span>
-        </div>
-      </div>
-      <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever
-          Young
-        </h3>
-        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
-          feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
-          faster.</p>
-        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to
-          your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">
-          Selling Your Collection</h3>
-        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours.
-          Check the 'Buying Hours' page before you haul your collection to the store.</p>
-        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records
-          and make sure the sleeves are in good condition for the best offer.</p>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Parse URL parameters
     const CART_KEY = 'foreverYoungCart';
+
     function getCart() {
-      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch (e) { return []; }
     }
     function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    updateCartCount();
-  }
-    function addToCart(item) {
-    const cart = getCart();
-    if (!cart.some(c => c.id === item.id)) {
-    cart.push(item);
-    saveCart(cart);
-  }
-  }
-    function updateCartCount() {
-  const countEl = document.getElementById('cartCount');
-  if (!countEl) return;
-  const cart = getCart();
-  countEl.textContent = cart.length;
-  countEl.style.display = cart.length > 0 ? 'inline-flex' : 'none';
-  }
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartCount();
-});
-   document.addEventListener('DOMContentLoaded', function () {
-      const phoneBtn = document.getElementById('phoneBtn');
-      const findUsBtn = document.getElementById('findUsBtn');
-      const phoneNumber = 'tel:9723526299';
-      const desktopPage = 'contact.html';
-      const mapsPage = 'location.html';
-      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Forever+Young+Records+2955+S+Hwy+360+Grand+Prairie+TX+75052';
-
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-
-      if (isMobile) {
-        phoneBtn.href = phoneNumber;
-        phoneBtn.removeAttribute('target');
-        findUsBtn.href = mapsUrl;
-        findUsBtn.removeAttribute('target');
-      } else {
-        phoneBtn.href = desktopPage;
-        findUsBtn.href = mapsPage;
-      }
-    });
-  </script>
-
-  <!-- Hot Tips Modal -->
-  <div id="hot-tips-modal" class="search-results-modal" style="display: none;">
-    <div class="search-results-modal-content">
-      <div class="search-results-modal-header">
-        <h2 id="hot-tips-modal-title">🔥 Hot Tips & Tricks</h2>
-        <div style="display: flex; align-items: center; gap: 1.5rem;">
-          <button id="hot-tips-modal-maximize" class="search-results-modal-maximize" title="Maximize">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            </svg>
-          </button>
-          <span id="hot-tips-modal-close" class="search-results-modal-close">&times;</span>
-        </div>
-      </div>
-      <div class="search-results-modal-body" style="text-align: left; color: var(--cream); line-height: 1.6;">
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem;">Navigating Forever
-          Young
-        </h3>
-        <p style="margin-bottom: 1rem;"><strong>Use the Aisle GPS!</strong> Our store is massive. Use the 'AISLE GPS'
-          feature on the homepage to get a bird's-eye view of our layout and find the genre sections you're looking for
-          faster.</p>
-        <p style="margin-bottom: 1rem;"><strong>Check the 'New Arrivals' Wall:</strong> As soon as you walk in, look to
-          your left. We put our freshest, most exciting used vinyl and CDs right there. It changes daily!</p>
-        <h3 style="font-family: 'Oswald', sans-serif; color: var(--yellow); margin-bottom: 1rem; margin-top: 2rem;">
-          Selling Your Collection</h3>
-        <p style="margin-bottom: 1rem;"><strong>Check Buying Hours:</strong> Our lead buyer, Dave, has specific hours.
-          Check the 'Buying Hours' page before you haul your collection to the store.</p>
-        <p><strong>Condition Matters:</strong> We pay top dollar for records and CDs in great shape. Clean your records
-          and make sure the sleeves are in good condition for the best offer.</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Parse URL parameters
-    const CART_KEY = 'foreverYoungCart';
-    function getCart() {
-      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateCartCount();
     }
-    function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    updateCartCount();
-  }
-    function addToCart(item) {
-    const cart = getCart();
-    if (!cart.some(c => c.id === item.id)) {
-    cart.push(item);
-    saveCart(cart);
-  }
-  }
     function updateCartCount() {
-  const countEl = document.getElementById('cartCount');
-  if (!countEl) return;
-  const cart = getCart();
-  countEl.textContent = cart.length;
-  countEl.style.display = cart.length > 0 ? 'inline-flex' : 'none';
-  }
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartCount();
-});
-   document.addEventListener('DOMContentLoaded', function () {
-      const phoneBtn = document.getElementById('phoneBtn');
-      const findUsBtn = document.getElementById('findUsBtn');
-      const phoneNumber = 'tel:9723526299';
-      const desktopPage = 'contact.html';
-      const mapsPage = 'location.html';
-      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Forever+Young+Records+2955+S+Hwy+360+Grand+Prairie+TX+75052';
-
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
-
-      if (isMobile) {
-        phoneBtn.href = phoneNumber;
-        phoneBtn.removeAttribute('target');
-        findUsBtn.href = mapsUrl;
-        findUsBtn.removeAttribute('target');
-      } else {
-        phoneBtn.href = desktopPage;
-        findUsBtn.href = mapsPage;
+      const el = document.getElementById('cartCount');
+      if (!el) return;
+      const totalQty = getCart().reduce(function(sum, item) { return sum + (Number(item.qty) || 1); }, 0);
+      el.textContent = totalQty;
+      el.style.display = totalQty > 0 ? 'inline-flex' : 'none';
+    }
+    function parsePrice(p) {
+      if (typeof p === 'number') return p;
+      const n = parseFloat(String(p).replace(/[^0-9.]/g, ''));
+      return isNaN(n) ? 0 : n;
+    }
+    function itemPrice(item) { return parsePrice(item.price); }
+    function itemTotal(item) { return itemPrice(item) * (Number(item.qty) || 1); }
+    function cartTotal() { return getCart().reduce(function(sum, item) { return sum + itemTotal(item); }, 0); }
+    function cartQty() { return getCart().reduce(function(sum, item) { return sum + (Number(item.qty) || 1); }, 0); }
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function musicStackUrl(item) {
+      const find = (String(item.artist || '') + ' ' + String(item.title || '')).trim() || String(item.id || '');
+      return 'https://www.musicstack.com/my/index.cgi?seller=725319&currency=USD&find=' + encodeURIComponent(find);
+    }
+    function artHtml(item) {
+      const img = item.imageUrl || item.image;
+      if (img && typeof img === 'string' && img.startsWith('http')) {
+        return '<img src="' + img + '" alt="' + escapeHtml(item.title || '') + '">';
       }
-    });
+      const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
+      const seed = String(item.title || '') + String(item.artist || '');
+      const hash = seed.split('').reduce(function(a, c) { return a + c.charCodeAt(0); }, 0);
+      return '<div style="background: ' + colors[hash % colors.length] + '; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;"><span style="font-family: \'Oswald\', sans-serif; font-size: 2rem; opacity: 0.3; font-weight: 700; color: #fff;">' + (item.format || 'LP') + '</span></div>';
+    }
+    function removeFromCart(id) {
+      saveCart(getCart().filter(function(item) { return item.id !== id; }));
+      render();
+    }
+    function setQty(id, delta) {
+      const cart = getCart();
+      const item = cart.find(function(i) { return i.id === id; });
+      if (!item) return;
+      item.qty = Math.max(1, (Number(item.qty) || 1) + delta);
+      saveCart(cart);
+      render();
+    }
 
-          </svg>
-          <h2>No Item Selected</h2>
-          <p>Head back to the catalog and find something you love.</p>
-          <a href="index.html">&larr; Browse Catalog</a>
-        </div>
-      `;
-    } else {
-      let qty = 1;
-      let activeMethod = 'card';
+    let activeMethod = 'card';
+    const container = document.getElementById('checkout-content');
 
-      function switchPaymentTab(method) {
-        activeMethod = method;
-
-        // Update active tab styles
-        document.querySelectorAll('.payment-tab').forEach(tab => {
-          tab.classList.remove('active');
-        });
-        const selectedTab = document.querySelector(`.tab-${method}`);
-        if (selectedTab) selectedTab.classList.add('active');
-
-        // Show/hide tab contents
-        document.querySelectorAll('.payment-content').forEach(content => {
-          content.style.display = 'none';
-        });
-        const activeContent = document.querySelector(`.${method}-content`);
-        if (activeContent) activeContent.style.display = 'block';
-
-        updateTotals();
-      }
-
-      function updateTotals() {
-        const lineTotal = (price * qty).toFixed(2);
-
-        const qtyVal = document.getElementById('qty-val');
-        const summaryQty = document.getElementById('summary-qty');
-        const summaryTotalVal = document.getElementById('summary-total-val');
-        const buyBtn = document.getElementById('checkout-buy-btn');
-
-        if (qtyVal) qtyVal.textContent = qty;
-        if (summaryQty) summaryQty.textContent = qty;
-        if (summaryTotalVal) summaryTotalVal.textContent = `$${lineTotal}`;
-
-        if (buyBtn) {
-          if (activeMethod === 'card') {
-            buyBtn.innerHTML = `Pay $${lineTotal} with Card`;
-            buyBtn.style.background = 'var(--blueBright)';
-            buyBtn.style.color = '#FFF';
-            buyBtn.style.boxShadow = '0 0 15px rgba(44, 108, 255, 0.2)';
-          } else if (activeMethod === 'paypal') {
-            buyBtn.innerHTML = `Pay with PayPal`;
-            buyBtn.style.background = '#FFC439';
-            buyBtn.style.color = '#111';
-            buyBtn.style.boxShadow = '0 0 15px rgba(255, 196, 57, 0.2)';
-          } else if (activeMethod === 'cashapp') {
-            buyBtn.innerHTML = `Pay with Cash App`;
-            buyBtn.style.background = '#00D632';
-            buyBtn.style.color = '#FFF';
-            buyBtn.style.boxShadow = '0 0 15px rgba(0, 214, 50, 0.2)';
-          }
-        }
-      }
-
-      function setupCardValidation() {
-        const cardInput = document.getElementById('card-number');
-        const expiryInput = document.getElementById('card-expiry');
-        const cvvInput = document.getElementById('card-cvv');
-        const zipInput = document.getElementById('card-zip');
-        const badge = document.getElementById('card-brand-badge');
-
-        if (!cardInput) return;
-
-        // Card number formatting and brand detection
-        cardInput.addEventListener('input', (e) => {
-          let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-          let formatted = '';
-
-          if (value.startsWith('4')) {
-            badge.innerHTML = 'Visa';
-            badge.style.color = '#1A1F71';
-            badge.style.background = '#FFF';
-            badge.classList.add('visible');
-          } else if (value.startsWith('5')) {
-            badge.innerHTML = 'Mastercard';
-            badge.style.color = '#EB001B';
-            badge.style.background = '#FFF';
-            badge.classList.add('visible');
-          } else if (value.startsWith('3')) {
-            badge.innerHTML = 'Amex';
-            badge.style.color = '#0070CD';
-            badge.style.background = '#FFF';
-            badge.classList.add('visible');
-          } else if (value.startsWith('6')) {
-            badge.innerHTML = 'Discover';
-            badge.style.color = '#F68220';
-            badge.style.background = '#FFF';
-            badge.classList.add('visible');
-          } else {
-            badge.classList.remove('visible');
-          }
-
-          for (let i = 0; i < value.length; i++) {
-            if (i > 0 && i % 4 === 0) {
-              formatted += ' ';
-            }
-            formatted += value[i];
-          }
-
-          e.target.value = formatted.substring(0, 19);
-        });
-
-        // Expiry date formatting MM/YY
-        expiryInput.addEventListener('input', (e) => {
-          let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-          let formatted = '';
-
-          if (value.length > 2) {
-            formatted = value.substring(0, 2) + '/' + value.substring(2, 4);
-          } else {
-            formatted = value;
-          }
-
-          e.target.value = formatted.substring(0, 5);
-        });
-
-        // CVV formatting (limit to 4 digits)
-        cvvInput.addEventListener('input', (e) => {
-          let value = e.target.value.replace(/[^0-9]/gi, '');
-          e.target.value = value.substring(0, 4);
-        });
-
-        // Zip formatting (limit to 5 digits)
-        zipInput.addEventListener('input', (e) => {
-          let value = e.target.value.replace(/[^0-9]/gi, '');
-          e.target.value = value.substring(0, 5);
-        });
-
-        // Clear error classes on focus
-        ['card-name', 'card-number', 'card-expiry', 'card-cvv', 'card-zip'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) {
-            el.addEventListener('focus', () => el.classList.remove('error'));
-            el.addEventListener('input', () => el.classList.remove('error'));
-          }
-        });
-      }
-
-      function showMockLoading() {
-        const buyBtn = document.getElementById('checkout-buy-btn');
-        buyBtn.disabled = true;
-        buyBtn.style.opacity = '0.7';
-        buyBtn.innerHTML = `
-          <svg class="spinner" width="18" height="18" viewBox="0 0 50 50" style="animation: spin 1s linear infinite; vertical-align: middle; margin-right: 8px;">
-            <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" stroke-dasharray="80, 200" stroke-dashoffset="0" stroke-linecap="round"></circle>
-          </svg>
-          Processing Secure Payment...
-        `;
-
-        setTimeout(() => {
-          renderSuccessScreen();
-        }, 1800);
-      }
-
-      function renderSuccessScreen() {
-        const orderNum = 'FYR-' + Math.floor(100000 + Math.random() * 900000);
-        const lineTotal = (price * qty).toFixed(2);
-
-        let paymentDisplay = '';
-        if (activeMethod === 'card') {
-          const number = document.getElementById('card-number').value.trim();
-          const lastFour = number.substring(number.length - 4) || '4002';
-          paymentDisplay = `Credit Card (Ending in ****${lastFour})`;
-        } else if (activeMethod === 'paypal') {
-          paymentDisplay = 'PayPal';
-        } else if (activeMethod === 'cashapp') {
-          paymentDisplay = 'Cash App';
-        }
-
+    function render() {
+      updateCartCount();
+      if (!getCart().length) {
         container.innerHTML = `
-          <div class="success-card">
-            <div class="success-icon-wrapper">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <h2>Order Placed Successfully!</h2>
-            <p>Thank you for your purchase. A confirmation email will be sent shortly. This is a secure mock demo checkout.</p>
-            
-            <div class="success-details">
-              <div class="success-detail-row">
-                <span class="success-detail-label">Order Reference</span>
-                <span class="success-detail-value">${orderNum}</span>
-              </div>
-              <div class="success-detail-row">
-                <span class="success-detail-label">Item Purchased</span>
-                <span class="success-detail-value">${title} by ${artist}</span>
-              </div>
-              <div class="success-detail-row">
-                <span class="success-detail-label">Quantity</span>
-                <span class="success-detail-value">${qty}</span>
-              </div>
-              <div class="success-detail-row">
-                <span class="success-detail-label">Total Amount Paid</span>
-                <span class="success-detail-value" style="color: var(--yellow); font-weight: bold;">$${lineTotal}</span>
-              </div>
-              <div class="success-detail-row">
-                <span class="success-detail-label">Payment Method</span>
-                <span class="success-detail-value">${paymentDisplay}</span>
-              </div>
-            </div>
-            
-            <a href="index.html" class="success-btn">Return to Catalog</a>
-          </div>
-        `;
-      }
-
-      function renderCheckout() {
-        const lineTotal = (price * qty).toFixed(2);
-
-        let artHtml = '';
-        if (imageUrl && imageUrl !== 'NULL' && imageUrl.startsWith('http')) {
-          artHtml = `<img src="${imageUrl}" alt="${title}">`;
-        } else {
-          const colors = ['#2C6CFF', '#0A2C74', '#FFD447', '#2ecc71', '#e74c3c', '#9b59b6'];
-          const hash = (title + artist).split('').reduce((a, c) => a + c.charCodeAt(0), 0);
-          const randomColor = colors[hash % colors.length];
-          artHtml = `<div style="background: ${randomColor}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-            <span style="font-family: 'Oswald', sans-serif; font-size: 2rem; opacity: 0.3; font-weight: 700; color: #fff;">${format || 'LP'}</span>
+          <div class="checkout-empty">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9 9h.01M15 9h.01M8 14s1.5 2 4 2 4-2 4-2"/>
+            </svg>
+            <h2>Your Cart is Empty</h2>
+            <p>Head back to the catalog and find something you love.</p>
+            <a href="index.html">&larr; Browse Catalog</a>
           </div>`;
-        }
-
-        let condHtml = '';
-        if (condMedia || condSleeve) {
-          condHtml = `<div class="checkout-item-condition">`;
-          if (condMedia) condHtml += `<span class="checkout-item-condition-tag">Media: ${condMedia}</span>`;
-          if (condSleeve) condHtml += `<span class="checkout-item-condition-tag">Sleeve: ${condSleeve}</span>`;
-          condHtml += `</div>`;
-        }
-
-        container.innerHTML = `
-          <div class="checkout-grid">
-            <div class="checkout-main">
-              <div class="checkout-item-card">
-                <div class="checkout-item-inner">
-                  <div class="checkout-item-art">${artHtml}</div>
-                  <div class="checkout-item-details">
-                    <div class="checkout-item-title">${title || 'Unknown Title'}</div>
-                    <div class="checkout-item-artist">${artist || 'Unknown Artist'}</div>
-                    <div class="checkout-item-meta">
-                      ${format ? `<span><strong>Format:</strong> ${format}</span>` : ''}
-                      ${label ? `<span><strong>Label:</strong> ${label}${catalog ? ' (' + catalog + ')' : ''}</span>` : ''}
-                      ${country ? `<span><strong>Country:</strong> ${country}</span>` : ''}
-                      ${genre ? `<span><strong>Genre:</strong> ${genre}</span>` : ''}
-                    </div>
-                    ${condHtml}
-                  </div>
-                </div>
-                <div class="checkout-item-footer">
-                  <div class="qty-controls">
-                    <button class="qty-btn" id="qty-minus">&minus;</button>
-                    <div class="qty-display" id="qty-val">${qty}</div>
-                    <button class="qty-btn" id="qty-plus">+</button>
-                  </div>
-                  <div class="checkout-item-price-tag">$${price.toFixed(2)} each</div>
-                </div>
-              </div>
-
-              <div class="payment-card">
-                <h3>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
-                    <rect x="2" y="4" width="20" height="16" rx="2"/>
-                    <line x1="12" y1="10" x2="12" y2="10"/>
-                    <line x1="8" y1="10" x2="8" y2="10"/>
-                    <line x1="16" y1="10" x2="16" y2="10"/>
-                    <line x1="12" y1="14" x2="12" y2="14"/>
-                    <line x1="8" y1="14" x2="8" y2="14"/>
-                    <line x1="16" y1="14" x2="16" y2="14"/>
-                  </svg>
-                  Payment Method
-                </h3>
-                
-                <div class="payment-tabs">
-                  <div class="payment-tab tab-card active">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="2" y="5" width="20" height="14" rx="2"/>
-                      <line x1="2" y1="10" x2="22" y2="10"/>
-                    </svg>
-                    <span>Card</span>
-                  </div>
-                  
-                  <div class="payment-tab tab-paypal">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                      <path d="M20.007 7.29a3.843 3.843 0 0 0-1.436-2.61c-.967-.803-2.3-1.18-3.96-1.18H7.433a1.002 1.002 0 0 0-.987.828L3.523 20.19a.502.502 0 0 0 .493.582h3.91l1.378-7.79a1.002 1.002 0 0 1 .986-.828h2.09c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026z" fill="#003087" />
-                      <path d="M17.507 9.29c-.649 3.684-2.906 4.836-5.742 4.836h-2.09a1.002 1.002 0 0 0-.986.828l-1.378 7.79a.502.502 0 0 0 .493.582h3.19l1.378-7.79a1.002 1.002 0 0 1 .986-.828h1.19c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026c-.347.166-.96.438-1.674.438z" fill="#0079C1" style="transform: translate(2px, -2px);"/>
-                    </svg>
-                    <span>PayPal</span>
-                  </div>
-                  
-                  <div class="payment-tab tab-cashapp">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                      <path d="M12.924 9.172c-.896-.282-1.393-.526-1.393-.996 0-.495.485-.806 1.258-.806.666 0 1.291.22 1.765.617l1.096-1.28c-.767-.655-1.748-1.026-2.861-1.026v-1.92h-1.6v1.9c-1.464.086-2.614.957-2.614 2.3 0 1.488 1.134 2.127 2.766 2.628.986.3 1.58.583 1.58 1.15 0 .584-.572.935-1.466.935-.863 0-1.637-.323-2.222-.89l-1.144 1.238c.84.856 1.996 1.353 3.366 1.39v1.928h1.6V14.67c1.657-.087 2.846-1.027 2.846-2.424 0-1.492-1.082-2.193-2.723-2.704z" fill="#00D632"/>
-                    </svg>
-                    <span>Cash App</span>
-                  </div>
-                </div>
-
-                <!-- Tab contents -->
-                <div class="card-content payment-content">
-                  <div class="form-group">
-                    <label class="form-label" for="card-name">Cardholder Name</label>
-                    <input type="text" id="card-name" class="form-input" placeholder="John Doe">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="card-number">Card Number</label>
-                    <div class="form-input-wrapper">
-                      <input type="text" id="card-number" class="form-input" placeholder="4000 1234 5678 9010" inputmode="numeric">
-                      <div id="card-brand-badge" class="card-brand-badge">Visa</div>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label class="form-label" for="card-expiry">Expiration Date</label>
-                      <input type="text" id="card-expiry" class="form-input" placeholder="MM/YY" inputmode="numeric">
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label" for="card-cvv">CVV</label>
-                      <input type="text" id="card-cvv" class="form-input" placeholder="123" inputmode="numeric">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="card-zip">Billing Zip Code</label>
-                    <input type="text" id="card-zip" class="form-input" placeholder="75001" inputmode="numeric">
-                  </div>
-                </div>
-
-                <div class="paypal-content payment-content" style="display: none; text-align: center; padding: 1.5rem 1rem;">
-                  <div style="margin-bottom: 1rem;">
-                    <svg viewBox="0 0 24 24" width="48" height="48" style="margin: 0 auto;">
-                      <path d="M20.007 7.29a3.843 3.843 0 0 0-1.436-2.61c-.967-.803-2.3-1.18-3.96-1.18H7.433a1.002 1.002 0 0 0-.987.828L3.523 20.19a.502.502 0 0 0 .493.582h3.91l1.378-7.79a1.002 1.002 0 0 1 .986-.828h2.09c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026z" fill="#003087" />
-                      <path d="M17.507 9.29c-.649 3.684-2.906 4.836-5.742 4.836h-2.09a1.002 1.002 0 0 0-.986.828l-1.378 7.79a.502.502 0 0 0 .493.582h3.19l1.378-7.79a1.002 1.002 0 0 1 .986-.828h1.19c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026c-.347.166-.96.438-1.674.438z" fill="#0079C1" style="transform: translate(2px, -2px);"/>
-                    </svg>
-                  </div>
-                  <p style="color: var(--cream); font-size: 1rem; margin-bottom: 0.5rem; font-weight: 500;">Pay with PayPal</p>
-                  <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.4;">
-                    Log in to your PayPal account to authorize the payment. You will be redirected to PayPal in a secure window.
-                  </p>
-                  <div style="background: #FFC439; color: #111; border-radius: 20px; padding: 0.65rem 2rem; font-weight: bold; width: 100%; max-width: 300px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0 auto; cursor: pointer; user-select: none;" class="paypal-trigger-btn">
-                    <span style="font-family: 'Outfit', sans-serif; font-style: italic; font-weight: 800; font-size: 1.1rem; color: #003087;">Pay<span style="color: #0079C1;">Pal</span></span>
-                  </div>
-                </div>
-
-                <div class="cashapp-content payment-content" style="display: none; text-align: center; padding: 1.5rem 1rem;">
-                  <div style="margin-bottom: 1rem; display: inline-flex; background: #00D632; border-radius: 50%; padding: 12px; width: 56px; height: 56px; align-items: center; justify-content: center;">
-                    <svg viewBox="0 0 24 24" width="32" height="32" fill="#FFF">
-                      <path d="M13.924 10.172c-.896-.282-1.393-.526-1.393-.996 0-.495.485-.806 1.258-.806.666 0 1.291.22 1.765.617l1.096-1.28c-.767-.655-1.748-1.026-2.861-1.026v-1.92h-1.6v1.9c-1.464.086-2.614.957-2.614 2.3 0 1.488 1.134 2.127 2.766 2.628.986.3 1.58.583 1.58 1.15 0 .584-.572.935-1.466.935-.863 0-1.637-.323-2.222-.89l-1.144 1.238c.84.856 1.996 1.353 3.366 1.39v1.928h1.6V15.67c1.657-.087 2.846-1.027 2.846-2.424 0-1.492-1.082-2.193-2.723-2.704z"/>
-                    </svg>
-                  </div>
-                  <p style="color: var(--cream); font-size: 1rem; margin-bottom: 0.5rem; font-weight: 500;">Pay with Cash App</p>
-                  <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.4;">
-                    Scan the QR code or click the button to open Cash App and pay directly. Use cashtag <strong>$foreveryoungrecords</strong>.
-                  </p>
-                  
-                  <div style="background: white; padding: 10px; border-radius: 8px; width: 140px; height: 140px; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; border: 2px solid #00D632; box-shadow: 0 0 15px rgba(0, 214, 50, 0.15);">
-                    <div style="position: relative; width: 120px; height: 120px; background: repeating-linear-gradient(45deg, #000, #000 4px, #fff 4px, #fff 8px); opacity: 0.85; border: 4px solid #00D632; border-radius: 4px;">
-                      <div style="position: absolute; top: 33px; left: 33px; width: 50px; height: 50px; background: white; border: 2px solid #000; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
-                        <svg viewBox="0 0 24 24" width="28" height="28" fill="#00D632">
-                          <path d="M13.924 10.172c-.896-.282-1.393-.526-1.393-.996 0-.495.485-.806 1.258-.806.666 0 1.291.22 1.765.617l1.096-1.28c-.767-.655-1.748-1.026-2.861-1.026v-1.92h-1.6v1.9c-1.464.086-2.614.957-2.614 2.3 0 1.488 1.134 2.127 2.766 2.628.986.3 1.58.583 1.58 1.15 0 .584-.572.935-1.466.935-.863 0-1.637-.323-2.222-.89l-1.144 1.238c.84.856 1.996 1.353 3.366 1.39v1.928h1.6V15.67c1.657-.087 2.846-1.027 2.846-2.424 0-1.492-1.082-2.193-2.723-2.704z"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a href="https://cash.app/$foreveryoungrecords" target="_blank" style="background: #00D632; color: #FFF; border: none; border-radius: 20px; padding: 0.65rem 2rem; font-weight: bold; width: 100%; max-width: 300px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; margin: 0 auto; user-select: none;">
-                    Pay $foreveryoungrecords
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="checkout-summary">
-              <h3>Order Summary</h3>
-              <div class="summary-line label">
-                <span>Item</span>
-                <span>${title}</span>
-              </div>
-              <div class="summary-line label">
-                <span>Quantity</span>
-                <span id="summary-qty">${qty}</span>
-              </div>
-              <div class="summary-line label">
-                <span>Price per unit</span>
-                <span>$${price.toFixed(2)}</span>
-              </div>
-              <div class="summary-divider"></div>
-              <div class="summary-total">
-                <span class="summary-total-label">Total</span>
-                <span class="summary-total-value" id="summary-total-val">$${lineTotal}</span>
-              </div>
-              <button class="checkout-buy-btn" id="checkout-buy-btn">
-                Pay $${lineTotal} with Card
-              </button>
-              <div class="checkout-note">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                This is a mock checkout demonstration. No actual funds will be transferred.
-              </div>
-              <div style="text-align: center; margin-top: 1rem; font-size: 0.8rem;">
-                <a href="${musicStackUrl}" target="_blank" style="color: var(--yellow); text-decoration: none; opacity: 0.85; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.85">
-                  Prefer to complete purchase on MusicStack?
-                </a>
-              </div>
-              <div class="checkout-secure-badges">
-                <span class="secure-badge">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  Secure
-                </span>
-                <span class="secure-badge">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  Verified Seller
-                </span>
-                <span class="secure-badge">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  Fast Shipping
-                </span>
-              </div>
-            </div>
-          </div>
-        `;
-
-        // Attach event handlers
-        document.getElementById('qty-minus').addEventListener('click', () => {
-          if (qty > 1) {
-            qty--;
-            updateTotals();
-          }
-        });
-        document.getElementById('qty-plus').addEventListener('click', () => {
-          qty++;
-          updateTotals();
-        });
-
-        // Tab click handlers
-        document.querySelectorAll('.payment-tab').forEach(tab => {
-          tab.addEventListener('click', () => {
-            const method = tab.classList.contains('tab-card') ? 'card' :
-              tab.classList.contains('tab-paypal') ? 'paypal' : 'cashapp';
-            switchPaymentTab(method);
-          });
-        });
-
-        // Setup PayPal triggers
-        const paypalTrigger = document.querySelector('.paypal-trigger-btn');
-        if (paypalTrigger) {
-          paypalTrigger.addEventListener('click', () => {
-            showMockLoading();
-          });
-        }
-
-        // Buy button click logic (validation + loader trigger)
-        document.getElementById('checkout-buy-btn').addEventListener('click', () => {
-          if (activeMethod === 'card') {
-            const name = document.getElementById('card-name').value.trim();
-            const number = document.getElementById('card-number').value.trim();
-            const expiry = document.getElementById('card-expiry').value.trim();
-            const cvv = document.getElementById('card-cvv').value.trim();
-            const zip = document.getElementById('card-zip').value.trim();
-
-            let hasError = false;
-
-            if (!name) {
-              document.getElementById('card-name').classList.add('error');
-              hasError = true;
-            }
-            if (number.replace(/\s/g, '').length < 15) {
-              document.getElementById('card-number').classList.add('error');
-              hasError = true;
-            }
-            if (expiry.length < 5) {
-              document.getElementById('card-expiry').classList.add('error');
-              hasError = true;
-            }
-            if (cvv.length < 3) {
-              document.getElementById('card-cvv').classList.add('error');
-              hasError = true;
-            }
-            if (zip.length < 5) {
-              document.getElementById('card-zip').classList.add('error');
-              hasError = true;
-            }
-
-            if (hasError) return;
-          }
-
-          showMockLoading();
-        });
-
-        setupCardValidation();
-        updateTotals();
+        return;
       }
-
       renderCheckout();
     }
 
-    // Nav search functionality (same as other pages)
+    function renderCheckout() {
+      const cart = getCart();
+      const total = cartTotal();
+      const totalStr = total.toFixed(2);
+
+      const itemsHtml = cart.map(function(item) {
+        const price = itemPrice(item);
+        const qty = Number(item.qty) || 1;
+        let condHtml = '';
+        if (item.condMedia || item.condSleeve) {
+          condHtml = '<div class="checkout-item-condition">' +
+            (item.condMedia ? '<span class="checkout-item-condition-tag">Media: ' + escapeHtml(item.condMedia) + '</span>' : '') +
+            (item.condSleeve ? '<span class="checkout-item-condition-tag">Sleeve: ' + escapeHtml(item.condSleeve) + '</span>' : '') +
+          '</div>';
+        }
+        return `
+        <div class="checkout-item-card" data-id="${item.id}">
+          <div class="checkout-item-inner">
+            <div class="checkout-item-art">${artHtml(item)}</div>
+            <div class="checkout-item-details">
+              <div class="checkout-item-title">${escapeHtml(item.title) || 'Unknown Title'}</div>
+              <div class="checkout-item-artist">${escapeHtml(item.artist) || 'Unknown Artist'}</div>
+              <div class="checkout-item-meta">
+                ${item.format ? '<span><strong>Format:</strong> ' + escapeHtml(item.format) + '</span>' : ''}
+                ${item.label ? '<span><strong>Label:</strong> ' + escapeHtml(item.label) + (item.catalog ? ' (' + escapeHtml(item.catalog) + ')' : '') + '</span>' : ''}
+                ${item.country ? '<span><strong>Country:</strong> ' + escapeHtml(item.country) + '</span>' : ''}
+                ${item.genre ? '<span><strong>Genre:</strong> ' + escapeHtml(item.genre) + '</span>' : ''}
+              </div>
+              ${condHtml}
+            </div>
+          </div>
+          <div class="checkout-item-footer">
+            <div style="display:flex;align-items:center;gap:1rem;">
+              <div class="qty-controls">
+                <button class="qty-btn" data-minus="${item.id}">&minus;</button>
+                <div class="qty-display" id="qty-${item.id}">${qty}</div>
+                <button class="qty-btn" data-plus="${item.id}">+</button>
+              </div>
+              <button style="background:none;border:none;color:var(--muted);font-size:0.8rem;cursor:pointer;text-decoration:underline;" data-remove="${item.id}">Remove</button>
+            </div>
+            <div style="text-align:right;">
+              <div class="checkout-item-price-tag">$${price.toFixed(2)} each</div>
+              <div style="font-size:0.8rem;color:var(--muted);">Item total: $${(price * qty).toFixed(2)}</div>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="checkout-grid">
+          <div class="checkout-main">
+            ${itemsHtml}
+            <div class="payment-card">
+              <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <line x1="12" y1="10" x2="12" y2="10"/>
+                  <line x1="8" y1="10" x2="8" y2="10"/>
+                  <line x1="16" y1="10" x2="16" y2="10"/>
+                  <line x1="12" y1="14" x2="12" y2="14"/>
+                  <line x1="8" y1="14" x2="8" y2="14"/>
+                  <line x1="16" y1="14" x2="16" y2="14"/>
+                </svg>
+                Payment Method
+              </h3>
+              <div class="payment-tabs">
+                <div class="payment-tab tab-card active">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2"/>
+                    <line x1="2" y1="10" x2="22" y2="10"/>
+                  </svg>
+                  <span>Card</span>
+                </div>
+                <div class="payment-tab tab-paypal">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M20.007 7.29a3.843 3.843 0 0 0-1.436-2.61c-.967-.803-2.3-1.18-3.96-1.18H7.433a1.002 1.002 0 0 0-.987.828L3.523 20.19a.502.502 0 0 0 .493.582h3.91l1.378-7.79a1.002 1.002 0 0 1 .986-.828h2.09c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026z" fill="#003087" />
+                    <path d="M17.507 9.29c-.649 3.684-2.906 4.836-5.742 4.836h-2.09a1.002 1.002 0 0 0-.986.828l-1.378 7.79a.502.502 0 0 0 .493.582h3.19l1.378-7.79a1.002 1.002 0 0 1 .986-.828h1.19c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026c-.347.166-.96.438-1.674.438z" fill="#0079C1" style="transform: translate(2px, -2px);"/>
+                  </svg>
+                  <span>PayPal</span>
+                </div>
+                <div class="payment-tab tab-cashapp">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12.924 9.172c-.896-.282-1.393-.526-1.393-.996 0-.495.485-.806 1.258-.806.666 0 1.291.22 1.765.617l1.096-1.28c-.767-.655-1.748-1.026-2.861-1.026v-1.92h-1.6v1.9c-1.464.086-2.614.957-2.614 2.3 0 1.488 1.134 2.127 2.766 2.628.986.3 1.58.583 1.58 1.15 0 .584-.572.935-1.466.935-.863 0-1.637-.323-2.222-.89l-1.144 1.238c.84.856 1.996 1.353 3.366 1.39v1.928h1.6V14.67c1.657-.087 2.846-1.027 2.846-2.424 0-1.492-1.082-2.193-2.723-2.704z" fill="#00D632"/>
+                  </svg>
+                  <span>Cash App</span>
+                </div>
+              </div>
+
+              <div class="card-content payment-content">
+                <div class="form-group">
+                  <label class="form-label" for="card-name">Cardholder Name</label>
+                  <input type="text" id="card-name" class="form-input" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="card-number">Card Number</label>
+                  <div class="form-input-wrapper">
+                    <input type="text" id="card-number" class="form-input" placeholder="4000 1234 5678 9010" inputmode="numeric">
+                    <div id="card-brand-badge" class="card-brand-badge">Visa</div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="card-expiry">Expiration Date</label>
+                    <input type="text" id="card-expiry" class="form-input" placeholder="MM/YY" inputmode="numeric">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" class="form-input" placeholder="123" inputmode="numeric">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="card-zip">Billing Zip Code</label>
+                  <input type="text" id="card-zip" class="form-input" placeholder="75001" inputmode="numeric">
+                </div>
+              </div>
+
+              <div class="paypal-content payment-content" style="display: none; text-align: center; padding: 1.5rem 1rem;">
+                <div style="margin-bottom: 1rem;">
+                  <svg viewBox="0 0 24 24" width="48" height="48" style="margin: 0 auto;">
+                    <path d="M20.007 7.29a3.843 3.843 0 0 0-1.436-2.61c-.967-.803-2.3-1.18-3.96-1.18H7.433a1.002 1.002 0 0 0-.987.828L3.523 20.19a.502.502 0 0 0 .493.582h3.91l1.378-7.79a1.002 1.002 0 0 1 .986-.828h2.09c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026z" fill="#003087" />
+                    <path d="M17.507 9.29c-.649 3.684-2.906 4.836-5.742 4.836h-2.09a1.002 1.002 0 0 0-.986.828l-1.378 7.79a.502.502 0 0 0 .493.582h3.19l1.378-7.79a1.002 1.002 0 0 1 .986-.828h1.19c2.836 0 5.093-1.152 5.742-4.836a4.84 4.84 0 0 0-.119-2.026c-.347.166-.96.438-1.674.438z" fill="#0079C1" style="transform: translate(2px, -2px);"/>
+                  </svg>
+                </div>
+                <p style="color: var(--cream); font-size: 1rem; margin-bottom: 0.5rem; font-weight: 500;">Pay with PayPal</p>
+                <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.4;">
+                  Log in to your PayPal account to authorize the payment. You will be redirected to PayPal in a secure window.
+                </p>
+                <div style="background: #FFC439; color: #111; border-radius: 20px; padding: 0.65rem 2rem; font-weight: bold; width: 100%; max-width: 300px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0 auto; cursor: pointer; user-select: none;" class="paypal-trigger-btn">
+                  <span style="font-family: 'Outfit', sans-serif; font-style: italic; font-weight: 800; font-size: 1.1rem; color: #003087;">Pay<span style="color: #0079C1;">Pal</span></span>
+                </div>
+              </div>
+
+              <div class="cashapp-content payment-content" style="display: none; text-align: center; padding: 1.5rem 1rem;">
+                <div style="margin-bottom: 1rem; display: inline-flex; background: #00D632; border-radius: 50%; padding: 12px; width: 56px; height: 56px; align-items: center; justify-content: center;">
+                  <svg viewBox="0 0 24 24" width="32" height="32" fill="#FFF">
+                    <path d="M13.924 10.172c-.896-.282-1.393-.526-1.393-.996 0-.495.485-.806 1.258-.806.666 0 1.291.22 1.765.617l1.096-1.28c-.767-.655-1.748-1.026-2.861-1.026v-1.92h-1.6v1.9c-1.464.086-2.614.957-2.614 2.3 0 1.488 1.134 2.127 2.766 2.628.986.3 1.58.583 1.58 1.15 0 .584-.572.935-1.466.935-.863 0-1.637-.323-2.222-.89l-1.144 1.238c.84.856 1.996 1.353 3.366 1.39v1.928h1.6V15.67c1.657-.087 2.846-1.027 2.846-2.424 0-1.492-1.082-2.193-2.723-2.704z"/>
+                  </svg>
+                </div>
+                <p style="color: var(--cream); font-size: 1rem; margin-bottom: 0.5rem; font-weight: 500;">Pay with Cash App</p>
+                <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.4;">
+                  Scan the QR code or click the button to open Cash App and pay directly. Use cashtag <strong>$foreveryoungrecords</strong>.
+                </p>
+                <div style="background: white; padding: 10px; border-radius: 8px; width: 140px; height: 140px; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; border: 2px solid #00D632; box-shadow: 0 0 15px rgba(0, 214, 50, 0.15);">
+                  <div style="position: relative; width: 120px; height: 120px; background: repeating-linear-gradient(45deg, #000, #000 4px, #fff 4px, #fff 8px); opacity: 0.85; border: 4px solid #00D632; border-radius: 4px;">
+                    <div style="position: absolute; top: 33px; left: 33px; width: 50px; height: 50px; background: white; border: 2px solid #000; display: flex; align-items: center; justify-content: center; border-radius: 4px;">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="#00D632">
+                        <path d="M13.924 10.172c-.896-.282-1.393-.526-1.393-.996 0-.495.485-.806 1.258-.806.666 0 1.291.22 1.765.617l1.096-1.28c-.767-.655-1.748-1.026-2.861-1.026v-1.92h-1.6v1.9c-1.464.086-2.614.957-2.614 2.3 0 1.488 1.134 2.127 2.766 2.628.986.3 1.58.583 1.58 1.15 0 .584-.572.935-1.466.935-.863 0-1.637-.323-2.222-.89l-1.144 1.238c.84.856 1.996 1.353 3.366 1.39v1.928h1.6V15.67c1.657-.087 2.846-1.027 2.846-2.424 0-1.492-1.082-2.193-2.723-2.704z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <a href="https://cash.app/$foreveryoungrecords" target="_blank" style="background: #00D632; color: #FFF; border: none; border-radius: 20px; padding: 0.65rem 2rem; font-weight: bold; width: 100%; max-width: 300px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; margin: 0 auto; user-select: none;">
+                  Pay $foreveryoungrecords
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="checkout-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-line label">
+              <span>Items</span>
+              <span>${cartQty()}</span>
+            </div>
+            <div class="summary-line label">
+              <span>Subtotal</span>
+              <span>$${totalStr}</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-total">
+              <span class="summary-total-label">Total</span>
+              <span class="summary-total-value" id="summary-total-val">$${totalStr}</span>
+            </div>
+            <button class="checkout-buy-btn" id="checkout-buy-btn">Pay $${totalStr} with Card</button>
+            <div class="checkout-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              This is a mock checkout demonstration. No actual funds will be transferred.
+            </div>
+            <div class="checkout-secure-badges">
+              <span class="secure-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Secure
+              </span>
+              <span class="secure-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Verified Seller
+              </span>
+              <span class="secure-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Fast Shipping
+              </span>
+            </div>
+          </div>
+        </div>`;
+
+      container.querySelectorAll('[data-minus]').forEach(function(btn) {
+        btn.addEventListener('click', function() { setQty(btn.dataset.minus, -1); });
+      });
+      container.querySelectorAll('[data-plus]').forEach(function(btn) {
+        btn.addEventListener('click', function() { setQty(btn.dataset.plus, 1); });
+      });
+      container.querySelectorAll('[data-remove]').forEach(function(btn) {
+        btn.addEventListener('click', function() { removeFromCart(btn.dataset.remove); });
+      });
+
+      container.querySelectorAll('.payment-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          const method = tab.classList.contains('tab-card') ? 'card' :
+            tab.classList.contains('tab-paypal') ? 'paypal' : 'cashapp';
+          switchPaymentTab(method);
+        });
+      });
+
+      const paypalTrigger = container.querySelector('.paypal-trigger-btn');
+      if (paypalTrigger) paypalTrigger.addEventListener('click', showMockLoading);
+
+      document.getElementById('checkout-buy-btn').addEventListener('click', handleBuy);
+
+      setupCardValidation();
+    }
+
+    function switchPaymentTab(method) {
+      activeMethod = method;
+      container.querySelectorAll('.payment-tab').forEach(function(tab) { tab.classList.remove('active'); });
+      const selected = container.querySelector('.tab-' + method);
+      if (selected) selected.classList.add('active');
+
+      container.querySelectorAll('.payment-content').forEach(function(c) { c.style.display = 'none'; });
+      const activeContent = container.querySelector('.' + method + '-content');
+      if (activeContent) activeContent.style.display = 'block';
+
+      const total = cartTotal().toFixed(2);
+      const btn = document.getElementById('checkout-buy-btn');
+      if (!btn) return;
+      if (method === 'card') {
+        btn.innerHTML = 'Pay $' + total + ' with Card';
+        btn.style.background = 'var(--blueBright)';
+        btn.style.color = '#FFF';
+        btn.style.boxShadow = '0 0 15px rgba(44, 108, 255, 0.2)';
+      } else if (method === 'paypal') {
+        btn.innerHTML = 'Pay with PayPal';
+        btn.style.background = '#FFC439';
+        btn.style.color = '#111';
+        btn.style.boxShadow = '0 0 15px rgba(255, 196, 57, 0.2)';
+      } else {
+        btn.innerHTML = 'Pay with Cash App';
+        btn.style.background = '#00D632';
+        btn.style.color = '#FFF';
+        btn.style.boxShadow = '0 0 15px rgba(0, 214, 50, 0.2)';
+      }
+    }
+
+    function setupCardValidation() {
+      const cardInput = document.getElementById('card-number');
+      const expiryInput = document.getElementById('card-expiry');
+      const cvvInput = document.getElementById('card-cvv');
+      const zipInput = document.getElementById('card-zip');
+      const badge = document.getElementById('card-brand-badge');
+      if (!cardInput) return;
+
+      cardInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formatted = '';
+        badge.classList.remove('visible');
+        if (value.startsWith('4')) { badge.innerHTML = 'Visa'; badge.style.color = '#1A1F71'; badge.style.background = '#FFF'; badge.classList.add('visible'); }
+        else if (value.startsWith('5')) { badge.innerHTML = 'Mastercard'; badge.style.color = '#EB001B'; badge.style.background = '#FFF'; badge.classList.add('visible'); }
+        else if (value.startsWith('3')) { badge.innerHTML = 'Amex'; badge.style.color = '#0070CD'; badge.style.background = '#FFF'; badge.classList.add('visible'); }
+        else if (value.startsWith('6')) { badge.innerHTML = 'Discover'; badge.style.color = '#F68220'; badge.style.background = '#FFF'; badge.classList.add('visible'); }
+        for (let i = 0; i < value.length; i++) { if (i > 0 && i % 4 === 0) formatted += ' '; formatted += value[i]; }
+        e.target.value = formatted.substring(0, 19);
+      });
+
+      expiryInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let formatted = value.length > 2 ? value.substring(0, 2) + '/' + value.substring(2, 4) : value;
+        e.target.value = formatted.substring(0, 5);
+      });
+
+      cvvInput.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/[^0-9]/gi, '').substring(0, 4);
+      });
+
+      zipInput.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/[^0-9]/gi, '').substring(0, 5);
+      });
+
+      ['card-name', 'card-number', 'card-expiry', 'card-cvv', 'card-zip'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('focus', function() { el.classList.remove('error'); });
+        el.addEventListener('input', function() { el.classList.remove('error'); });
+      });
+    }
+
+    function handleBuy() {
+      if (activeMethod === 'card') {
+        let hasError = false;
+        const name = document.getElementById('card-name').value.trim();
+        const number = document.getElementById('card-number').value.trim();
+        const expiry = document.getElementById('card-expiry').value.trim();
+        const cvv = document.getElementById('card-cvv').value.trim();
+        const zip = document.getElementById('card-zip').value.trim();
+        if (!name) { document.getElementById('card-name').classList.add('error'); hasError = true; }
+        if (number.replace(/\s/g, '').length < 15) { document.getElementById('card-number').classList.add('error'); hasError = true; }
+        if (expiry.length < 5) { document.getElementById('card-expiry').classList.add('error'); hasError = true; }
+        if (cvv.length < 3) { document.getElementById('card-cvv').classList.add('error'); hasError = true; }
+        if (zip.length < 5) { document.getElementById('card-zip').classList.add('error'); hasError = true; }
+        if (hasError) return;
+      }
+      showMockLoading();
+    }
+
+    function showMockLoading() {
+      const btn = document.getElementById('checkout-buy-btn');
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      btn.innerHTML = '<svg class="spinner" width="18" height="18" viewBox="0 0 50 50" style="animation: spin 1s linear infinite; vertical-align: middle; margin-right: 8px;"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="5" stroke-dasharray="80, 200" stroke-dashoffset="0" stroke-linecap="round"></circle></svg> Processing Secure Payment...';
+      setTimeout(renderSuccessScreen, 1800);
+    }
+
+    function renderSuccessScreen() {
+      const orderNum = 'FYR-' + Math.floor(100000 + Math.random() * 900000);
+      const total = cartTotal().toFixed(2);
+      const cart = getCart();
+      let paymentDisplay = '';
+      if (activeMethod === 'card') {
+        const number = document.getElementById('card-number').value.trim();
+        paymentDisplay = 'Credit Card (Ending in ****' + (number.substring(number.length - 4) || '4002') + ')';
+      } else if (activeMethod === 'paypal') {
+        paymentDisplay = 'PayPal';
+      } else {
+        paymentDisplay = 'Cash App';
+      }
+      const itemsList = cart.map(function(item) { return (item.title || 'Unknown') + ' by ' + (item.artist || 'Unknown') + ' x' + (Number(item.qty) || 1); }).join('<br>');
+      container.innerHTML = `
+        <div class="success-card">
+          <div class="success-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h2>Order Placed Successfully!</h2>
+          <p>Thank you for your purchase. A confirmation email will be sent shortly. This is a secure mock demo checkout.</p>
+          <div class="success-details">
+            <div class="success-detail-row"><span class="success-detail-label">Order Reference</span><span class="success-detail-value">${orderNum}</span></div>
+            <div class="success-detail-row"><span class="success-detail-label">Items</span><span class="success-detail-value">${itemsList}</span></div>
+            <div class="success-detail-row"><span class="success-detail-label">Total Amount Paid</span><span class="success-detail-value" style="color: var(--yellow); font-weight: bold;">$${total}</span></div>
+            <div class="success-detail-row"><span class="success-detail-label">Payment Method</span><span class="success-detail-value">${paymentDisplay}</span></div>
+          </div>
+          <a href="index.html" class="success-btn">Return to Catalog</a>
+        </div>`;
+      saveCart([]);
+    }
+
+    render();
+
     const navSearchInput = document.getElementById('nav-search-input');
     const navSearchOnlineBtn = document.getElementById('nav-search-online-btn');
     const navSearchInstoreBtn = document.getElementById('nav-search-instore-btn');
-
     function navSearch(target) {
       const query = navSearchInput.value.trim();
       if (!query) return;
       const exact = document.getElementById('nav-search-exact-check').checked;
-      // Redirect to index with search params
-      window.location.href = `index.html?search=${encodeURIComponent(query)}&target=${target}${exact ? '&exact=true' : ''}`;
+      window.location.href = 'index.html?search=' + encodeURIComponent(query) + '&target=' + target + (exact ? '&exact=true' : '');
     }
-
-    navSearchOnlineBtn.addEventListener('click', () => navSearch('online'));
-    navSearchInstoreBtn.addEventListener('click', () => navSearch('instore'));
-    navSearchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') navSearch('online');
-    });
+    if (navSearchOnlineBtn) navSearchOnlineBtn.addEventListener('click', function() { navSearch('online'); });
+    if (navSearchInstoreBtn) navSearchInstoreBtn.addEventListener('click', function() { navSearch('instore'); });
+    if (navSearchInput) navSearchInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') navSearch('online'); });
   </script>
-  <script>
-    // Hot Tips Modal Logic
-    const hotTipsNavLink = document.getElementById('hot-tips-nav-link');
-    const hotTipsModal = document.getElementById('hot-tips-modal');
-    const hotTipsModalClose = document.getElementById('hot-tips-modal-close');
-    const hotTipsModalMaximize = document.getElementById('hot-tips-modal-maximize');
-    hotTipsNavLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      hotTipsModal.style.display = 'flex';
-    });
-    hotTipsModalClose.addEventListener('click', () => {
-      hotTipsModal.style.display = 'none';
-    });
-    hotTipsModalMaximize.addEventListener('click', () => {
-      hotTipsModal.classList.toggle('maximized');
-      hotTipsModal.querySelector('.search-results-modal-content').classList.toggle('maximized');
 
-      if (hotTipsModal.classList.contains('maximized')) {
-        hotTipsModalMaximize.title = 'Restore';
-        hotTipsModalMaximize.innerHTML = `
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"></path>
-          </svg>
-        `;
-      } else {
-        hotTipsModalMaximize.title = 'Maximize';
-        hotTipsModalMaximize.innerHTML = `
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          </svg>
-        `;
-      }
-    });
-    hotTipsModal.addEventListener('click', (e) => {
-      if (e.target === hotTipsModal) hotTipsModal.style.display = 'none';
-    });
-  </script>
   <!-- Lil' Dave AI Chatbot -->
   <div id="ha-dave" style="display: none; position: fixed; top: 100px; right: 30px; z-index: 10000;">
     <div class="fyr-chat-window open" id="fyr-chat-window" style="margin: 0; width: 460px; max-width: calc(100vw - 30px); max-height: 70vh;">
