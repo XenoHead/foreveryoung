@@ -89,7 +89,7 @@ export async function onRequestGet(context) {
               Artist: item.Artist,
               Title: item.Title,
               Format: item.Format,
-              Price: parseFloat(item.SRP) || 0.00,
+              Price: parseFloat((item.SRP || '').replace(/[^0-9.]/g, '')) || 0.00,
               SRP: item.SRP || '',
               Bar_Code: item.UPC,
               UPC: item.UPC || '',

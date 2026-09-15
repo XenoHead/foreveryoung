@@ -1,6 +1,124 @@
-- - - - - - - - - - - - - - - - - -
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping Information | Forever Young Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #08111F;
+      --blue: #152B4D;
+      --yellow: #FFD447;
+      --green: #2ecc71;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--dark);
+      color: #FFF8DF;
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.6;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    header {
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(21,43,77,0.8) 0%, rgba(8,17,31,0) 100%);
+      z-index: 10;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 10px rgba(255, 212, 71, 0.3));
+    }
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.5rem;
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      padding: 2rem;
+      z-index: 10;
+    }
+    .shipping-content {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255, 212, 71, 0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      white-space: pre-wrap;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: #FFF8DF;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .shipping-content h2 {
+      font-family: 'Oswald', sans-serif;
+      color: var(--yellow);
+      font-size: 1.4rem;
+      margin: 1.5rem 0 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .shipping-content h3 {
+      font-family: 'Oswald', sans-serif;
+      color: #7fb3ff;
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.5rem;
+    }
+    .shipping-content p {
+      margin-bottom: 0.75rem;
+    }
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      background: rgba(255, 212, 71, 0.10);
+      border: 1.5px solid rgba(255, 212, 71, 0.5);
+      border-radius: 10px;
+      color: var(--yellow);
+      text-decoration: none;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .home-link:hover {
+      background: rgba(255, 212, 71, 0.18);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/"><img src="images/fyr-logo.png" alt="Forever Young Records" class="logo"></a>
+    <h1>Shipping Information</h1>
+  </header>
+  <div class="container">
+    <div class="shipping-content" id="shipping-content">
 // SHIPPING GENERAL
-- - - - - - - - - - - - - - - - - -
+
 - - - - - - - - - - - - - - - - - - - - - -
 A. HANDLING & PROCESSING
 - - - - - - - - - - - - - - - - - - - - - -
@@ -9,10 +127,10 @@ A. HANDLING & PROCESSING
 2A) Operational hours 8-4 PM Central Standard Time.
 3A) Saturday and Sunday orders are shipped Monday (barring holidays, in which case orders are processed the following business day).
 
-- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - -
 B. DOMESTIC DELIVERY
-- - - - - - - - - - - - - - - - - - - -
-Estimated times notated in “business days”.
+- - - - - - - - - - - - - - - - - - - - -
+Estimated times notated in "business days".
 
 1B) US Postal Service (USPS)
 - - - - - - - - - - - - - - - - - - - - - - -
@@ -40,11 +158,11 @@ may incur higher transit costs due to carrier-specific zone pricing. Buyers in t
 > Downgrade the Carrier Service Level (shipping method)
 > Request a full, immediate cancellation and refund of the order
 
-- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
 C. INTERNATIONAL DELIVERY
-- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
 
-1C) DHL Express Direct DDP (see below “International Shipping” for more details)
+1C) DHL Express Direct DDP (see below "International Shipping" for more details)
 2C) Estimations by region:
 
 2C.1) Australia: 5-10 days
@@ -56,33 +174,33 @@ C. INTERNATIONAL DELIVERY
 
 3C) Above are average transit times, and may vary due to weather, Carrier Service execution, Customs delays, Import compliance, etc..
 
-- - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - -
 D. SHIPPING PRICES
-- - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - -
 
 1D) Buyer pays shipping
 2D) USPS Media Mail: $6-$9 for one item based on weight
 3D) USPS Priority Mail: $10-$25 for one item based on weight
 4D) Rest of the World: Shipping Rates by weight, dimensions, & Duties/Import price will vary.
 
-- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // INTERNATIONAL SHIPPING
-- - - - - - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - -
 A. DHL EXPRESS
-- - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - -
 Forever Young Records ships international orders exclusively DHL Express Direct DDP.
-DHL Express is one of the world’s fastest, most reliable, Carrier Service levels available.
+DHL Express is one of the world's fastest, most reliable, Carrier Service levels available.
 
 1A) DDP (Duties Taxes Paid)
 - - - - - - - - - - - - - - -- - - - - - - -
 1A.1) Direct DDP means Duties, Taxes, Customs, & Import Fees paid for, and handled by us, the Seller, in advance of a parcel arriving in your country. This results in an item leaving Texas, USA, and arriving at a Buyer's doorstep without hassle!
 
-1A.2) ALL VAT, Duties, Import, and Brokerage Fees, levied by another country’s government, or by/through DHL, are handled in advance by Forever Young Records.
+1A.2) ALL VAT, Duties, Import, and Brokerage Fees, levied by another country's government, or by/through DHL, are handled in advance by Forever Young Records.
 
 1A.3) Under certain circumstances, a citizen of another country may be required to provide necessary ID &/or Tax documentation before an item(s) is/are delivered/released, though the Buyer should never receive a surprise Import/Duty charge!
 
-1A.4) Buyers are encouraged to research their country’s Import/Tax laws to ensure proper documentation is provided to Customs Authorities if requested.
+1A.4) Buyers are encouraged to research their country's Import/Tax laws to ensure proper documentation is provided to Customs Authorities if requested.
 
 2A) DAP (Duties Taxes Unpaid)
 - - - - - - - - - - - - - - -- - - - - - - - -
@@ -101,44 +219,44 @@ DHL Express is one of the world’s fastest, most reliable, Carrier Service leve
 > Shipping costs and package weight
 > Customs clearance channel
 
-2A.3) A Carrier Service may also hold an item for a period of time pending a necessary Import / Tax Duty payment from a Buyer/Citizen in the recipient’s country. After some time, if the Buyer/Recipient does not pay a country’s required Import Fees, the parcel may be returned to the country of origin, and all shipping costs WILL NOT be refunded.
+2A.3) A Carrier Service may also hold an item for a period of time pending a necessary Import / Tax Duty payment from a Buyer/Citizen in the recipient's country. After some time, if the Buyer/Recipient does not pay a country's required Import Fees, the parcel may be returned to the country of origin, and all shipping costs WILL NOT be refunded.
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 B. VAT/GST & IOSS MARKETPLACE FACILITATION
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-VAT stands for “Value Added Tax”. For many countries, it is standard to apply VAT ad valorem (as a percentage) to the price of the product being purchased, cost of shipping, and insurance if applicable.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+VAT stands for "Value Added Tax". For many countries, it is standard to apply VAT ad valorem (as a percentage) to the price of the product being purchased, cost of shipping, and insurance if applicable.
 
 1B) VAT COUNTRIES
-- - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - -
 1B.1) Some countries have mandatory laws requiring Marketplace Facilitators, such as Discogs, to calculate and charge VAT in advance at the point of checkout. This will appear as an Order Page subtotal line item.
 
 1B.2) Example: European Union Member States, Australia, New Zealand & United Kingdom
 
 2B) VAT ID & IOSS COMPLIANCE
 - - - - - - - - - - - - - - - - - - - - - - - - - -
-2B.1) Since Forever Young Records ships the majority of product DDP, a Buyer shouldn’t have to worry about IOSS and VAT ID shipment inclusion. It is standard operating procedure for Sellers and/or Marketplace Facilitators to include IOSS / VAT ID information with commercial declaration paperwork,as well as, if applicable, electronic declaration information communicated to the Carrier Service.
+2B.1) Since Forever Young Records ships the majority of product DDP, a Buyer shouldn't have to worry about IOSS and VAT ID shipment inclusion. It is standard operating procedure for Sellers and/or Marketplace Facilitators to include IOSS / VAT ID information with commercial declaration paperwork,as well as, if applicable, electronic declaration information communicated to the Carrier Service.
 
 2B.2) Under select circumstances, if an item is shipped DAP, and VAT was already collected but not remitted to the country in question, a Buyer may qualify for a VAT refund on the unremitted tax through Marketplace Facilitator. Further steps necessary in this circumstance may be found by messaging the Seller, or contacting Discogs Support, for further assistance.
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 C. NECESSARY INFORMATION FROM INTERNATIONAL BUYERS
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 To ensure international compliance, Forever Young Records reserves the right to cancel an order missing any of the following information, and/or if said information is inaccurately listed or misrepresented:
 
-1C) Buyer/Recipient’s legal name
-2C) Buyer/Recipient’s correct and complete shipping/delivery address
+1C) Buyer/Recipient's legal name
+2C) Buyer/Recipient's correct and complete shipping/delivery address
 3C) Valid email address a Buyer is able to receive Customs communication through
 4C) Valid phone number a Buyer is able to receive Customs communication through
 5C) Under select circumstances, valid identification information
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // DAMAGED ITEMS - VARYING CONDITION - INSURANCE CLAIMS
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 If a Buyer receives an item damaged, or in a condition not described in the original listing, Seller should be contacted ASAP. Buyers are encouraged to keep the item in the state it was received, and follow the below guide for documentation purposes.
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 A. DOCUMENTING / PHOTOGRAPHING DAMAGED ITEM(S)
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Ensure your photos include:
 
 1A) A picture of both the front and back of the product completely within the frame of the photo(s).
@@ -146,21 +264,21 @@ Ensure your photos include:
 3A) A picture of the shipping material the product came in/with. This helps assess the timeline of potential damage (transit or pre transit).
 4A) Any other photos you feel will help with an assessment
 
-- - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - -
 B. INSURANCE CLAIM PROCESS
-- - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - -
 
 1B) Insurance claims are initiated by Seller, not Buyer.
 2B) Insurance claim resolution timeline can vary.
 3B) Refunds amounts may be dependent on insurance provider reimbursement
 4B) Buyers are encouraged to allow for enough time to properly address claim with insurance provider
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // NON DELIVERED / LOST IN TRANSIT
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 1A) NON DELIVERED
-- - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - -
 1A.1) Forever Young Records is not responsible for items delivered to the correct address, but not received, or secured by Buyer.
 1A.2) If the package was addressed to Buyer correctly, and it matches the Discogs Order Page shipping, and it says the package has arrived, there is nothing more we are able to do in regards to the package.
 
@@ -176,34 +294,34 @@ Beyond confirming the above, we suggest the following steps as a guide for a Buy
 Note: It seems to be quite common for a Carrier to check off packages as delivered before they actually are. In some cases, a customer shows an item as delivered, thinking it may be stolen or lost, only to have it show up within a day or two!
 
 1B) LOST IN TRANSIT
-- - - - - - - - - - - - - - - - - -
-1B.1) USPS has a tool for identifying parcels delayed in transit, and we have the ability to force an audit of a package’s location.
+- - - - - - - - - - - - - - - - - - -
+1B.1) USPS has a tool for identifying parcels delayed in transit, and we have the ability to force an audit of a package's location.
 1B.2) Many times, after a period of engaging the audit function, we will see movement on the tracking.
 1B.3) If tracking status remains the same, and shows no further progress to an address, further steps will be communicated for resolution.
 
-- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // RETURN / REFUND POLICY
-- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 If a Buyer accidentally purchases an incorrect media format, through no fault of the Seller, or no longer wants, and wishes to return an item(s), the Buyer is responsible for costs associated with Label Processing & Return Shipping.
 
 Before making a decision in regards to a Return item, a Buyer should read all of the following:
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -
 A. RETURN / REFUND QUALIFIERS
-- - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 1A) The return process/initial outreach from Buyer to Seller must happen within 14 days of the delivery date.
 2A) Buyer should contact Seller ASAP if there are any concerns item received
 3A) Under certain circumstances, a Buyer may qualify for a Seller financed return shipping label.
 4A) An item being returned to Seller must be received back in the same condition it was shipped in.
 
-4A.1) If an item was “Factory Sealed” upon shipment, and the Buyer opened the item after receipt, the Buyer would not qualify for a full refund. A potential partial refund would need to be approved before the initiation of a Return/Refund process in this circumstance.
+4A.1) If an item was "Factory Sealed" upon shipment, and the Buyer opened the item after receipt, the Buyer would not qualify for a full refund. A potential partial refund would need to be approved before the initiation of a Return/Refund process in this circumstance.
 
 4A.2) Differences in condition between how the item was originally shipped, vs. how the item is actually being returned, from Buyer to Seller, should be communicated beforehand. This is to ensure there is no confusion about Refund Qualifications.
 
-- - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - -
 B. RETURN SHIPPING
-- - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - -
 
 1B) Buyer is responsible for generating return shipping labels and packing materials.
 2B) We encourage, if in good shape, the reuse of packing materials the item was shipped in.
@@ -218,9 +336,9 @@ Grand Prairie TX 75053
 
 6B) Returns should not be sent to the above P.O. Box without prior approval from Seller.
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 C. RETURN/REFUND PROCESSING
-- - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 1C) Return shipment processing (assessing the item returned) typically takes 3-5 business days (barring holidays or peak seasonal periods).
 2C) Once received, and upon inspection, if the item in question qualifies, a refund will be issued for the original cost & taxes paid.
@@ -233,18 +351,18 @@ C. RETURN/REFUND PROCESSING
 
 5C) Refund may take anywhere from 3-5 business days from Seller issuance
 6C) Refund processing speed is highly dependent on individual Buyer payment processing methods.
-7C) We have no control over, as a Seller, once a refund has been issued, the speed at which financial institutions deposit funds back into a Buyer’s account.
+7C) We have no control over, as a Seller, once a refund has been issued, the speed at which financial institutions deposit funds back into a Buyer's account.
 
-- - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - -
 D. MAKING A DECISION
-- - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - -
 
 D1) All of the above should be taken into consideration, by the Buyer, before deciding whether or not to return an item.
 D2) Any questions about the process, or specific considerations a Buyer needs addressed before making a decision, should be communicated to the Seller via the Discogs Order Page.
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // BUYER & SELLER COMMUNICATION
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 All order specific communication pertaining to invoices, should remain on the Discogs Order Page. Any messages, in regards to a matter, outside of the Discogs Order Page, will be migrated necessarily.
 
 If you have questions you wish addressed, in regards to your order, over the telephone, reach us Monday-Friday, 8-4PM Central Standard Time at:
@@ -254,3 +372,8 @@ If you have questions you wish addressed, in regards to your order, over the tel
 or through the Discogs Order Page.
 
 Questions not related to a placed order, such as pictures, product inquiries, listed item condition, etc... should be sent through the native Discogs Messaging Service.
+    </div>
+    <a href="/" class="home-link">&larr; Back to Home</a>
+  </div>
+</body>
+</html>
