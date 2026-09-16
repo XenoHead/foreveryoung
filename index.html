@@ -492,7 +492,7 @@
     .ha-card { position: relative; }
 
     .ha-card .add-to-cart-btn {
-      margin-top: 0.35rem;
+      margin-top: 0;
       padding: 0.25rem 0.7rem;
       border-radius: 4px;
       border: 1px solid var(--yellow);
@@ -504,6 +504,7 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
     .ha-card .add-to-cart-btn:hover {
       background: var(--yellow);
@@ -1894,8 +1895,8 @@
 
     #ha-lower_left-drawer .ha-card-thumb,
     #ha-lower_right-drawer .ha-card-thumb {
-      width: 89px;
-      height: 89px;
+      width: 76px;
+      height: 76px;
     }
 
 
@@ -2249,6 +2250,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .ha-card-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
     }
 
     .ha-card-price {
@@ -2809,7 +2818,9 @@
       infoEl.innerHTML = `
         <div class="ha-card-artist" title="${item.Artist || ''}">${item.Artist || ''}</div>
         <div class="ha-card-title" title="${item.Title || ''}">${item.Title || 'Unknown'}</div>
-        <div class="ha-card-price">$${(item.Price || 0).toFixed(2)}</div>
+        <div class="ha-card-price-row">
+          <span class="ha-card-price">$${(item.Price || 0).toFixed(2)}</span>
+        </div>
       `;
 
       const addToCartBtn = document.createElement('button');
@@ -2834,9 +2845,10 @@
         addToCartBtn.disabled = true;
       });
 
+      infoEl.querySelector('.ha-card-price-row').appendChild(addToCartBtn);
+
       el.appendChild(thumbEl);
       el.appendChild(infoEl);
-      el.appendChild(addToCartBtn);
 
       el.addEventListener('click', () => {
         searchResultsModal.style.display = 'flex';

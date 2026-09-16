@@ -7,5 +7,7 @@
 			"path": "../staff.foreveryoung"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"powershell.cwd": "ForeverYoung"
+	}
 }
