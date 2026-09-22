@@ -7,12 +7,15 @@ db_batches/local_all.sql
 .local_data/
 key_map.txt
 .env
+.env.example
 enrichment_log.txt
 db_batches/temp_updates.sql
 db_batches/reconcile.sql
 *.db
 *.sqlite
 *.sqlite3
+discogs_data/
+
 
 local-db-export.sql
 
