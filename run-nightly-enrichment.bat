@@ -1,6 +1,5 @@
 @echo off
-echo Running Nightly Discogs Enrichment Batch...
+echo Running Nightly Discogs Image Backfill Batch...
 cd /d "c:\Git\ForeverYoung"
-call node enrich_inventory.js --remote --trial --limit 100
+call node scripts/backfill_images.js --remote --limit 500
 echo Batch completed at %date% %time% >> enrichment_log.txt
-pause
