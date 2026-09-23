@@ -25,6 +25,6 @@ extraneous/images/*
 staff-dashboard.html
 CFrequests.py
 test_cf_ai.ps1
-scripts/.env.example
+scripts/
 /.extraneous
 .dev.vars
