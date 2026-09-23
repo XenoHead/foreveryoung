@@ -28,3 +28,4 @@ test_cf_ai.ps1
 scripts/
 /.extraneous
 .dev.vars
+scripts
