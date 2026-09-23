@@ -2,3 +2,10 @@ image fix
 get upc
 get country
 Date Released:
+
+
+cd C:\Git\staff.foreveryoung
+npx wrangler pages deploy .
+
+cd C:\Git\ForeverYoung
+npx wrangler pages deploy .
