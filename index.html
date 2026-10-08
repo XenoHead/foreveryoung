@@ -492,7 +492,7 @@
     .ha-card { position: relative; }
 
     .ha-card .add-to-cart-btn {
-      margin-top: 0.35rem;
+      margin-top: 0;
       padding: 0.25rem 0.7rem;
       border-radius: 4px;
       border: 1px solid var(--yellow);
@@ -504,6 +504,7 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
     .ha-card .add-to-cart-btn:hover {
       background: var(--yellow);
@@ -1894,8 +1895,8 @@
 
     #ha-lower_left-drawer .ha-card-thumb,
     #ha-lower_right-drawer .ha-card-thumb {
-      width: 89px;
-      height: 89px;
+      width: 76px;
+      height: 76px;
     }
 
 
@@ -2251,6 +2252,14 @@
       text-overflow: ellipsis;
     }
 
+    .ha-card-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+    }
+
     .ha-card-price {
       font-size: 0.72rem;
       color: var(--yellow);
@@ -2555,14 +2564,14 @@
       <!-- LEFT ACCORDION 2: Lower Left (Temp 1, Temp 2, Genres) -->
       <div class="hero-accordion left top-tab-accordion open" id="ha-lower_left">
         <div class="ha-top-tabs-row" id="ha-lower_left-tabs-row">
-          <div class="ha-tab ha-tab-top" id="ha-genres-tab" onclick="switchLowerLeftTab('genres')" style="display: none;">GENRES</div>
-          <div class="ha-tab ha-tab-top active" id="ha-temp1-tab" onclick="switchLowerLeftTab('temp1')">CRATE THREE</div>
+          <div class="ha-tab ha-tab-top active" id="ha-genres-tab" onclick="switchLowerLeftTab('genres')" style="display: none;">CRATE THREE</div>
+          <div class="ha-tab ha-tab-top" id="ha-temp1-tab" onclick="switchLowerLeftTab('temp1')" style="display: none;">CRATE THREE</div>
           <div class="ha-tab ha-tab-top" id="ha-temp2-tab" onclick="switchLowerLeftTab('temp2')" style="display: none;">
             EXTRA 2</div>
         </div>
         <div class="ha-drawer open" id="ha-lower_left-drawer">
-          <div class="ha-card-list" id="ha-genres-list" style="display: none;"></div>
-          <div class="ha-card-list" id="ha-temp1-list"></div>
+          <div class="ha-card-list" id="ha-genres-list"></div>
+          <div class="ha-card-list" id="ha-temp1-list" style="display: none;"></div>
           <div class="ha-card-list" id="ha-temp2-list" style="display: none;"></div>
         </div>
       </div>
@@ -2624,14 +2633,14 @@
       <!-- RIGHT ACCORDION 2: Lower Right (Temp 3, Temp 4, Temp 5) -->
       <div class="hero-accordion right top-tab-accordion open" id="ha-lower_right">
         <div class="ha-top-tabs-row" id="ha-lower_right-tabs-row">
-          <div class="ha-tab ha-tab-top" id="ha-temp3-tab" onclick="switchLowerRightTab('temp3')" style="display: none;">EXTRA 3</div>
-          <div class="ha-tab ha-tab-top active" id="ha-temp4-tab" onclick="switchLowerRightTab('temp4')">Crate Four</div>
+          <div class="ha-tab ha-tab-top active" id="ha-temp3-tab" onclick="switchLowerRightTab('temp3')" style="display: none;">Crate Four</div>
+          <div class="ha-tab ha-tab-top" id="ha-temp4-tab" onclick="switchLowerRightTab('temp4')" style="display: none;">Crate Four</div>
           <div class="ha-tab ha-tab-top" id="ha-temp5-tab" onclick="switchLowerRightTab('temp5')"
             style="display: none;">EXTRA 5</div>
         </div>
         <div class="ha-drawer open" id="ha-lower_right-drawer">
-          <div class="ha-card-list" id="ha-temp3-list" style="display: none;"></div>
-          <div class="ha-card-list" id="ha-temp4-list"></div>
+          <div class="ha-card-list" id="ha-temp3-list"></div>
+          <div class="ha-card-list" id="ha-temp4-list" style="display: none;"></div>
           <div class="ha-card-list" id="ha-temp5-list" style="display: none;"></div>
         </div>
       </div>
@@ -2809,7 +2818,9 @@
       infoEl.innerHTML = `
         <div class="ha-card-artist" title="${item.Artist || ''}">${item.Artist || ''}</div>
         <div class="ha-card-title" title="${item.Title || ''}">${item.Title || 'Unknown'}</div>
-        <div class="ha-card-price">$${(item.Price || 0).toFixed(2)}</div>
+        <div class="ha-card-price-row">
+          <span class="ha-card-price">$${(item.Price || 0).toFixed(2)}</span>
+        </div>
       `;
 
       const addToCartBtn = document.createElement('button');
@@ -2834,9 +2845,10 @@
         addToCartBtn.disabled = true;
       });
 
+      infoEl.querySelector('.ha-card-price-row').appendChild(addToCartBtn);
+
       el.appendChild(thumbEl);
       el.appendChild(infoEl);
-      el.appendChild(addToCartBtn);
 
       el.addEventListener('click', () => {
         searchResultsModal.style.display = 'flex';
@@ -2915,7 +2927,7 @@
       });
     }
 
-    let currentLowerLeftTab = 'temp1';
+    let currentLowerLeftTab = 'genres';
 
     function switchLowerLeftTab(tabName, forceOpen = false) {
       const drawer = document.getElementById('ha-lower_left-drawer');
@@ -2940,7 +2952,7 @@
       });
     }
 
-    let currentLowerRightTab = 'temp4';
+    let currentLowerRightTab = 'temp3';
 
     function switchLowerRightTab(tabName, forceOpen = false) {
       const drawer = document.getElementById('ha-lower_right-drawer');
@@ -3145,9 +3157,9 @@
         if (haLowerLeft) {
           haLowerLeft.style.display = lowerLeftHasAny ? '' : 'none';
           if (lowerLeftHasAny) {
-            if (enabled.temp1) switchLowerLeftTab('temp1', true);
+            if (enabled.genres) switchLowerLeftTab('genres', true);
+            else if (enabled.temp1) switchLowerLeftTab('temp1', true);
             else if (enabled.temp2) switchLowerLeftTab('temp2', true);
-            else if (enabled.genres) switchLowerLeftTab('genres', true);
           }
         }
 
@@ -3156,9 +3168,9 @@
         if (haLowerRight) {
           haLowerRight.style.display = lowerRightHasAny ? '' : 'none';
           if (lowerRightHasAny) {
-            if (enabled.temp4) switchLowerRightTab('temp4', true);
+            if (enabled.temp3) switchLowerRightTab('temp3', true);
+            else if (enabled.temp4) switchLowerRightTab('temp4', true);
             else if (enabled.temp5) switchLowerRightTab('temp5', true);
-            else if (enabled.temp3) switchLowerRightTab('temp3', true);
           }
         }
 
