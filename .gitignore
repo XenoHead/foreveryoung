@@ -30,3 +30,10 @@ scripts/
 .dev.vars
 scripts
 nul
+
+# local source backups (backup-source.bat writes here)
+backups/
+
+# local handoff/audit notes — never publish
+ForeverYoung-handoff/
+THREAD.md

@@ -1,8 +1,9 @@
 @echo off
 :: ============================================================
-:: deploy.bat — Deploy ForeverYoung + Staff to Cloudflare Pages
-:: Run from C:\Git\ForeverYoung after a coding session.
-:: Requires: CLOUDFLARE_API_TOKEN env var set.
+:: deploy.bat - Deploy ForeverYoung + Staff to Cloudflare Pages
+:: Customer deploy is built from an allowlist (build-deploy-stage.ps1),
+:: so only public assets ship. The repo root is never uploaded.
+:: Requires: CLOUDFLARE_API_TOKEN env var set (user scope is fine).
 :: Run via: cmd //c deploy.bat   (from git-bash/MSYS)
 ::        or: deploy.bat          (from cmd/PowerShell)
 :: ============================================================
@@ -26,96 +27,52 @@ if "%CLOUDFLARE_API_TOKEN%"=="" (
 )
 
 set "ACCOUNT_ID=5ea78a3d3e41e851763e229630e62c94"
+set "CLOUDFLARE_ACCOUNT_ID=5ea78a3d3e41e851763e229630e62c94"
 set "FY_DIR=C:\Git\ForeverYoung"
 set "STAFF_DIR=C:\Git\staff.foreveryoung"
+set "STAGE=%TEMP%\fy-deploy-stage"
 
-:: Use %TEMP% (works in both cmd and MSYS git-bash)
-set "TMPDIR=%TEMP%\fy-deploy"
-
-if not exist "%TMPDIR%" mkdir "%TMPDIR%"
-
-echo [1/5] Moving large files out of deploy path...
+echo [1/4] Building customer deploy stage from allowlist...
 echo.
-
-:: ForeverYoung local DB export (if exists)
-if exist "%FY_DIR%\local-db-export.sql" (
-    if not exist "%TMPDIR%\local-db-export.sql" (
-        move /Y "%FY_DIR%\local-db-export.sql" "%TMPDIR%\" >nul 2>&1
-        if errorlevel 1 (
-            echo   [!] Failed to move FY local-db-export.sql — check permissions
-        ) else (
-            echo   - local-db-export.sql -> temp
-        )
-    )
-)
-
-:: ForeverYoung discogs CSV (if exists)
-if exist "%FY_DIR%\discogs_data\foreveryoungrecords-inventory-20260922-0746.csv" (
-    if not exist "%TMPDIR%\foreveryoungrecords-inventory-20260922-0746.csv" (
-        move /Y "%FY_DIR%\discogs_data\foreveryoungrecords-inventory-20260922-0746.csv" "%TMPDIR%\" >nul 2>&1
-        if errorlevel 1 (
-            echo   [!] Failed to move FY CSV — check permissions
-        ) else (
-            echo   - discogs CSV -> temp
-        )
-    )
-)
-
-:: Staff local DB export (if exists)
-if exist "%STAFF_DIR%\local-db-export.sql" (
-    if not exist "%TMPDIR%\staff-local-db-export.sql" (
-        move /Y "%STAFF_DIR%\local-db-export.sql" "%TMPDIR%\" >nul 2>&1
-        if errorlevel 1 (
-            echo   [!] Failed to move staff local-db-export.sql — check permissions
-        ) else (
-            echo   - staff local-db-export.sql -> temp
-        )
-    )
+powershell -NoProfile -ExecutionPolicy Bypass -File "%FY_DIR%\build-deploy-stage.ps1" -SourceDir "%FY_DIR%" -StageDir "%STAGE%"
+if errorlevel 1 (
+    echo.
+    echo [!] Staging failed - nothing was deployed.
+    pause
+    exit /b 1
 )
 
 echo.
-echo [2/5] Deploying ForeverYoung...
+echo [2/4] Deploying ForeverYoung (customer)...
 echo.
-
-cd /d "%FY_DIR%"
-npx wrangler pages deploy . --project-name foreveryoung --branch main ^
+cd /d "%STAGE%"
+call npx wrangler pages deploy . --project-name foreveryoung --branch main ^
     --commit-message "Manual deploy: %date% %time%" ^
     --commit-dirty=true
-echo.
+if errorlevel 1 (
+    echo.
+    echo [!] Customer deploy failed - staff was NOT deployed.
+    pause
+    exit /b 1
+)
 
-echo [3/5] Deploying Staff...
 echo.
-
+echo [3/4] Deploying Staff...
+echo.
 cd /d "%STAFF_DIR%"
-npx wrangler pages deploy . --project-name staff-foreveryoung --branch main ^
+call npx wrangler pages deploy . --project-name staff-foreveryoung --branch main ^
     --commit-message "Manual deploy: %date% %time%" ^
     --commit-dirty=true
-echo.
-
-echo [4/5] Restoring large files...
-echo.
-
-:: Restore ForeverYoung SQL (if it was moved)
-if exist "%TMPDIR%\local-db-export.sql" (
-    move /Y "%TMPDIR%\local-db-export.sql" "%FY_DIR%\" >nul 2>&1
-    echo   - local-db-export.sql restored
-)
-
-:: Restore ForeverYoung CSV (if it was moved)
-if exist "%TMPDIR%\foreveryoungrecords-inventory-20260922-0746.csv" (
-    move /Y "%TMPDIR%\foreveryoungrecords-inventory-20260922-0746.csv" "%FY_DIR%\discogs_data\" >nul 2>&1
-    echo   - discogs CSV restored
-)
-
-:: Restore Staff SQL (if it was moved)
-if exist "%TMPDIR%\staff-local-db-export.sql" (
-    move /Y "%TMPDIR%\staff-local-db-export.sql" "%STAFF_DIR%\" >nul 2>&1
-    echo   - staff local-db-export.sql restored
+if errorlevel 1 (
+    echo.
+    echo [!] Staff deploy failed. Customer deploy already went out.
+    pause
+    exit /b 1
 )
 
 echo.
-echo [5/5] Cleaning up temp dir...
-rmdir /S /Q "%TMPDIR%" >nul 2>&1
+echo [4/4] Cleaning up stage...
+rmdir /S /Q "%STAGE%" >nul 2>&1
 echo   - done
 echo.
 
